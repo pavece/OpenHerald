@@ -21,9 +21,16 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={poppins.className + ' text-zinc-800'}>
-				<NavBar />
-				{children}
+			<body className={poppins.className + ' text-zinc-800 min-h-screen flex flex-col justify-between'}>
+				<div>
+					<NavBar />
+					<main className=''>
+						<div className='flex justify-center mt-6'>
+							<div className='max-w-[950px] px-4 md:px-6 lg:px-0'>{children}</div>
+						</div>
+					</main>
+				</div>
+				<footer></footer>
 			</body>
 		</html>
 	);
