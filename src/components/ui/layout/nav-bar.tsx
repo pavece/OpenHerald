@@ -1,7 +1,10 @@
 import Image from 'next/image';
+import Link from "next/link"
 import { Button } from '../button';
 import { PiBookmarkSimple, PiMagnifyingGlass } from 'react-icons/pi';
 import { CategoryList, CategoryListItem } from './category-list';
+
+
 
 export const NavBar = () => {
 	const categories: CategoryListItem[] = [
@@ -14,7 +17,9 @@ export const NavBar = () => {
 	return (
 		<div className='px-4 py-3 md:px-6 md:py-5 flex justify-between items-center'>
 			<div>
-				<Image src={'/images/logo.svg'} alt='Open herald logo' width={600} height={250} className='w-[205px]' />
+				<Link href="/">
+					<Image src={'/images/logo.svg'} alt='Open herald logo' width={600} height={250} className='w-[205px]' />
+				</Link>
 			</div>
 			<div>
 				<CategoryList categories={categories} />
