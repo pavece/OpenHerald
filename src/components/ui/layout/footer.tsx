@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const Footer = () => {
 	return (
-		<footer className='flex justify-center px-4 py-10'>
+		<footer className='flex justify-center px-4 py-10 mt-24'>
 			<div className='max-w-[950px] w-full flex justify-start flex-col'>
 				<div className='flex flex-col md:flex-row gap-8 md:gap-16 items-start'>
 					<Image src={'/images/logo.svg'} alt='Open herald logo' width={600} height={250} className='w-[205px]' />
