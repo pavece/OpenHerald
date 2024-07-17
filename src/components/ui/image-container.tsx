@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
 
 type Props = {
 	url: string;
@@ -7,10 +10,12 @@ type Props = {
 };
 
 export const ImageContainer = ({ className, url, alt }: Props) => {
-	//TODO: Loading
+	const [loaded, setLoaded] = useState(false);
+
 	return (
 		<div className={`relative rounded-md h-[300px] ${className}`}>
-			<Image className='rounded-md fill object-cover' src={url} alt={alt} fill />
+			<div className={`w-full h-full rounded-md bg-zinc-300 animate-pulse ${loaded && 'hidden'}`}></div>
+			<Image className='rounded-md fill object-cover' src={url} alt={alt} fill onLoad={() => setLoaded(true)} />
 		</div>
 	);
 };
