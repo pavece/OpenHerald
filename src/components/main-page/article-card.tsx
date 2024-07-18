@@ -15,11 +15,22 @@ type Props = {
 	author: string;
 	date: string;
 	header?: boolean;
+	className?: string;
 };
 
-export const ArticleCard = ({ category, thumbnailUrl, thumbnailAlt, author, date, title, header, slug }: Props) => {
+export const ArticleCard = ({
+	category,
+	thumbnailUrl,
+	thumbnailAlt,
+	author,
+	date,
+	title,
+	header,
+	slug,
+	className,
+}: Props) => {
 	return (
-		<article>
+		<article className={className + ' min-w-[300px]'}>
 			<h4 className='text-md text-zinc-500 tracking-wide mb-2'>{category}</h4>
 			<Link href={`/article/${slug}`}>
 				<ImageContainer
