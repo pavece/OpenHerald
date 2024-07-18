@@ -25,7 +25,7 @@ export const ArticleCard = ({ category, thumbnailUrl, thumbnailAlt, author, date
 				<ImageContainer
 					url={thumbnailUrl}
 					alt={thumbnailAlt}
-					className={clsx({ 'h-[120px]': header, 'h-[180px]': !header })}
+					className={clsx({ 'md:h-[120px]': header, 'md:h-[170px]': !header })}
 				/>
 			</Link>
 			<div className='mt-2 flex flex-row gap-2 flex-wrap'>
@@ -39,7 +39,7 @@ export const ArticleCard = ({ category, thumbnailUrl, thumbnailAlt, author, date
 				</Badge>
 			</div>
 			<Link href={`/article/${slug}`}>
-				<h2 className='text-md font-semibold'>{title}</h2>
+				<h2 className='text-md font-semibold mt-2'>{title}</h2>
 			</Link>
 		</article>
 	);

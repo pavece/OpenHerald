@@ -28,7 +28,7 @@ export const TopArticlesSection = () => {
 						category='Technology'
 						header
 					/>
-					<hr />
+					<hr className='hidden md:block' />
 					<ArticleCard
 						author='John Doe'
 						date={new Date().toISOString()}
@@ -38,6 +38,37 @@ export const TopArticlesSection = () => {
 						thumbnailAlt='Thumbnail'
 						category='Technology'
 						header
+					/>
+				</div>
+			</div>
+			<div className='mt-8'>
+				<div className='flex flex-col md:flex-row gap-4'>
+					<ArticleCard
+						author='John Doe'
+						date={new Date().toISOString()}
+						slug='some-post-title'
+						title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
+						thumbnailUrl='/images/dev/test-image-3.jpg'
+						thumbnailAlt='Thumbnail'
+						category='Technology'
+					/>
+					<ArticleCard
+						author='John Doe'
+						date={new Date().toISOString()}
+						slug='some-post-title'
+						title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
+						thumbnailUrl='/images/dev/test-image-2.jpg'
+						thumbnailAlt='Thumbnail'
+						category='Technology'
+					/>
+					<ArticleCard
+						author='John Doe'
+						date={new Date().toISOString()}
+						slug='some-post-title'
+						title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
+						thumbnailUrl='/images/dev/test-image-1.jpg'
+						thumbnailAlt='Thumbnail'
+						category='Technology'
 					/>
 				</div>
 			</div>
