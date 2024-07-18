@@ -17,7 +17,7 @@ type Props = {
 export const FeaturedArticleCard = ({ author, date, readingTime, title, thumbnail, slug, thumbnailAlt }: Props) => {
 	return (
 		<article className='min-w-full'>
-			<h4 className='text-xl text-zinc-500 tracking-wide mb-2'>Featured Article</h4>
+			<h4 className='text-md text-zinc-500 tracking-wide mb-2'>Featured Article</h4>
 			<Link href={`/article/${slug}`}>
 				<ImageContainer url={thumbnail} alt={thumbnailAlt} className='h-[350px] w-full' />
 			</Link>
@@ -28,7 +28,7 @@ export const FeaturedArticleCard = ({ author, date, readingTime, title, thumbnai
 					</Badge>
 				</Link>
 				<Badge variant='outline' className='text-sm font-normal py-1 text-zinc-700'>
-					<PiCalendar size={20} className='mr-2' /> {format(parseISO(date), 'dd, LLLL')}
+					<PiCalendar size={20} className='mr-2' /> {format(parseISO(date), 'LLLL, dd')}
 				</Badge>
 				<Badge variant='outline' className='text-sm font-normal py-1 text-zinc-700'>
 					<PiClock size={20} className='mr-2' /> {readingTime} min read
