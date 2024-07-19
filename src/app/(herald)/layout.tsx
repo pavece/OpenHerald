@@ -27,7 +27,7 @@ export default function RootLayout({
 					<NavBar />
 					<main className=''>
 						<div className='flex justify-center mt-6'>
-							<div className='max-w-[950px] px-4 md:px-6 lg:px-0'>{children}</div>
+							<div className='max-w-[950px] w-full px-4 md:px-6 lg:px-0'>{children}</div>
 						</div>
 					</main>
 				</div>
