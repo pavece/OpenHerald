@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
-import { PiInfo } from 'react-icons/pi';
+import { PiInfo, PiLink } from 'react-icons/pi';
 import clsx from 'clsx';
 import { cropText } from '@/lib/utils';
 
 type Props = {
-	className?: string;
-	side?: 'left' | 'right';
-	description: string;
 	link: string;
 	src: string;
+	className?: string;
+	side?: 'left' | 'right';
+	description?: string;
 };
 
 /**
@@ -27,15 +27,16 @@ export const VerticalAD = ({ className, side, description, link, src }: Props) =
 			>
 				<div className='w-full h-full rounded-md bg-gradient-to-b from-slate-900/5 to-slate-900/80 flex items-bottom relative'>
 					<div className='absolute top-0 left-0 p-4 w-full'>
-						{/* TODO: Link to correct page for AD disclaimer */}
-						<Link href='' className='flex gap-2 text-neutral-300 text-sm underline'>
+						<span className='flex gap-2 text-neutral-200 text-sm'>
 							<PiInfo size={20} /> AD
-						</Link>
+						</span>
 					</div>
 					<div className='absolute bottom-0 left-0 p-4 w-full'>
-						<h1 className='text-neutral-200 text-lg font-medium '>{cropText(description, 50)}</h1>
+						<h1 className='text-neutral-200 text-lg font-medium '>{cropText(description ?? '', 50)}</h1>
 						<Button className='w-full mt-2 hover:underline' variant='secondary' asChild>
-							<Link href={link}>Visit</Link>
+							<Link href={link}>
+								<PiLink size={20} className='mr-2' /> Visit
+							</Link>
 						</Button>
 					</div>
 				</div>

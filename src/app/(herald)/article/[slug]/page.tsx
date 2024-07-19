@@ -1,3 +1,4 @@
+import { HorizontalAd } from '@/components/ads/horizontal-ad';
 import { VerticalAD } from '@/components/ads/vertical-ad';
 import { ArticleBody } from '@/components/article/article-body';
 import { ArticleHeader } from '@/components/article/article-header';
@@ -21,6 +22,8 @@ export default function ArticlePage({ params: { slug } }: Props) {
 				thumbnailAlt='Thumbnail'
 			/>
 			<ArticleBody />
+
+			<HorizontalAd link='' src='/images/dev/test-image-3.jpg' description='Some description' />
 
 			<VerticalAD
 				description='Some testing ad so so long that does not fit under 50 chars'
