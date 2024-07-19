@@ -1,3 +1,4 @@
+import { VerticalAD } from '@/components/ads/vertical-ad';
 import { ArticleBody } from '@/components/article/article-body';
 import { ArticleHeader } from '@/components/article/article-header';
 
@@ -20,6 +21,13 @@ export default function ArticlePage({ params: { slug } }: Props) {
 				thumbnailAlt='Thumbnail'
 			/>
 			<ArticleBody />
+
+			<VerticalAD
+				description='Some testing ad so so long that does not fit under 50 chars'
+				link=''
+				side='right'
+				src='/images/dev/test-gif-1.gif'
+			/>
 		</div>
 	);
 }
