@@ -1,9 +1,14 @@
+'use client';
+
 import React from 'react';
 import { UserProfile } from './user-profile';
 import { Button } from '../ui/button';
 import { PiList } from 'react-icons/pi';
+import { useAdminUiStore } from '@/stores/admin-ui-store';
 
 export const NavBar = () => {
+	const openSideMenu = useAdminUiStore(state => state.openSideMenu);
+
 	return (
 		<nav className='w-full flex justify-between items-center mb-6'>
 			<div>
@@ -17,7 +22,7 @@ export const NavBar = () => {
 					avatar='/images/dev/test-image-1.jpg'
 					className='hidden md:flex'
 				/>
-				<Button size='icon' variant='outline' className='flex md:hidden'>
+				<Button size='icon' variant='outline' className='flex md:hidden' onClick={openSideMenu}>
 					<PiList size={28} />
 				</Button>
 			</div>
