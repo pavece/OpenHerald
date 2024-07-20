@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes side-fade-animation {
+	from {
+		transform: translateX(100%);
+	}
+	to {
+		transform: translateX(0%);
+	}
+}
+
+.side-fade {
+	animation-name: side-fade-animation;
+	animation-duration: 0.5s;
+}
