@@ -1,15 +1,13 @@
-import Image from 'next/image';
-
 type Props = {
 	url: string;
-	alt: string;
 	className?: string;
 };
 
-export const Avatar = ({ url, alt, className }: Props) => {
+export const Avatar = ({ url, className }: Props) => {
 	return (
-		<div className={`relative rounded-full w-full h-full  ${className}`}>
-			<Image className='rounded-full fill object-cover' src={url} alt={alt} fill />
-		</div>
+		<div
+			className={`rounded-full h-[50px] w-[50px] aspect-square bg-center bg-cover bg-no-repeat ${className}`}
+			style={{ backgroundImage: `url('${url}')` }}
+		></div>
 	);
 };
