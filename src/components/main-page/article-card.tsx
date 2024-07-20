@@ -36,7 +36,7 @@ export const ArticleCard = ({
 				<ImageContainer
 					url={thumbnailUrl}
 					alt={thumbnailAlt}
-					className={clsx({ 'md:h-[120px]': header, 'md:h-[170px]': !header })}
+					className={clsx({ 'lg:h-[120px]': header, 'md:h-[170px]': !header })}
 				/>
 			</Link>
 			<div className='mt-2 flex flex-row gap-2 flex-wrap'>

@@ -5,8 +5,8 @@ export const TopArticlesSection = () => {
 	return (
 		<section>
 			<h3 className='mb-6 text-2xl font-medium'>Today{"'"}s top articles</h3>
-			<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-				<div className='md:col-span-2'>
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-4'>
+				<div className='col-span-2'>
 					<FeaturedArticleCard
 						author='John Doe'
 						date={new Date().toISOString()}
@@ -17,7 +17,7 @@ export const TopArticlesSection = () => {
 						thumbnailAlt='Thumbnail'
 					/>
 				</div>
-				<div className='col-span-1 flex flex-col gap-4'>
+				<div className='md:col-span-2 lg:col-span-1 flex flex-col md:flex-row lg:flex-col w-full gap-4 mt-4 lg:mt-0'>
 					<ArticleCard
 						author='John Doe'
 						date={new Date().toISOString()}
@@ -28,7 +28,7 @@ export const TopArticlesSection = () => {
 						category='Technology'
 						header
 					/>
-					<hr className='hidden md:block' />
+					<hr className='hidden lg:block' />
 					<ArticleCard
 						author='John Doe'
 						date={new Date().toISOString()}
@@ -41,8 +41,8 @@ export const TopArticlesSection = () => {
 					/>
 				</div>
 			</div>
-			<div className='mt-8'>
-				<div className='flex flex-col md:flex-row gap-4'>
+			<div className='mt-10'>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 					<ArticleCard
 						author='John Doe'
 						date={new Date().toISOString()}
