@@ -2,6 +2,7 @@ import { HorizontalAd } from '@/components/ads/horizontal-ad';
 import { VerticalAD } from '@/components/ads/vertical-ad';
 import { ArticleBody } from '@/components/article/article-body';
 import { ArticleHeader } from '@/components/article/article-header';
+import { RecommendedArticles } from '@/components/article/recommended-articles';
 
 type Props = {
 	params: {
@@ -31,6 +32,8 @@ export default function ArticlePage({ params: { slug } }: Props) {
 				side='right'
 				src='/images/dev/test-gif-1.gif'
 			/>
+
+			<RecommendedArticles />
 		</div>
 	);
 }
