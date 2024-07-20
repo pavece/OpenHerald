@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../globals.css';
+import { SideMenu } from '@/components/admin/side-menu/side-menu';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -20,7 +21,14 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={poppins.className}>{children}</body>
+			<body className={poppins.className + ' grid grid-cols-8 bg-white'}>
+				<SideMenu className='col-span-1' />
+				<main className='col-span-7 w-full min-h-screen p-2'>
+					<div className='bg-[#FAFAFA] border-solid border-[#EAECEE] border-[1px] rounded-md w-full h-full p-4'>
+						{children}
+					</div>
+				</main>
+			</body>
 		</html>
 	);
 }
