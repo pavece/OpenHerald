@@ -13,7 +13,7 @@ export const UserProfile = ({ username, role, avatar, className }: Props) => {
 	return (
 		<div className={`flex items-center gap-2 cursor-pointer ${className}`}>
 			<div>
-				<Avatar className='w-[55px] h-[55px]' url={avatar} />
+				<Avatar className='w-[50px] h-[50px]' url={avatar} />
 			</div>
 			<div>
 				<h4>{username}</h4>
