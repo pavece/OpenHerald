@@ -1,4 +1,5 @@
 'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -11,6 +12,8 @@ import { PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
 import { createUser } from '@/actions/auth/register-user';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+import { signIn } from 'next-auth/react';
+import { GoogleButton } from './google-button';
 
 const formSchema = z
 	.object({
@@ -123,6 +126,8 @@ export const RegisterForm = () => {
 					</Button>
 				</form>
 			</Form>
+			<hr className='mt-4' />
+			<GoogleButton register />
 		</div>
 	);
 };

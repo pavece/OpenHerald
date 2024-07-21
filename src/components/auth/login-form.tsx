@@ -10,6 +10,7 @@ import { redirect } from 'next/navigation';
 import { AlertTitle, Alert, AlertDescription } from '../ui/alert';
 import { PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
+import { GoogleButton } from './google-button';
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -81,6 +82,8 @@ export const LoginForm = () => {
 					</Button>
 				</form>
 			</Form>
+			<hr className='mt-4' />
+			<GoogleButton />
 
 			<div className='mt-6'>
 				<p className='text-zinc-500'>

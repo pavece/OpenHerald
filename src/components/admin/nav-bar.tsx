@@ -13,6 +13,8 @@ export const NavBar = () => {
 
 	const user = session.data?.user;
 
+	console.log(user);
+
 	return (
 		<nav className='w-full flex justify-between items-center mb-6'>
 			<div>
