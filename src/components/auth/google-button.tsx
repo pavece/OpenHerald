@@ -1,4 +1,3 @@
-import { signIn } from '@/auth';
 import { Button } from '../ui/button';
 import { googleSignIn } from '@/actions/auth/google-sign-in';
 import { FcGoogle } from 'react-icons/fc';

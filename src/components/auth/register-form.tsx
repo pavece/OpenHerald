@@ -53,7 +53,7 @@ export const RegisterForm = () => {
 	};
 
 	return (
-		<div className='w-full px-4 md:w-[500px]'>
+		<div className='w-[100vw] md:w-[500px] px-4'>
 			<div className='mb-6'>
 				<h1 className='text-2xl'>Register</h1>
 				<p className='text-zinc-500'>Register a new account</p>

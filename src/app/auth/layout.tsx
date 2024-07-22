@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import '../globals.css';
 import { NavBar } from '@/components/auth/nav-bar';
+import { LoginImageContainer } from '@/components/auth/login-image-container';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -27,10 +28,7 @@ export default function RootLayout({
 						<NavBar />
 					</div>
 					<main className='grid grid-cols-1 lg:grid-cols-2 lg:h-screen'>
-						<div className='bg-neutral-100 hidden lg:block'>
-							<NavBar />
-							{/* TODO: Add disclaimers */}
-						</div>
+						<LoginImageContainer />
 						<div className='flex lg:items-center justify-center py-10 lg:py-0'>{children}</div>
 					</main>
 				</div>
