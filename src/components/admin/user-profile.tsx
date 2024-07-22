@@ -31,7 +31,7 @@ export const UserProfile = ({ username, role, avatar, className }: Props) => {
 					<div className='mr-2'>
 						<Avatar className='w-[40px] h-[40px]' url={avatar} />
 					</div>
-					<div>
+					<div className='text-start'>
 						<h4>{username}</h4>
 						<p className='text-sm text-zinc-500 capitalize'>{role}</p>
 					</div>

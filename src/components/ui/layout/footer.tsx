@@ -36,6 +36,16 @@ export const Footer = () => {
 								Anything to report?
 							</Link>
 						</div>
+
+						<div className='flex items-start justify-start flex-col gap-2 py-2 '>
+							<h3 className='text-lg font-medium uppercase tracking-wider'>Publishers</h3>
+							<Link href='/auth/signIn' className='text-zinc-600'>
+								Login
+							</Link>
+							<Link href='/admin/dashboard' className='text-zinc-600'>
+								Dashboard
+							</Link>
+						</div>
 					</div>
 				</div>
 				<hr className='w-full mt-8' />
