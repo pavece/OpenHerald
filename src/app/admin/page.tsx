@@ -1,3 +1,5 @@
-export default function Home() {
-	return <main>Open Herald Admin [Placeholder]</main>;
+import { redirect } from 'next/navigation';
+
+export default function AdminHome() {
+	redirect('/admin/dashboard');
 }
