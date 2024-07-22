@@ -32,8 +32,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 		google,
 	],
 	callbacks: {
-		jwt({ token, user }) {
+		async jwt({ token, user }) {
 			if (user) {
+				const userId = user.id;
+				const userFromDB = await prisma.user.findUnique({ where: { id: userId } });
+
+				if (userFromDB?.banned) {
+					throw new Error('banned');
+				}
+
 				token.data = user;
 			}
 			return token;
@@ -46,5 +53,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	pages: {
 		signIn: '/auth/signIn',
 		newUser: '/auth/register',
+		error: '/auth/error',
 	},
 });
