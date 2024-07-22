@@ -10,6 +10,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 type Props = {
 	username: string;
@@ -27,8 +28,8 @@ export const UserProfile = ({ username, role, avatar, className }: Props) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<div className={`flex items-center gap-2 cursor-pointer ${className}`}>
-					<div>
-						<Avatar className='w-[45px] h-[45px]' url={avatar} />
+					<div className='mr-2'>
+						<Avatar className='w-[40px] h-[40px]' url={avatar} />
 					</div>
 					<div>
 						<h4>{username}</h4>
@@ -44,10 +45,12 @@ export const UserProfile = ({ username, role, avatar, className }: Props) => {
 			<DropdownMenuContent>
 				<DropdownMenuLabel>My Account</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
-					<PiGearFine size={18} className='mr-2' /> Config
-				</DropdownMenuItem>
-				<DropdownMenuItem className='text-red-500 focus:text-red-600' onClick={logout}>
+				<Link href={'/admin/profile/config'}>
+					<DropdownMenuItem className='cursor-pointer'>
+						<PiGearFine size={18} className='mr-2' /> Config
+					</DropdownMenuItem>
+				</Link>
+				<DropdownMenuItem className='text-red-500 focus:text-red-600 cursor-pointer' onClick={logout}>
 					<PiSignOut size={18} className='mr-2' /> Log-out
 				</DropdownMenuItem>
 			</DropdownMenuContent>

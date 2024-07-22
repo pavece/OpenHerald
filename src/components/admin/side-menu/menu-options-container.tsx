@@ -51,7 +51,7 @@ export const MenuOptionsContainer = ({ className }: Props) => {
 				<PiMegaphone size={24} />
 				<h4>Banners</h4>
 			</MenuItem>
-			<MenuItem link='/admin/config'>
+			<MenuItem link='/admin/site-config'>
 				<PiGearFine size={24} />
 				<h4>Site config</h4>
 			</MenuItem>

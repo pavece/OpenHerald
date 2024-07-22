@@ -10,10 +10,7 @@ import { useSession } from 'next-auth/react';
 export const NavBar = () => {
 	const openSideMenu = useAdminUiStore(state => state.openSideMenu);
 	const session = useSession();
-
 	const user = session.data?.user;
-
-	console.log(user);
 
 	return (
 		<nav className='w-full flex justify-between items-center mb-6'>
@@ -25,7 +22,7 @@ export const NavBar = () => {
 				<UserProfile
 					username={user?.name ?? 'John Doe'}
 					role={user?.roles![0] ?? 'Editor'}
-					avatar={user?.image ?? '/images/avatar-placeholder.png'}
+					avatar={user?.image ?? '/images/user-fallback.png'}
 					className='hidden md:flex'
 				/>
 				<Button size='icon' variant='outline' className='flex md:hidden' onClick={openSideMenu}>
