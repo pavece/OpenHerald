@@ -6,11 +6,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { loginUserClient } from '@/actions/auth/login-user-client';
-import { redirect } from 'next/navigation';
 import { AlertTitle, Alert, AlertDescription } from '../ui/alert';
 import { PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
 import { GoogleButton } from './google-button';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
 	email: z.string().email(),
@@ -19,6 +19,7 @@ const formSchema = z.object({
 
 export const LoginForm = () => {
 	const [credentialsError, setCredentialsError] = useState(false);
+	const router = useRouter();
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -27,8 +28,8 @@ export const LoginForm = () => {
 
 	const onSubmit = async () => {
 		try {
-			const result = await loginUserClient(form.getValues());
-			redirect('/admin');
+			await loginUserClient(form.getValues());
+			router.replace('/admin/dashboard');
 		} catch (error) {
 			setCredentialsError(true);
 		}
