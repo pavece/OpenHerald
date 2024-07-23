@@ -7,13 +7,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { loginUserClient } from '@/actions/auth/login-user-client';
-import { redirect } from 'next/navigation';
 import { PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
 import { createUser } from '@/actions/auth/register-user';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { signIn } from 'next-auth/react';
 import { GoogleButton } from './google-button';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z
 	.object({
@@ -28,6 +28,7 @@ const formSchema = z
 	});
 
 export const RegisterForm = () => {
+	const router = useRouter();
 	const [credentialsError, setCredentialsError] = useState(false);
 	const [credentialsErrorMessage, setCredentialsErrorMessage] = useState('');
 
@@ -42,12 +43,14 @@ export const RegisterForm = () => {
 			const user = await createUser(values.username, values.email, values.password);
 			if (user?.ok) {
 				await loginUserClient({ password: values.password, email: values.email });
-				await redirect('/admin');
+				router.replace('/admin/dashboard');
+				return;
 			}
 
 			setCredentialsError(true);
 			setCredentialsErrorMessage(user?.message ?? '');
 		} catch (error) {
+			console.log(error);
 			setCredentialsError(true);
 		}
 	};

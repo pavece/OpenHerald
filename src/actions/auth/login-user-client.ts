@@ -8,5 +8,8 @@ type formData = {
 };
 
 export const loginUserClient = async (formData: formData) => {
-	await signIn('credentials', formData);
+	await signIn('credentials', {
+		redirect: false,
+		...formData,
+	});
 };

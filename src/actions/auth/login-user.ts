@@ -4,16 +4,21 @@ import prisma from '@/db/db';
 import bcrypt from 'bcryptjs';
 
 export const signInEmailPassword = async (password: string, email: string) => {
-	if (!email || !password) return null;
-	const user = await prisma.user.findUnique({ where: { email } });
+	try {
+		if (!email || !password) return null;
+		const user = await prisma.user.findUnique({ where: { email } });
 
-	if (!user) {
-		throw new Error('User not found');
+		if (!user) {
+			return { ok: false, message: 'User not found' };
+		}
+
+		if (!bcrypt.compareSync(password, user.password!)) {
+			return { ok: false, message: 'Password is not correct' };
+		}
+
+		return { ok: true, user };
+	} catch (error) {
+		console.log(error);
+		return { ok: false, message: 'Unknown error' };
 	}
-
-	if (!bcrypt.compareSync(password, user.password!)) {
-		throw new Error('The password is not correct');
-	}
-
-	return user;
 };

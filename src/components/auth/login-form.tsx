@@ -27,7 +27,7 @@ export const LoginForm = () => {
 
 	const onSubmit = async () => {
 		try {
-			await loginUserClient(form.getValues());
+			const result = await loginUserClient(form.getValues());
 			redirect('/admin');
 		} catch (error) {
 			setCredentialsError(true);

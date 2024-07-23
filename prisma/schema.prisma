@@ -9,18 +9,18 @@ datasource db {
 
 //AuthJS 
 model User {
-  id        String    @id @default(uuid())
-  name      String?
-  password  String?
-  email     String    @unique
-  image     String?
+  id            String    @id @default(uuid())
+  name          String?
+  password      String?
+  email         String    @unique
+  image         String?
   emailVerified DateTime? @map("email_verified")
-  accounts  Account[]
-  sessions  Session[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  roles     String[]  @default(["editor"])
-  banned    Boolean   @default(false)
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  roles         String[]  @default(["editor"])
+  banned        Boolean   @default(false)
 }
 
 model Account {

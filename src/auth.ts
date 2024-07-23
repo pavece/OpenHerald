@@ -9,7 +9,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	session: {
 		strategy: 'jwt',
 	},
-	//@ts-ignore
 	adapter: PrismaAdapter(prisma),
 	providers: [
 		credentials({
@@ -17,16 +16,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 				email: {},
 				password: {},
 			},
-			//@ts-ignore
-			authorize: async credentials => {
-				const user = await signInEmailPassword(String(credentials.password), String(credentials.email));
+			async authorize(credentials) {
+				const result = await signInEmailPassword(String(credentials.password), String(credentials.email));
 
-				if (user) {
-					const { password: _, banned: __, updatedAt: ___, ...rest } = user;
+				if (result?.ok) {
+					const { password: _, banned: __, updatedAt: ___, ...rest } = result?.user!;
 					return rest;
 				}
-
-				throw new Error('Error while login');
+				return null;
 			},
 		}),
 		google,
