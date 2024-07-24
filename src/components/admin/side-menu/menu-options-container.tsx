@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import {
 	PiArticle,
@@ -11,7 +13,7 @@ import {
 	PiUsers,
 } from 'react-icons/pi';
 import { MenuItem } from './menu-item';
-import { auth } from '@/auth';
+import { useSession } from 'next-auth/react';
 
 type Props = {
 	className?: string;
@@ -74,9 +76,9 @@ const options = [
 	},
 ];
 
-export const MenuOptionsContainer = async ({ className }: Props) => {
-	const session = await auth();
-	const roles = session?.user?.roles;
+export const MenuOptionsContainer = ({ className }: Props) => {
+	const session = useSession();
+	const roles = session.data?.user?.roles;
 
 	return (
 		<div className={`flex flex-col gap-2 ${className}`}>

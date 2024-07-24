@@ -16,7 +16,7 @@ export const MobileSideMenu = () => {
 	}
 
 	return (
-		<div className='w-full h-screen absolute top-0 left-0 side-fade md:hidden '>
+		<div className='w-full h-screen absolute top-0 left-0 side-fade md:hidden z-30'>
 			<div className='bg-white w-full h-full'>
 				<div className='flex justify-between items-center p-4'>
 					<Image src={'/images/logo.svg'} alt='OpenHerald logo' width={180} height={60} />
