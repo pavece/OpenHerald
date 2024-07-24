@@ -38,7 +38,7 @@ export const Footer = () => {
 						</div>
 
 						<div className='flex items-start justify-start flex-col gap-2 py-2 '>
-							<h3 className='text-lg font-medium uppercase tracking-wider'>Publishers</h3>
+							<h3 className='text-lg font-medium uppercase tracking-wider'>Editors</h3>
 							<Link href='/auth/signIn' className='text-zinc-600'>
 								Login
 							</Link>
