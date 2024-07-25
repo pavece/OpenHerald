@@ -30,8 +30,8 @@ export default function RootLayout({
 					<SideMenu className='hidden md:block md:col-span-2  xl:col-span-1' />
 					<main className='col-span-8 md:col-span-6 xl:col-span-7 w-full h-screen p-2'>
 						<MobileSideMenu />
-						<div className='bg-[#FAFAFA] border-solid border-[#EAECEE] border-[1px] rounded-md w-full h-full p-4'>
-							<ScrollArea className='w-full h-full'>
+						<div className='bg-[#FAFAFA] border-solid border-[#EAECEE] border-[1px] rounded-md w-full h-full p-1'>
+							<ScrollArea className='w-full h-full p-4'>
 								<NavBar />
 								{children}
 							</ScrollArea>
