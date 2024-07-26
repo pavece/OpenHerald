@@ -12,6 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { MdxEditorComponent } from './mdx-editor-component';
 import { Switch } from '@/components/ui/switch';
 import Link from 'next/link';
+import { createArticle } from '@/actions/articles/create-article';
+import { signOut } from 'next-auth/react';
 
 const formSchema = z.object({
 	title: z.string().min(5).max(300),
@@ -34,7 +36,7 @@ const defaultValues: z.infer<typeof formSchema> = {
 	readingTime: '0',
 	content: '',
 	showAds: true,
-	verticalAds: 'none',
+	verticalAds: 'right',
 	horizontalAds: true,
 	visibleForUsers: false,
 };
@@ -45,8 +47,23 @@ export const PublishPostForm = () => {
 		defaultValues,
 	});
 
-	const submitForm = (values: z.infer<typeof formSchema>) => {
-		console.log(values);
+	const submitForm = async (values: z.infer<typeof formSchema>) => {
+		const { readingTime, priority, ...rest } = values;
+		const result = await createArticle({
+			priority: Number(priority),
+			readingTime: Number(readingTime),
+			...rest,
+		});
+
+		if (result.ok) {
+			//TODO: Redirect to editing
+		}
+
+		if (result.banned) {
+			signOut();
+		}
+
+		//Print error
 	};
 
 	return (
