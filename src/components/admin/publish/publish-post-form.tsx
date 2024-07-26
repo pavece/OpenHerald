@@ -34,7 +34,7 @@ const defaultValues: z.infer<typeof formSchema> = {
 	readingTime: '0',
 	content: '',
 	showAds: true,
-	verticalAds: 'right',
+	verticalAds: 'none',
 	horizontalAds: true,
 	visibleForUsers: false,
 };
@@ -46,13 +46,13 @@ export const PublishPostForm = () => {
 	});
 
 	const submitForm = (values: z.infer<typeof formSchema>) => {
-		console.log(values)
+		console.log(values);
 	};
 
 	return (
 		<>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(submitForm)} className=' '>
+				<form onSubmit={form.handleSubmit(submitForm)}>
 					<div className='grid grid-cols-1 lg:grid-cols-2 md:gap-4'>
 						<div className='space-y-4'>
 							<FormField
@@ -105,7 +105,7 @@ export const PublishPostForm = () => {
 										<FormLabel>Priority</FormLabel>
 
 										<FormControl>
-											<Select {...field}>
+											<Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
 												<SelectTrigger className='w-[260px]'>
 													<SelectValue placeholder='Priority' />
 												</SelectTrigger>
@@ -196,10 +196,17 @@ export const PublishPostForm = () => {
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Vertical ADS</FormLabel>
-										<Select {...field}>
-											<SelectTrigger className='w-[180px]'>
-												<SelectValue placeholder='Vertical ads' />
-											</SelectTrigger>
+										<Select
+											{...field}
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+											disabled={!form.getValues().showAds}
+										>
+											<FormControl>
+												<SelectTrigger className='w-[180px]'>
+													<SelectValue placeholder='Vertical ads' />
+												</SelectTrigger>
+											</FormControl>
 											<SelectContent>
 												<SelectItem value='none'>None</SelectItem>
 												<SelectItem value='left'>Left</SelectItem>
@@ -219,7 +226,11 @@ export const PublishPostForm = () => {
 										<div className='flex items-center justify-start gap-2'>
 											<FormLabel>Horizontal ADS</FormLabel>
 											<FormControl>
-												<Switch checked={field.value} onCheckedChange={field.onChange} />
+												<Switch
+													checked={field.value}
+													onCheckedChange={field.onChange}
+													disabled={!form.getValues().showAds}
+												/>
 											</FormControl>
 										</div>
 										<FormDescription>If unchecked the post won{"'"}t show horizontal ads.</FormDescription>

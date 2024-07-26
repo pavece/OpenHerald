@@ -30,7 +30,7 @@ export const MdxEditorComponent = ({ markdown, ...props }: any) => {
 		<MDXEditor
 			{...props}
 			markdown={markdown}
-			contentEditableClassName='prose'
+			contentEditableClassName='prose min-h-[370px]'
 			plugins={[
 				// Example Plugin Usage
 				headingsPlugin(),
