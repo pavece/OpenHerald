@@ -21,6 +21,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   roles         String[]  @default(["editor"])
   banned        Boolean   @default(false)
+  Article       Article[]
 }
 
 model Account {
@@ -60,4 +61,32 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+//Articles
+
+enum ArticleVerticalAds {
+  NONE
+  LEFT
+  RIGHT
+}
+
+model Article {
+  id              String             @id @default(uuid())
+  title           String
+  description     String
+  thumbnail       String
+  priority        Int
+  readingTime     Int
+  content         String
+  showAds         Boolean            @default(true)
+  verticalAds     ArticleVerticalAds @default(RIGHT)
+  horizontalAds   Boolean            @default(true)
+  visibleForUsers Boolean            @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  creatorId String
+  creator User @relation(fields: [creatorId], references: [id])
 }
