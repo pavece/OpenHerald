@@ -1,5 +1,7 @@
 'use client';
 
+import { uploadImage } from '@/actions/images/upload-image';
+import { uploadImageFromClient } from '@/actions/images/upload-image-client';
 import {
 	headingsPlugin,
 	listsPlugin,
@@ -21,8 +23,11 @@ import {
 import '@mdxeditor/editor/style.css';
 
 const imageUploadHandler = async (image: File) => {
-	console.log(image);
-	return '/images/dev/test-image-1.jpg';
+	const imageFormData = new FormData();
+	imageFormData.append('image', image);
+
+	const result = await uploadImageFromClient(imageFormData);
+	return result;
 };
 
 export const MdxEditorComponent = ({ markdown, ...props }: any) => {
