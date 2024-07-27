@@ -6,6 +6,7 @@ import { MobileSideMenu } from '@/components/admin/side-menu/mobile-side-menu';
 import { NavBar } from '@/components/admin/nav-bar';
 import { Providers } from '@/components/providers/providers';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Toaster } from 'sonner';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -39,6 +40,7 @@ export default function RootLayout({
 					</main>
 				</Providers>
 			</body>
+			<Toaster />
 		</html>
 	);
 }

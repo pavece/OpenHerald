@@ -1,39 +1,59 @@
 'use client';
 
+import Link from 'next/link';
+
 import z from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { PiWarning } from 'react-icons/pi';
+
+import { Button } from '@/components/ui/button';
+import { createArticle } from '@/actions/articles/create-article';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectValue, SelectTrigger } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MdxEditorComponent } from './mdx-editor-component';
-import { Switch } from '@/components/ui/switch';
-import Link from 'next/link';
-import { createArticle } from '@/actions/articles/create-article';
 import { signOut } from 'next-auth/react';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { MdxEditorComponent } from './mdx-editor-component';
 
 const formSchema = z.object({
-	title: z.string().min(5).max(300),
-	description: z.string().min(10).max(500),
-	thumbnail: z.any().refine(files => files?.length == 1, 'Image is required.'),
-	priority: z.enum(['1', '2', '3']),
-	readingTime: z.string(),
-	content: z.string().min(100).max(5000),
+	title: z
+		.string()
+		.min(5, 'Title should have at least 5 characters')
+		.max(300, 'Title is too long (max 300 characters)'),
+	description: z
+		.string()
+		.min(10, 'Description should have at least 10 characters')
+		.max(500, 'Description is too long (max 500 characters)'),
+	thumbnail: z.any().refine(files => files?.length == 1, 'Thumbnail is required.'),
+	priority: z.string(),
+	readingTime: z.coerce.number(),
+	content: z
+		.string()
+		.min(100, 'Content should have at least 100 characters')
+		.max(5000, 'Content is too long (max 5000 characters)'),
 	showAds: z.boolean(),
 	verticalAds: z.enum(['none', 'left', 'right']),
 	horizontalAds: z.boolean(),
 	visibleForUsers: z.boolean(),
 });
 
-const defaultValues: z.infer<typeof formSchema> = {
+type DefaultValues = z.infer<typeof formSchema>;
+
+type Props = {
+	defaultValues?: DefaultValues;
+};
+
+const defaultValues: DefaultValues = {
 	title: '',
 	description: '',
 	thumbnail: null,
 	priority: '3',
-	readingTime: '0',
+	readingTime: 1,
 	content: '',
 	showAds: true,
 	verticalAds: 'right',
@@ -41,36 +61,46 @@ const defaultValues: z.infer<typeof formSchema> = {
 	visibleForUsers: false,
 };
 
-export const PublishPostForm = () => {
+export const ArticleEditingForm = ({ defaultValues: customDefaultValues }: Props) => {
+	const router = useRouter();
+	const [isUploading, setIsUploading] = useState(false);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues,
+		defaultValues: customDefaultValues ?? defaultValues,
 	});
 
 	const submitForm = async (values: z.infer<typeof formSchema>) => {
-		const { readingTime, priority, thumbnail, ...rest } = values;
+		const { thumbnail, priority, ...rest } = values;
+
 		const thumbnailAsFormData = new FormData();
 		thumbnailAsFormData.append('thumbnail', thumbnail[0]);
 
+		setIsUploading(true);
 		const result = await createArticle(
 			{
-				priority: Number(priority),
-				readingTime: Number(readingTime),
 				thumbnail: '',
+				priority: Number(priority),
 				...rest,
 			},
 			thumbnailAsFormData
 		);
+		setIsUploading(false);
 
 		if (result.ok) {
-			//TODO: Redirect to editing
+			router.replace(`/admin/post/edit/${result.article?.id}`);
 		}
 
 		if (result.banned) {
 			signOut();
 		}
 
-		//Print error
+		toast('Error', {
+			description: 'An error ocurred while trying to publish the article',
+			duration: 5000,
+			icon: <PiWarning size={24} />,
+			className: 'text-red-400 gap-4 border-red-400',
+		});
 	};
 
 	return (
@@ -135,7 +165,7 @@ export const PublishPostForm = () => {
 										<FormLabel>Priority</FormLabel>
 
 										<FormControl>
-											<Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
+											<Select {...field} onValueChange={field.onChange} defaultValue={field.value.toString()}>
 												<SelectTrigger className='w-[260px]'>
 													<SelectValue placeholder='Priority' />
 												</SelectTrigger>
@@ -295,8 +325,8 @@ export const PublishPostForm = () => {
 								)}
 							></FormField>
 
-							<Button className='w-[200px]' type='submit'>
-								Publish
+							<Button className='w-[200px]' type='submit' disabled={isUploading}>
+								{isUploading ? 'Publishing...' : 'Publish'}
 							</Button>
 							<p className='text-sm text-zinc-500'>
 								You can publish the post in order to save changes, and come back later to finish editing. Just check the

@@ -1,11 +1,8 @@
 'use client';
 
-import { uploadImage } from '@/actions/images/upload-image';
 import { uploadImageFromClient } from '@/actions/images/upload-image-client';
 import {
 	headingsPlugin,
-	listsPlugin,
-	quotePlugin,
 	thematicBreakPlugin,
 	markdownShortcutPlugin,
 	MDXEditor,
@@ -37,7 +34,6 @@ export const MdxEditorComponent = ({ markdown, ...props }: any) => {
 			markdown={markdown}
 			contentEditableClassName='prose min-h-[370px]'
 			plugins={[
-				// Example Plugin Usage
 				headingsPlugin(),
 				thematicBreakPlugin(),
 				markdownShortcutPlugin(),
