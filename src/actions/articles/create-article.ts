@@ -3,13 +3,12 @@
 import { auth } from '@/auth';
 import prisma from '@/db/db';
 import { IArticle } from '@/interfaces/article.interface';
+import { uploadImage } from '../images/upload-image';
 
-export const createArticle = async (article: IArticle) => {
+export const createArticle = async (article: IArticle, imageFormData: FormData) => {
 	const session = await auth();
-	const { verticalAds, ...rest } = article;
+	const { verticalAds, thumbnail, ...rest } = article;
 	const verticalAdsOption = verticalAds.toString().toUpperCase() as 'NONE' | 'LEFT' | 'RIGHT';
-
-	//TODO: Upload thumbnail
 
 	try {
 		const creator = await prisma.user.findUnique({ where: { id: session?.user.id } });
@@ -21,9 +20,11 @@ export const createArticle = async (article: IArticle) => {
 				message: 'The creator is banned',
 			};
 		}
+		const image = imageFormData.get('thumbnail') as File;
 
+		const thumbnailUrl = await uploadImage(image);
 		const result = await prisma.article.create({
-			data: { verticalAds: verticalAdsOption, creatorId: creator!.id, ...rest },
+			data: { verticalAds: verticalAdsOption, creatorId: creator!.id, thumbnail: thumbnailUrl, ...rest },
 		});
 
 		return {
@@ -31,6 +32,7 @@ export const createArticle = async (article: IArticle) => {
 			article: result,
 		};
 	} catch (error) {
+		console.log(error);
 		return {
 			ok: false,
 			message: 'An error occurred while trying to create a new article',

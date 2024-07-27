@@ -18,7 +18,7 @@ import { signOut } from 'next-auth/react';
 const formSchema = z.object({
 	title: z.string().min(5).max(300),
 	description: z.string().min(10).max(500),
-	thumbnail: z.string(),
+	thumbnail: z.any().refine(files => files?.length == 1, 'Image is required.'),
 	priority: z.enum(['1', '2', '3']),
 	readingTime: z.string(),
 	content: z.string().min(100).max(5000),
@@ -31,7 +31,7 @@ const formSchema = z.object({
 const defaultValues: z.infer<typeof formSchema> = {
 	title: '',
 	description: '',
-	thumbnail: '',
+	thumbnail: null,
 	priority: '3',
 	readingTime: '0',
 	content: '',
@@ -48,12 +48,19 @@ export const PublishPostForm = () => {
 	});
 
 	const submitForm = async (values: z.infer<typeof formSchema>) => {
-		const { readingTime, priority, ...rest } = values;
-		const result = await createArticle({
-			priority: Number(priority),
-			readingTime: Number(readingTime),
-			...rest,
-		});
+		const { readingTime, priority, thumbnail, ...rest } = values;
+		const thumbnailAsFormData = new FormData();
+		thumbnailAsFormData.append('thumbnail', thumbnail[0]);
+
+		const result = await createArticle(
+			{
+				priority: Number(priority),
+				readingTime: Number(readingTime),
+				thumbnail: '',
+				...rest,
+			},
+			thumbnailAsFormData
+		);
 
 		if (result.ok) {
 			//TODO: Redirect to editing
@@ -103,11 +110,17 @@ export const PublishPostForm = () => {
 							<FormField
 								name='thumbnail'
 								control={form.control}
-								render={({ field }) => (
+								render={({ field: { onChange, value, ...fieldProps } }) => (
 									<FormItem>
 										<FormLabel>Thumbnail</FormLabel>
 										<FormControl>
-											<Input type='file' {...field} className='bg-white' />
+											<Input
+												type='file'
+												onChange={e => onChange(e.target.files)}
+												className='bg-white'
+												accept='image/jpg image/png image/jpeg image/webp'
+												{...fieldProps}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
