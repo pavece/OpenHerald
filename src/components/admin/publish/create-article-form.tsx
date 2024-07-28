@@ -5,7 +5,7 @@ import Link from 'next/link';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { PiWarning } from 'react-icons/pi';
@@ -42,13 +42,7 @@ const formSchema = z.object({
 	visibleForUsers: z.boolean(),
 });
 
-type DefaultValues = z.infer<typeof formSchema>;
-
-type Props = {
-	defaultValues?: DefaultValues;
-};
-
-const defaultValues: DefaultValues = {
+const defaultValues: z.infer<typeof formSchema> = {
 	title: '',
 	description: '',
 	thumbnail: null,
@@ -61,13 +55,13 @@ const defaultValues: DefaultValues = {
 	visibleForUsers: false,
 };
 
-export const ArticleEditingForm = ({ defaultValues: customDefaultValues }: Props) => {
+export const CreateArticleForm = () => {
 	const router = useRouter();
 	const [isUploading, setIsUploading] = useState(false);
 
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: customDefaultValues ?? defaultValues,
+		defaultValues: defaultValues,
 	});
 
 	const submitForm = async (values: z.infer<typeof formSchema>) => {
@@ -88,7 +82,7 @@ export const ArticleEditingForm = ({ defaultValues: customDefaultValues }: Props
 		setIsUploading(false);
 
 		if (result.ok) {
-			router.replace(`/admin/post/edit/${result.article?.id}`);
+			router.replace(`/admin/article/edit/${result.article?.id}`);
 		}
 
 		if (result.banned) {
@@ -219,7 +213,9 @@ export const ArticleEditingForm = ({ defaultValues: customDefaultValues }: Props
 										</FormDescription>
 										<FormMessage />
 										<FormControl>
-											<MdxEditorComponent markdown={form.getValues().content} {...field} />
+											<Suspense fallback={null}>
+												<MdxEditorComponent markdown={field.value} {...field} />
+											</Suspense>
 										</FormControl>
 									</FormItem>
 								)}
