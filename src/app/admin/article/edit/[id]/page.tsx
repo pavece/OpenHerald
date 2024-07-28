@@ -1,12 +1,14 @@
 import { getArticle } from '@/actions/articles/get-article';
+import { auth } from '@/auth';
 import { UpdateArticleForm } from '@/components/admin/publish/update-article-form';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 type Props = {
 	params: { id: string };
 };
 
 export default async function EditArticlePage({ params: { id } }: Props) {
+	const session = await auth();
 	const result = await getArticle(id);
 
 	if (result.notFound) {
@@ -14,8 +16,11 @@ export default async function EditArticlePage({ params: { id } }: Props) {
 	}
 
 	if (!result.ok) {
-		//TODO: Error
 		notFound();
+	}
+
+	if (session?.user.id !== result.article?.creatorId && !session?.user.roles.includes('admin')) {
+		redirect('/admin/dashboard');
 	}
 
 	const { verticalAds, priority, ...rest } = result.article!;
@@ -27,8 +32,12 @@ export default async function EditArticlePage({ params: { id } }: Props) {
 	};
 
 	return (
-		<div>
-			<UpdateArticleForm defaultValues={defaultValues} id={id} />
+		<div className='pt-2'>
+			<h1 className='text-xl'>Publish a new article</h1>
+			<p className='text-zinc-500'>Fill the form to publish a new article</p>
+			<div className='py-6'>
+				<UpdateArticleForm defaultValues={defaultValues} id={id} />
+			</div>
 		</div>
 	);
 }

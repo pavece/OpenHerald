@@ -36,17 +36,17 @@ export const updateArticle = async (articleId: string, article: Partial<IArticle
 
 		const { thumbnail: _, verticalAds, ...rest } = article;
 
-		let thumbnail = null;
 		const verticalAdsOption = verticalAds?.toString().toUpperCase() as 'NONE' | 'LEFT' | 'RIGHT';
+		const updateProps = { verticalAds: verticalAdsOption, thumbnail: articleFromDb?.thumbnail, ...rest };
 
 		if (thumbnailFormData) {
 			const image = thumbnailFormData.get('image') as File;
-			thumbnail = await uploadImage(image);
+			updateProps.thumbnail = await uploadImage(image);
 		}
 
 		const result = await prisma.article.update({
 			where: { id: articleId },
-			data: { ...rest, verticalAds: verticalAdsOption },
+			data: { ...updateProps },
 		});
 
 		return {

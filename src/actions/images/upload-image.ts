@@ -11,7 +11,7 @@ export const uploadImage = async (image: File) => {
 
 		const arrayBuffer = await image.arrayBuffer();
 		const base64 = Buffer.from(arrayBuffer).toString('base64');
-		const result = await cloudinary.uploader.upload(`data:image/png;base64,${base64}`).then(resp => resp.secure_url);
+		const result = cloudinary.uploader.upload(`data:image/png;base64,${base64}`).then(resp => resp.secure_url);
 		return result;
 	} catch (error) {
 		console.log(error);

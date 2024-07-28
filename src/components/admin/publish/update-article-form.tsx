@@ -5,13 +5,12 @@ import Link from 'next/link';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { PiWarning } from 'react-icons/pi';
 
 import { Button } from '@/components/ui/button';
-import { createArticle } from '@/actions/articles/create-article';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectValue, SelectTrigger } from '@/components/ui/select';
@@ -74,9 +73,15 @@ export const UpdateArticleForm = ({ defaultValues, id }: Props) => {
 			const thumbnailAsFormData = new FormData();
 			thumbnailAsFormData.append('image', thumbnail[0]);
 
+			console.log(thumbnail);
+
 			result = await updateArticle(id, { priority: Number(priority), ...rest }, thumbnailAsFormData);
 		} else {
 			result = await updateArticle(id, { priority: Number(priority), ...rest });
+		}
+
+		if (result.ok) {
+			router.refresh();
 		}
 
 		if (result.banned) {
@@ -84,11 +89,14 @@ export const UpdateArticleForm = ({ defaultValues, id }: Props) => {
 		}
 
 		if (!result.ok) {
-			//TODO: show feedback
-			return;
+			toast('Error', {
+				description: 'An error ocurred while trying to update the article',
+				duration: 5000,
+				icon: <PiWarning size={24} />,
+				className: 'text-red-400 gap-4 border-red-400',
+			});
 		}
 
-		//TODO: Show feedback
 		setIsUploading(false);
 	};
 
