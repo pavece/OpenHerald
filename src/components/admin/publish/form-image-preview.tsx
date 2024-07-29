@@ -1,5 +1,5 @@
 'use client';
-
+import clsx from 'clsx';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
@@ -21,10 +21,12 @@ export const FormImagePreview = ({ image }: Props) => {
 	}, [image]);
 
 	return (
-		<div className='w-full'>
-			{src !== '' && (
-				<Image src={src} alt='Image preview' height={120} width={200} className='my-2 max-w-[130px] rounded-md'></Image>
-			)}
+		<div
+			className={clsx('max-w-[320px]  relative', {
+				'h-[180px]': src !== '',
+			})}
+		>
+			{src !== '' && <Image src={src} alt='Image preview' className='rounded-md fill object-cover' fill />}
 		</div>
 	);
 };
