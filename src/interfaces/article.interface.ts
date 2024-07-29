@@ -3,6 +3,7 @@ export interface IArticle {
 	description: string;
 	thumbnail: string;
 	priority: number;
+	category: string;
 	readingTime: number;
 	content: string;
 	showAds: boolean;

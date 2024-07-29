@@ -31,7 +31,8 @@ const formSchema = z.object({
 		.min(10, 'Description should have at least 10 characters')
 		.max(500, 'Description is too long (max 500 characters)'),
 	thumbnail: z.any(),
-	priority: z.string(),
+	priority: z.string({ required_error: 'Please select a priority' }),
+	category: z.string({ required_error: 'Please select a category' }),
 	readingTime: z.coerce.number(),
 	content: z
 		.string()
@@ -179,6 +180,29 @@ export const UpdateArticleForm = ({ defaultValues, id }: Props) => {
 											Determines if a post is more or less important. (1) will make a post appear as the featured post
 											for the day (2) will make it show in the cover etc...
 										</FormDescription>
+									</FormItem>
+								)}
+							></FormField>
+
+							<FormField
+								name='category'
+								control={form.control}
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Category</FormLabel>
+
+										<Select onValueChange={field.onChange} value={field.value}>
+											<FormControl>
+												<SelectTrigger className='w-[260px]'>
+													<SelectValue placeholder='Select category' />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value='politics'>Politics</SelectItem>
+												<SelectItem value='technology'>Technology</SelectItem>
+											</SelectContent>
+										</Select>
+										<FormMessage />
 									</FormItem>
 								)}
 							></FormField>

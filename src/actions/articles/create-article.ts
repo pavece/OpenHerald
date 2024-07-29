@@ -11,6 +11,13 @@ export const createArticle = async (article: IArticle, imageFormData: FormData) 
 	const verticalAdsOption = verticalAds.toString().toUpperCase() as 'NONE' | 'LEFT' | 'RIGHT';
 
 	try {
+		if (!session?.user.id) {
+			return {
+				ok: false,
+				message: 'Not allowed to create posts',
+			};
+		}
+
 		const creator = await prisma.user.findUnique({ where: { id: session?.user.id } });
 
 		if (creator && creator?.banned) {
@@ -24,7 +31,12 @@ export const createArticle = async (article: IArticle, imageFormData: FormData) 
 
 		const thumbnailUrl = await uploadImage(image);
 		const result = await prisma.article.create({
-			data: { verticalAds: verticalAdsOption, creatorId: creator!.id, thumbnail: thumbnailUrl, ...rest },
+			data: {
+				verticalAds: verticalAdsOption,
+				creator: { connect: { id: creator?.id } },
+				thumbnail: thumbnailUrl,
+				...rest,
+			},
 		});
 
 		return {

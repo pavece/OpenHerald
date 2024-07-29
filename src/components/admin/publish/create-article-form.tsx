@@ -30,7 +30,8 @@ const formSchema = z.object({
 		.min(10, 'Description should have at least 10 characters')
 		.max(500, 'Description is too long (max 500 characters)'),
 	thumbnail: z.any().refine(files => files?.length == 1, 'Thumbnail is required.'),
-	priority: z.string(),
+	priority: z.string({ required_error: 'Please select a priority' }),
+	category: z.string({ required_error: 'Please select a category' }),
 	readingTime: z.coerce.number(),
 	content: z
 		.string()
@@ -47,6 +48,7 @@ const defaultValues: z.infer<typeof formSchema> = {
 	description: '',
 	thumbnail: null,
 	priority: '3',
+	category: '',
 	readingTime: 1,
 	content: '',
 	showAds: true,
@@ -83,10 +85,12 @@ export const CreateArticleForm = () => {
 
 		if (result.ok) {
 			router.replace(`/admin/article/edit/${result.article?.id}`);
+			return;
 		}
 
 		if (result.banned) {
 			signOut();
+			return;
 		}
 
 		toast('Error', {
@@ -158,23 +162,47 @@ export const CreateArticleForm = () => {
 									<FormItem>
 										<FormLabel>Priority</FormLabel>
 
-										<FormControl>
-											<Select {...field} onValueChange={field.onChange} defaultValue={field.value.toString()}>
+										<Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
+											<FormControl>
 												<SelectTrigger className='w-[260px]'>
-													<SelectValue placeholder='Priority' />
+													<SelectValue placeholder='Select a priority' />
 												</SelectTrigger>
-												<SelectContent>
-													<SelectItem value='1'>Featured (1)</SelectItem>
-													<SelectItem value='2'>Cover (2)</SelectItem>
-													<SelectItem value='3'>Normal (3)</SelectItem>
-												</SelectContent>
-											</Select>
-										</FormControl>
+											</FormControl>
+
+											<SelectContent>
+												<SelectItem value='1'>Featured (1)</SelectItem>
+												<SelectItem value='2'>Cover (2)</SelectItem>
+												<SelectItem value='3'>Normal (3)</SelectItem>
+											</SelectContent>
+										</Select>
 										<FormMessage />
 										<FormDescription>
 											Determines if a post is more or less important. (1) will make a post appear as the featured post
 											for the day (2) will make it show in the cover etc...
 										</FormDescription>
+									</FormItem>
+								)}
+							></FormField>
+
+							<FormField
+								name='category'
+								control={form.control}
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Category</FormLabel>
+
+										<Select onValueChange={field.onChange} value={field.value}>
+											<FormControl>
+												<SelectTrigger className='w-[260px]'>
+													<SelectValue placeholder='Select category' />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent>
+												<SelectItem value='politics'>Politics</SelectItem>
+												<SelectItem value='technology'>Technology</SelectItem>
+											</SelectContent>
+										</Select>
+										<FormMessage />
 									</FormItem>
 								)}
 							></FormField>
