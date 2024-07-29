@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
+import { Suspense, useEffect, useState } from 'react';
 
-import { Suspense } from 'react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -12,7 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { MdxEditorComponent } from './mdx-editor-component';
 import { FormImagePreview } from './form-image-preview';
-import { PiFloppyDiskBack } from 'react-icons/pi';
+import { PiFloppyDiskBack, PiWarningOctagon } from 'react-icons/pi';
 
 type Props = {
 	form: any;
@@ -25,7 +25,7 @@ export const CreateUpdateFormFields = ({ form, isUploading, update = false, subm
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(submitForm)}>
-				<div className='grid grid-cols-1 lg:grid-cols-2 md:gap-4'>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
 					<div className='space-y-4'>
 						<FormField
 							name='title'
@@ -70,7 +70,7 @@ export const CreateUpdateFormFields = ({ form, isUploading, update = false, subm
 											{...fieldProps}
 										/>
 									</FormControl>
-
+									<FormMessage />
 									<FormImagePreview image={form.getValues().thumbnail} />
 									<FormDescription>Upload any image to replace the current one.</FormDescription>
 								</FormItem>
@@ -149,6 +149,11 @@ export const CreateUpdateFormFields = ({ form, isUploading, update = false, subm
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Content</FormLabel>
+									<FormControl>
+										<Suspense fallback={null}>
+											<MdxEditorComponent markdown={field.value} {...field} />
+										</Suspense>
+									</FormControl>
 									<FormDescription>
 										This editor uses <span className='font-semibold'>markdown</span> you can learn more about it{' '}
 										<Link href='https://www.markdownguide.org/basic-syntax/' rel='noopener noreferrer' target='_blank'>
@@ -157,11 +162,6 @@ export const CreateUpdateFormFields = ({ form, isUploading, update = false, subm
 										.
 									</FormDescription>
 									<FormMessage />
-									<FormControl>
-										<Suspense fallback={null}>
-											<MdxEditorComponent markdown={field.value} {...field} />
-										</Suspense>
-									</FormControl>
 								</FormItem>
 							)}
 						></FormField>
@@ -244,7 +244,9 @@ export const CreateUpdateFormFields = ({ form, isUploading, update = false, subm
 
 					<div className='space-y-4 mt-4'>
 						<div>
-							<h3 className='text-xl text-red-600'>Danger zone</h3>
+							<h3 className='text-xl text-red-600 flex items-center justify-start'>
+								<PiWarningOctagon size={24} className='mr-2' /> Danger zone
+							</h3>
 							<p className='text-sm text-red-500'>
 								Remember to verify all the information before making an article visible for users.
 							</p>

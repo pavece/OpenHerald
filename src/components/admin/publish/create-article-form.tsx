@@ -23,7 +23,7 @@ const formSchema = z.object({
 		.max(500, 'Description is too long (max 500 characters)'),
 	thumbnail: z.any().refine(files => files?.length == 1, 'Thumbnail is required.'),
 	priority: z.string({ required_error: 'Please select a priority' }),
-	category: z.string({ required_error: 'Please select a category' }),
+	category: z.string().refine(c => c !== '', 'Please select a category'),
 	readingTime: z.coerce.number(),
 	content: z
 		.string()
