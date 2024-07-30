@@ -49,41 +49,39 @@ export function ArticlesDataTable<TData, TValue>({ columns, data }: DataTablePro
 					className='max-w-sm'
 				/>
 			</div>
-			<div className='rounded-md border'>
-				<ScrollArea className='w-[80vw] lg:w-full'>
-					<Table>
-						<TableHeader>
-							{table.getHeaderGroups().map(headerGroup => (
-								<TableRow key={headerGroup.id}>
-									{headerGroup.headers.map(header => {
-										return (
-											<TableHead key={header.id}>
-												{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-											</TableHead>
-										);
-									})}
+			<div className='rounded-md border max-w-[89vw]'>
+				<Table>
+					<TableHeader>
+						{table.getHeaderGroups().map(headerGroup => (
+							<TableRow key={headerGroup.id}>
+								{headerGroup.headers.map(header => {
+									return (
+										<TableHead key={header.id}>
+											{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+										</TableHead>
+									);
+								})}
+							</TableRow>
+						))}
+					</TableHeader>
+					<TableBody>
+						{table.getRowModel().rows?.length ? (
+							table.getRowModel().rows.map(row => (
+								<TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+									{row.getVisibleCells().map(cell => (
+										<TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+									))}
 								</TableRow>
-							))}
-						</TableHeader>
-						<TableBody>
-							{table.getRowModel().rows?.length ? (
-								table.getRowModel().rows.map(row => (
-									<TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-										{row.getVisibleCells().map(cell => (
-											<TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-										))}
-									</TableRow>
-								))
-							) : (
-								<TableRow>
-									<TableCell colSpan={columns.length} className='h-24 text-center'>
-										No results.
-									</TableCell>
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</ScrollArea>
+							))
+						) : (
+							<TableRow>
+								<TableCell colSpan={columns.length} className='h-24 text-center'>
+									No results.
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
 			</div>
 		</div>
 	);

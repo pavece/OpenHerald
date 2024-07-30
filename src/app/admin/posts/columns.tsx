@@ -14,17 +14,7 @@ import { PiArrowsDownUp, PiDotsThree, PiEye, PiEyeSlash } from 'react-icons/pi';
 
 import Link from 'next/link';
 import { cropText } from '@/lib/utils';
-
-export type ArticleTableRow = {
-	category: string;
-	createdAt: Date;
-	creatorId: string;
-	id: string;
-	priority: number;
-	visibleForUsers: boolean;
-	title: string;
-	creatorName: string;
-};
+import { ArticleTableRow } from '../your-posts/columns';
 
 export const columns: ColumnDef<ArticleTableRow>[] = [
 	{
@@ -35,12 +25,24 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 			return <div className='capitalize'>{id.split('-')[0]}...</div>;
 		},
 	},
+
 	{
 		accessorKey: 'title',
 		header: 'Title',
 		cell: ({ row }) => {
 			const title = row.getValue('title') as string;
 			return <div className=''>{cropText(title, 60)}</div>;
+		},
+	},
+
+	{
+		accessorKey: 'creatorName',
+		header: ({ column }) => {
+			return (
+				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+					Created by <PiArrowsDownUp size={22} className='ml-2' />
+				</Button>
+			);
 		},
 	},
 	{
@@ -56,7 +58,6 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 			return <div className='capitalize'>{row.getValue('category')}</div>;
 		},
 	},
-
 	{
 		accessorKey: 'priority',
 		header: ({ column }) => {
