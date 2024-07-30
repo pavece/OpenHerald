@@ -11,3 +11,9 @@ export interface IArticle {
 	horizontalAds: boolean;
 	visibleForUsers: boolean;
 }
+
+export enum EArticlePriority {
+	featured,
+	cover,
+	normal,
+}

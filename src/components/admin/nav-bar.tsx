@@ -13,7 +13,7 @@ export const NavBar = () => {
 	const user = session.data?.user;
 
 	return (
-		<nav className='w-full flex justify-between items-center mb-6'>
+		<nav className='w-full flex justify-between items-center mb-6 px-1'>
 			<div>
 				<h2 className='text-xl md:text-2xl'>Welcome back {user?.name ?? 'John Doe'} !</h2>
 				<p className='text-xs md:text-base text-zinc-500'>{format(new Date(), 'EEEE dd, LLLL yyyy ')}</p>
