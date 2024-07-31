@@ -1,6 +1,7 @@
-import { DataTable } from '@/components/ui/data-table';
+import { AccountsDataTable } from './data-table';
 import { columns } from './columns';
 import { getAccounts } from '@/actions/accounts/get-accounts';
+import { Button } from '@/components/ui/button';
 
 export default async function AccountsPage() {
 	const result = await getAccounts();
@@ -15,7 +16,7 @@ export default async function AccountsPage() {
 				<h1 className='text-xl'>Accounts</h1>
 				<p className='text-zinc-500'>Add or edit user accounts</p>
 			</div>
-			<DataTable columns={columns} data={result.accounts!} filterBy='email' />
+			<AccountsDataTable columns={columns} data={result.accounts!} filterBy='email' />
 		</div>
 	);
 }

@@ -4,7 +4,6 @@ import * as React from 'react';
 
 import {
 	ColumnDef,
-	flexRender,
 	getCoreRowModel,
 	useReactTable,
 	SortingState,
@@ -13,9 +12,8 @@ import {
 	ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { DataTableBase } from '../../ui/data-table-base';
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -53,38 +51,7 @@ export function DataTable<TData, TValue>({ columns, data, filterBy }: DataTableP
 				</div>
 			)}
 			<div className='rounded-md border max-w-[89vw]'>
-				<Table>
-					<TableHeader>
-						{table.getHeaderGroups().map(headerGroup => (
-							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map(header => {
-									return (
-										<TableHead key={header.id}>
-											{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-										</TableHead>
-									);
-								})}
-							</TableRow>
-						))}
-					</TableHeader>
-					<TableBody>
-						{table.getRowModel().rows?.length ? (
-							table.getRowModel().rows.map(row => (
-								<TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-									))}
-								</TableRow>
-							))
-						) : (
-							<TableRow>
-								<TableCell colSpan={columns.length} className='h-24 text-center'>
-									No results.
-								</TableCell>
-							</TableRow>
-						)}
-					</TableBody>
-				</Table>
+				<DataTableBase table={table} columns={columns} />
 			</div>
 		</div>
 	);
