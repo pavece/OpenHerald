@@ -1,4 +1,4 @@
-import { ArticlesDataTable } from '@/components/admin/article-lists/articles-datatable';
+import { DataTable } from '@/components/ui/data-table';
 import { columns } from './columns';
 import { getArticleList } from '@/actions/articles/get-article-list';
 
@@ -15,7 +15,7 @@ export default async function YourPostsPage() {
 				<h1 className='text-xl'>All articles</h1>
 				<p className='text-zinc-500'>View every article in the system</p>
 			</div>
-			<ArticlesDataTable columns={columns} data={result.articles!} />
+			<DataTable columns={columns} data={result.articles!} filterBy='title' />
 		</div>
 	);
 }

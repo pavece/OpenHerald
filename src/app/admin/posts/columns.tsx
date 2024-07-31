@@ -39,30 +39,34 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 		accessorKey: 'creatorName',
 		header: ({ column }) => {
 			return (
-				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='p-2'>
 					Created by <PiArrowsDownUp size={22} className='ml-2' />
 				</Button>
 			);
+		},
+		cell: ({ row }) => {
+			const creator = row.getValue('creatorName') as string;
+			return <div className='px-2'>{creator}</div>;
 		},
 	},
 	{
 		accessorKey: 'category',
 		header: ({ column }) => {
 			return (
-				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='p-2'>
 					Category <PiArrowsDownUp size={22} className='ml-2' />
 				</Button>
 			);
 		},
 		cell: ({ row }) => {
-			return <div className='capitalize'>{row.getValue('category')}</div>;
+			return <div className='capitalize px-2'>{row.getValue('category')}</div>;
 		},
 	},
 	{
 		accessorKey: 'priority',
 		header: ({ column }) => {
 			return (
-				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='p-2'>
 					Priority <PiArrowsDownUp size={22} className='ml-2' />
 				</Button>
 			);
@@ -70,7 +74,7 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 		cell: ({ row }) => {
 			const parsedPriority = EArticlePriority[(row.getValue('priority') as number) - 1];
 			return (
-				<div className='capitalize'>
+				<div className='capitalize px-2'>
 					({row.getValue('priority')}) {parsedPriority}
 				</div>
 			);
@@ -80,7 +84,7 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 		accessorKey: 'visibleForUsers',
 		header: ({ column }) => {
 			return (
-				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')} className='p-2'>
 					Visible for users <PiArrowsDownUp size={22} className='ml-2' />
 				</Button>
 			);
@@ -90,7 +94,7 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 			const icon = (row.getValue('visibleForUsers') as boolean) ? <PiEye size={24} /> : <PiEyeSlash size={24} />;
 
 			return (
-				<div className='capitalize flex items-center gap-2'>
+				<div className='capitalize flex items-center gap-2 px-2'>
 					{icon}
 					{parsedVisibility}
 				</div>
