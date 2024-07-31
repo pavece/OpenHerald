@@ -74,6 +74,7 @@ enum ArticleVerticalAds {
 model Article {
   id              String             @id @default(uuid())
   title           String
+  slug            String             @default(uuid())
   description     String
   thumbnail       String
   priority        Int

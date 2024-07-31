@@ -4,6 +4,7 @@ import { auth } from '@/auth';
 import prisma from '@/db/db';
 import { IArticle } from '@/interfaces/article.interface';
 import { uploadImage } from '../images/upload-image';
+import { generateArticleSlug } from './generate-slug';
 
 export const createArticle = async (article: IArticle, imageFormData: FormData) => {
 	const session = await auth();
@@ -28,10 +29,13 @@ export const createArticle = async (article: IArticle, imageFormData: FormData) 
 			};
 		}
 		const image = imageFormData.get('thumbnail') as File;
-
 		const thumbnailUrl = await uploadImage(image);
+
+		const slug = await generateArticleSlug(article.title);
+
 		const result = await prisma.article.create({
 			data: {
+				slug,
 				verticalAds: verticalAdsOption,
 				creator: { connect: { id: creator?.id } },
 				thumbnail: thumbnailUrl,
