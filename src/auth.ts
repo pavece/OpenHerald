@@ -4,6 +4,8 @@ import { signInEmailPassword } from './actions/auth/login-user';
 import google from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from './db/db';
+import { checkGoogleMail } from './actions/auth/check-google-email';
+import { markAsUsed } from './actions/auth/register-link-actions';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	session: {
@@ -29,6 +31,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 		google,
 	],
 	callbacks: {
+		async signIn({ user: { email } }) {
+			const emailSearchResult = await checkGoogleMail(email ?? '');
+
+			if (!emailSearchResult.ok) {
+				return false;
+			}
+
+			if (emailSearchResult.inUsers) {
+				return true;
+			}
+
+			if (emailSearchResult.emailInRegister) {
+				const linkVerification = await markAsUsed(emailSearchResult.emailInRegister as string);
+				if (!linkVerification.ok) {
+					return false;
+				}
+				return true;
+			}
+
+			return false;
+		},
 		async jwt({ token, user }) {
 			if (user) {
 				const userId = user.id;

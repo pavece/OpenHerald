@@ -92,3 +92,18 @@ export const markAsUsed = async (id: string) => {
 		};
 	}
 };
+
+export const addGoogleMail = async (id: string, mail: string) => {
+	try {
+		await prisma.registerAuthorization.update({ where: { id }, data: { googleEmail: mail } });
+		return {
+			ok: true,
+			message: 'Google mail added',
+		};
+	} catch (error) {
+		return {
+			ok: false,
+			message: 'An error occurred while trying to add a google mail',
+		};
+	}
+};

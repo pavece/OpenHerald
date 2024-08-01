@@ -134,7 +134,7 @@ export const RegisterForm = ({ linkId }: Props) => {
 				</form>
 			</Form>
 			<hr className='mt-4' />
-			<GoogleButton register />
+			<GoogleButton register linkId={linkId} />
 		</div>
 	);
 };

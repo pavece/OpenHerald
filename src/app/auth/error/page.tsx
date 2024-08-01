@@ -11,7 +11,11 @@ export default function ErrorPage() {
 				<AlertDescription>
 					Something went wrong while trying to login. This can be a server error or due to a{' '}
 					<span className='font-semibold'>ban</span> in your account.{' '}
-					<span className='font-semibold'>If you are not banned from this site you can try to login again.</span>
+					<span className='font-semibold'>If you are not banned from this site you can try to login again. </span>
+					<br />
+					<br />
+					If you are <span className='font-semibold'>registering</span> with google, please go back and verify if the
+					email you entered above the register with google button is the same as the one in your Google account.
 				</AlertDescription>
 			</Alert>
 		</div>
