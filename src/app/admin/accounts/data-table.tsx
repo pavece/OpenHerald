@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { DataTableBase } from '@/components/ui/data-table-base';
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
+import { NewAccountMenu } from './new-account-menu';
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -51,17 +52,12 @@ export function AccountsDataTable<TData, TValue>({ columns, data, filterBy }: Da
 						onChange={event => table.getColumn(filterBy!)?.setFilterValue(event.target.value)}
 						className='max-w-sm'
 					/>
-					<Button variant='outline' asChild>
-						<Link href={'/admin/accounts/new'}>
-							<UserPlus size={24} className='mr-2' /> Add New
-						</Link>
-					</Button>
+					<NewAccountMenu />
 				</div>
 			)}
 			<div className='rounded-md border max-w-[89vw]'>
 				<DataTableBase table={table} columns={columns} />
 			</div>
-			S
 		</div>
 	);
 }

@@ -7,7 +7,7 @@ export default async function AccountsPage() {
 	const result = await getAccounts();
 
 	if (!result.ok) {
-		return;
+		return <h1>Server error</h1>;
 	}
 
 	return (

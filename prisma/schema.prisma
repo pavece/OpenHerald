@@ -64,7 +64,6 @@ model VerificationToken {
 }
 
 //Articles
-
 enum ArticleVerticalAds {
   NONE
   LEFT
@@ -91,4 +90,11 @@ model Article {
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])
+}
+
+model RegisterAuthorization {
+  id          String   @id @default(uuid())
+  used        Boolean  @default(false)
+  googleEmail String?
+  validUntil  DateTime
 }
