@@ -4,10 +4,10 @@ import { NavBar } from './nav-bar';
 export const LoginImageContainer = () => {
 	return (
 		<div
-			className='w-full h-screen bg-center bg-cover bg-no-repeat hidden lg:block'
+			className='w-full min-h-screen bg-center bg-cover bg-no-repeat hidden lg:block'
 			style={{ backgroundImage: "url('/images/login-image.jpg')" }}
 		>
-			<div className='flex justify-between flex-col w-full h-screen bg-gradient-to-b from-zinc-800/10 to-zinc-900/60'>
+			<div className='flex justify-between flex-col w-full h-full bg-gradient-to-b from-zinc-800/10 to-zinc-900/60'>
 				<NavBar />
 				<div className='text-neutral-100 p-8 flex items-center gap-4'>
 					<PiInfo size={32} />

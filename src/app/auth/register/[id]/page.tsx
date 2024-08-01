@@ -1,7 +1,9 @@
 import { verifyLink } from '@/actions/auth/register-link-actions';
 import { auth } from '@/auth';
 import { RegisterForm } from '@/components/auth/register-form';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { redirect } from 'next/navigation';
+import { PiWarning } from 'react-icons/pi';
 
 type Props = {
 	params: {
@@ -18,8 +20,13 @@ export default async function RegisterPage({ params: { id } }: Props) {
 
 	if (!checkLinkResult.ok) {
 		return (
-			<div>
-				<h1>TODO: ERROR</h1>
+			<div className='px-4'>
+				<h1 className='text-red-500 text-2xl mb-4'>Login error</h1>
+				<Alert className='max-w-[500px]' variant='destructive'>
+					<PiWarning size={20} />
+					<AlertTitle>Error</AlertTitle>
+					<AlertDescription>{checkLinkResult.message}</AlertDescription>
+				</Alert>
 			</div>
 		);
 	}

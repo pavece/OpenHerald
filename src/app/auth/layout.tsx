@@ -27,7 +27,7 @@ export default function RootLayout({
 					<div className='lg:hidden block'>
 						<NavBar />
 					</div>
-					<main className='grid grid-cols-1 lg:grid-cols-2 lg:h-screen'>
+					<main className='grid grid-cols-1 lg:grid-cols-2 lg:min-h-screen'>
 						<LoginImageContainer />
 						<div className='flex lg:items-center justify-center py-10 lg:py-0'>{children}</div>
 					</main>

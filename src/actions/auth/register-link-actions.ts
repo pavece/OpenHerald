@@ -43,7 +43,7 @@ export const verifyLink = async (id: string) => {
 		if (!registerAuth || registerAuth.used) {
 			return {
 				ok: false,
-				message: 'Register link not valid',
+				message: 'Register link not valid, please request a new one.',
 			};
 		}
 
@@ -52,7 +52,7 @@ export const verifyLink = async (id: string) => {
 		if (linkExpired) {
 			return {
 				ok: false,
-				message: 'This registration link has expired',
+				message: 'This registration link has expired, please request a new one.',
 			};
 		}
 
@@ -63,7 +63,7 @@ export const verifyLink = async (id: string) => {
 	} catch (error) {
 		return {
 			ok: false,
-			message: 'An error occurred while checking the link',
+			message: 'An error occurred while checking the link, try again later.',
 		};
 	}
 };
