@@ -27,7 +27,11 @@ const formSchema = z
 		path: ['passwordRepeat'],
 	});
 
-export const RegisterForm = () => {
+type Props = {
+	linkId: string;
+};
+
+export const RegisterForm = ({ linkId }: Props) => {
 	const router = useRouter();
 	const [credentialsError, setCredentialsError] = useState(false);
 	const [credentialsErrorMessage, setCredentialsErrorMessage] = useState('');
@@ -40,7 +44,7 @@ export const RegisterForm = () => {
 	const onSubmit = async () => {
 		try {
 			const values = form.getValues();
-			const user = await createUser(values.username, values.email, values.password);
+			const user = await createUser(values.username, values.email, values.password, linkId);
 			if (user?.ok) {
 				await loginUserClient({ password: values.password, email: values.email });
 				router.replace('/admin/dashboard');

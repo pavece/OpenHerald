@@ -13,7 +13,7 @@ import {
 import { PiUserPlus } from 'react-icons/pi';
 import { useState } from 'react';
 import clsx from 'clsx';
-import { generateRegisterLink } from '@/actions/auth/generate-register-link';
+import { generateRegisterLink } from '@/actions/auth/register-link-actions';
 
 export const NewAccountMenu = () => {
 	const [link, setLink] = useState<string | null>(null);
