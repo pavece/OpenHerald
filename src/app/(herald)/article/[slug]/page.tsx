@@ -1,8 +1,10 @@
+import { getArticleBySlug } from '@/actions/articles/get-article-by-slug';
 import { HorizontalAd } from '@/components/ads/horizontal-ad';
 import { VerticalAD } from '@/components/ads/vertical-ad';
 import { ArticleBody } from '@/components/article/article-body';
 import { ArticleHeader } from '@/components/article/article-header';
 import { RecommendedArticles } from '@/components/article/recommended-articles';
+import { notFound } from 'next/navigation';
 
 type Props = {
 	params: {
@@ -10,19 +12,28 @@ type Props = {
 	};
 };
 
-export default function ArticlePage({ params: { slug } }: Props) {
+export default async function ArticlePage({ params: { slug } }: Props) {
+	const { ok, article } = await getArticleBySlug(slug);
+
+	if (!ok) {
+		notFound();
+	}
+
+	const { creator, createdAt, content, title, thumbnail, description, readingTime } = article!;
+
 	return (
 		<div className=''>
 			<ArticleHeader
-				author='John Doe'
-				date={new Date().toISOString()}
-				title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
-				description='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam laudantium deleniti nihil tempora, quis eos nemo aliquam illum voluptatibus tempore?'
-				readingTime={10}
-				thumbnail='/images/dev/test-image-2.jpg'
+				author={creator.name!}
+				date={createdAt.toISOString()}
+				title={title}
+				description={description}
+				readingTime={readingTime}
+				thumbnail={thumbnail}
 				thumbnailAlt='Thumbnail'
 			/>
-			<ArticleBody />
+
+			<ArticleBody markdown={content} />
 
 			<HorizontalAd link='' src='/images/dev/test-image-3.jpg' description='Some description' />
 
