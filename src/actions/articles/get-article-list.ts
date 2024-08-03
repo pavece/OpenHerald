@@ -27,6 +27,7 @@ export const getArticleList = async (all: boolean = false) => {
 					priority: true,
 					visibleForUsers: true,
 					title: true,
+					slug: true,
 					creator: {
 						select: {
 							name: true,
@@ -47,6 +48,7 @@ export const getArticleList = async (all: boolean = false) => {
 					priority: true,
 					visibleForUsers: true,
 					title: true,
+					slug: true,
 					creator: {
 						select: {
 							name: true,

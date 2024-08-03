@@ -19,6 +19,10 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 		notFound();
 	}
 
+	if (!article?.visibleForUsers) {
+		notFound();
+	}
+
 	const { creator, createdAt, content, title, thumbnail, description, readingTime } = article!;
 
 	return (

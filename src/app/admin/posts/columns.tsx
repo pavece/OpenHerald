@@ -105,6 +105,8 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 		id: 'actions',
 		cell: ({ row }) => {
 			const articleId = row.getValue('id') as string;
+			const articleSlug = row.original.slug;
+			const visibleForUsers = row.getValue('visibleForUsers') as boolean;
 
 			return (
 				<DropdownMenu>
@@ -116,9 +118,7 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem>
-							<Link href={`/article/${articleId}`}>View</Link>
-						</DropdownMenuItem>
+						<DropdownMenuItem>{visibleForUsers && <Link href={`/article/${articleSlug}`}>View</Link>}</DropdownMenuItem>
 						<DropdownMenuItem>
 							<Link href={`/admin/article/edit/${articleId}`}>Edit</Link>
 						</DropdownMenuItem>
