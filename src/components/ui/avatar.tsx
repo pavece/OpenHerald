@@ -6,7 +6,7 @@ type Props = {
 export const Avatar = ({ url, className }: Props) => {
 	return (
 		<div
-			className={`rounded-full h-[50px] w-[50px] aspect-square bg-center bg-cover bg-no-repeat ${className}`}
+			className={`${className} aspect-square bg-center bg-cover bg-no-repeat`}
 			style={{ backgroundImage: `url('${url}')` }}
 		></div>
 	);

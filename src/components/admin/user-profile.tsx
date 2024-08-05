@@ -28,14 +28,15 @@ export const UserProfile = ({ username, role, avatar, className }: Props) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger>
 				<div className={`flex items-center gap-2 cursor-pointer ${className}`}>
-					<div className='mr-2'>
-						<Avatar className='w-[40px] h-[40px]' url={avatar} />
+					<div className='md:mr-2 pt-2'>
+						<Avatar className='h-[50px] rounded-full' url={avatar} />
 					</div>
-					<div className='text-start'>
+
+					<div className='text-start hidden md:block'>
 						<h4>{username}</h4>
 						<p className='text-sm text-zinc-500 capitalize'>{role}</p>
 					</div>
-					<div className='ml-4'>
+					<div className='ml-4 hidden md:block'>
 						<span>
 							<PiCaretDown size={28} />
 						</span>

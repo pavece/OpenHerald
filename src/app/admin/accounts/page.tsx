@@ -2,6 +2,7 @@ import { AccountsDataTable } from './data-table';
 import { columns } from './columns';
 import { getAccounts } from '@/actions/accounts/get-accounts';
 import { Button } from '@/components/ui/button';
+import { NavBar } from '@/components/admin/nav-bar';
 
 export default async function AccountsPage() {
 	const result = await getAccounts();
@@ -12,7 +13,8 @@ export default async function AccountsPage() {
 
 	return (
 		<div>
-			<div>
+			<NavBar className='hidden md:flex mb-4' title='Accounts' subtitle='Add or edit user accounts' />
+			<div className='md:hidden'>
 				<h1 className='text-xl'>Accounts</h1>
 				<p className='text-zinc-500'>Add or edit user accounts</p>
 			</div>

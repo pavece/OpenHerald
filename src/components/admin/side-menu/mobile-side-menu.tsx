@@ -29,7 +29,9 @@ export const MobileSideMenu = () => {
 						<Input placeholder='search' icon={PiMagnifyingGlass} />
 					</form>
 				</div>
-				<MenuOptionsContainer />
+				<div className='px-4'>
+					<MenuOptionsContainer />
+				</div>
 			</div>
 		</div>
 	);
