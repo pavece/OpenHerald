@@ -14,6 +14,7 @@ import {
 } from 'react-icons/pi';
 import { MenuItem } from './menu-item';
 import { useSession } from 'next-auth/react';
+import { useAdminUiStore } from '@/stores/admin-ui-store';
 
 type Props = {
 	className?: string;
@@ -40,13 +41,13 @@ const options = [
 	},
 	{
 		icon: <PiArticle size={24} />,
-		title: 'Your posts',
+		title: 'Your articles',
 		link: '/admin/your-posts',
 		role: 'all',
 	},
 	{
 		icon: <PiFiles size={24} />,
-		title: 'All posts',
+		title: 'All articles',
 		link: '/admin/posts',
 		role: 'admin',
 	},
@@ -80,12 +81,14 @@ export const MenuOptionsContainer = ({ className }: Props) => {
 	const session = useSession();
 	const roles = session.data?.user?.roles;
 
+	const closeSideMenu = useAdminUiStore(state => state.closeSideMenu);
+
 	return (
 		<div className={`flex flex-col gap-2 ${className}`}>
 			{options.map(option => {
 				if (roles?.includes(option.role) || option.role === 'all') {
 					return (
-						<MenuItem link={option.link} key={option.link}>
+						<MenuItem link={option.link} key={option.link} onClick={closeSideMenu}>
 							{option.icon}
 							<h4>{option.title}</h4>
 						</MenuItem>
