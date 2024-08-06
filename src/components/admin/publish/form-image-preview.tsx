@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react';
 
 type Props = {
 	image: any;
+	square?: boolean;
 };
 
-export const FormImagePreview = ({ image }: Props) => {
+export const FormImagePreview = ({ image, square }: Props) => {
 	const [src, setSrc] = useState('');
 
 	useEffect(() => {
@@ -22,8 +23,11 @@ export const FormImagePreview = ({ image }: Props) => {
 
 	return (
 		<div
-			className={clsx('max-w-[320px]  relative', {
-				'h-[180px]': src !== '',
+			className={clsx('relative', {
+				'max-w-[320px]': !square,
+				'h-[180px]': src !== '' && !square,
+				'max-w-[150px]': square,
+				'h-[150px]': square && src !== '',
 			})}
 		>
 			{src !== '' && <Image src={src} alt='Image preview' className='rounded-md fill object-cover' fill />}
