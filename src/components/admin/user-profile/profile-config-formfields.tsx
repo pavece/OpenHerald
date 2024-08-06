@@ -5,18 +5,35 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { FormImagePreview } from '@/components/admin/publish/form-image-preview';
+import { Select, SelectContent, SelectTrigger, SelectItem, SelectValue } from '@/components/ui/select';
+import { useSession } from 'next-auth/react';
+import { PiFloppyDiskBack, PiGavel } from 'react-icons/pi';
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 type Props = {
 	form: any;
 	isGoogle?: boolean;
 	loading: boolean;
+	admin?: boolean;
 	onSubmit: (params: any) => void;
 };
 
-export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit }: Props) => {
+export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, admin }: Props) => {
+	const session = useSession();
+
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
 				<FormField
 					control={form.control}
 					name='name'
@@ -83,9 +100,65 @@ export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit }: P
 					)}
 				></FormField>
 
+				{admin && (
+					<div>
+						<h3 className='text-lg mb-4'>Admin options</h3>
+
+						<FormField
+							name='role'
+							control={form.control}
+							render={({ field: { onChange, value } }) => (
+								<FormItem>
+									<FormLabel>Role</FormLabel>
+
+									<Select onValueChange={onChange} defaultValue={value}>
+										<FormControl className='max-w-[250px]'>
+											<SelectTrigger>
+												<SelectValue placeholder='Select a role' />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{session.data?.user.roles.includes('super-admin') && (
+												<SelectItem value='super-admin'>Super Admin</SelectItem>
+											)}
+
+											<SelectItem value='admin'>Admin</SelectItem>
+											<SelectItem value='editor'>Editor</SelectItem>
+										</SelectContent>
+									</Select>
+									<FormMessage />
+								</FormItem>
+							)}
+						></FormField>
+
+						<AlertDialog>
+							<Button variant='destructive' className='mt-6 mb-8 min-w-[160px]' asChild>
+								<AlertDialogTrigger>
+									<PiGavel className='mr-2' size={24} /> Ban user
+								</AlertDialogTrigger>
+							</Button>
+							<AlertDialogContent>
+								<AlertDialogHeader>
+									<AlertDialogTitle>Are you sure?</AlertDialogTitle>
+									<AlertDialogDescription>
+										Banning a user will revoke all privileges they have. This action won't take immediate effect. The
+										user will still be able to view some data but won't be able to perform any relevant actions. Full
+										user access will be revoked when the session expires or if the user tries to perform a relevant
+										action.
+									</AlertDialogDescription>
+								</AlertDialogHeader>
+								<AlertDialogFooter>
+									<AlertDialogCancel>Cancel</AlertDialogCancel>
+									<AlertDialogAction>Continue</AlertDialogAction>
+								</AlertDialogFooter>
+							</AlertDialogContent>
+						</AlertDialog>
+					</div>
+				)}
+
 				<div>
 					<Button className='min-w-[180px]' type='submit' disabled={loading}>
-						{loading ? 'Loading...' : 'Update'}
+						<PiFloppyDiskBack size={24} className='mr-2' /> {loading ? 'Loading...' : 'Update'}
 					</Button>
 					<p className='text-zinc-500 text-sm mt-2'>
 						Some visual changes may require you to log out and log back in to take effect.
