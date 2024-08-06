@@ -1,8 +1,17 @@
 import { NavBar } from '@/components/admin/nav-bar';
 import { ProfileConfigFormFields } from '@/components/admin/user-profile/profile-config-formfields';
 import { ConfigureProfileForm } from './configure-profile-form';
+import { getUserById } from '@/actions/profile-config/get-user-by-id';
+import { auth } from '@/auth';
 
-export default function NamePage() {
+export default async function NamePage() {
+	const session = await auth();
+	const { ok, user } = await getUserById(session?.user.id!);
+
+	if (!ok) {
+		return <h1>Server error</h1>;
+	}
+
 	return (
 		<div>
 			<NavBar className='hidden md:flex mb-4' title='Profile config' subtitle='Update your profile' />
@@ -13,7 +22,7 @@ export default function NamePage() {
 
 			<div className='w-full flex justify-center'>
 				<div className='w-full max-w-[700px]'>
-					<ConfigureProfileForm />
+					<ConfigureProfileForm user={user!} />
 				</div>
 			</div>
 		</div>

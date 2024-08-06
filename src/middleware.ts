@@ -8,7 +8,7 @@ export default auth(req => {
 		'/admin/publish',
 		'/admin/your-posts',
 		'/admin/publish',
-		'/admin/profile',
+		'/admin/profile/config',
 		'/admin/article',
 	];
 

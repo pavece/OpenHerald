@@ -9,10 +9,11 @@ import { FormImagePreview } from '@/components/admin/publish/form-image-preview'
 type Props = {
 	form: any;
 	isGoogle?: boolean;
+	loading: boolean;
 	onSubmit: (params: any) => void;
 };
 
-export const ProfileConfigFormFields = ({ form, isGoogle, onSubmit }: Props) => {
+export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit }: Props) => {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
@@ -82,9 +83,14 @@ export const ProfileConfigFormFields = ({ form, isGoogle, onSubmit }: Props) => 
 					)}
 				></FormField>
 
-				<Button className='min-w-[180px]' type='submit'>
-					Update
-				</Button>
+				<div>
+					<Button className='min-w-[180px]' type='submit' disabled={loading}>
+						{loading ? 'Loading...' : 'Update'}
+					</Button>
+					<p className='text-zinc-500 text-sm mt-2'>
+						Some visual changes may require you to log out and log back in to take effect.
+					</p>
+				</div>
 			</form>
 		</Form>
 	);

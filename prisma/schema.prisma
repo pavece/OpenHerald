@@ -22,6 +22,7 @@ model User {
   roles         String[]  @default(["editor"])
   banned        Boolean   @default(false)
   Article       Article[]
+  description   String?
 }
 
 model Account {
