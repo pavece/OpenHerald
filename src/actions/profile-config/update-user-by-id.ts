@@ -21,7 +21,7 @@ export const updateUserById = async (id: string, fields: Fields, imageFormData?:
 			};
 		}
 
-		const updaterProps: any = { description: fields.description };
+		const updaterProps: any = { description: fields.description, name: fields.name };
 
 		if (!originalUserProps.user?.isGoogle) {
 			updaterProps.email = fields.email;

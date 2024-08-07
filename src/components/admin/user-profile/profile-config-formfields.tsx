@@ -25,10 +25,13 @@ type Props = {
 	isGoogle?: boolean;
 	loading: boolean;
 	admin?: boolean;
+	banned?: boolean;
+	userId?: string;
 	onSubmit: (params: any) => void;
+	onBan?: () => void;
 };
 
-export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, admin }: Props) => {
+export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, admin, banned, onBan }: Props) => {
 	const session = useSession();
 
 	return (
@@ -134,22 +137,24 @@ export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, adm
 						<AlertDialog>
 							<Button variant='destructive' className='mt-6 mb-8 min-w-[160px]' asChild>
 								<AlertDialogTrigger>
-									<PiGavel className='mr-2' size={24} /> Ban user
+									<PiGavel className='mr-2' size={24} /> {banned ? 'Unban' : 'Ban'} user
 								</AlertDialogTrigger>
 							</Button>
 							<AlertDialogContent>
 								<AlertDialogHeader>
 									<AlertDialogTitle>Are you sure?</AlertDialogTitle>
 									<AlertDialogDescription>
-										Banning a user will revoke all privileges they have. This action {"won't"} take immediate effect.
-										The user will still be able to view some data but {"won't"} be able to perform any relevant actions.
+										{banned
+											? 'Unbanning a user will restore all privileges. May require the user to log back in.'
+											: `Banning a user will revoke all privileges they have. This action won't take immediate effect.
+										The user will still be able to view some data but won't be able to perform any relevant actions.
 										Full user access will be revoked when the session expires or if the user tries to perform a relevant
-										action.
+										action.`}
 									</AlertDialogDescription>
 								</AlertDialogHeader>
 								<AlertDialogFooter>
 									<AlertDialogCancel>Cancel</AlertDialogCancel>
-									<AlertDialogAction>Continue</AlertDialogAction>
+									<AlertDialogAction onClick={onBan}>Continue</AlertDialogAction>
 								</AlertDialogFooter>
 							</AlertDialogContent>
 						</AlertDialog>

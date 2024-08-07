@@ -4,6 +4,7 @@ import { updateUserById } from '@/actions/profile-config/update-user-by-id';
 import { ProfileConfigFormFields } from '@/components/admin/user-profile/profile-config-formfields';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -29,6 +30,7 @@ type Props = {
 
 export const ConfigureProfileForm = ({ user }: Props) => {
 	const session = useSession();
+	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -56,6 +58,7 @@ export const ConfigureProfileForm = ({ user }: Props) => {
 
 		if (result.ok) {
 			setLoading(false);
+			router.refresh();
 		}
 	};
 
