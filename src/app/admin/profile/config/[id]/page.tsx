@@ -1,6 +1,6 @@
 import { getUserById } from '@/actions/profile-config/get-user-by-id';
 import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { ConfigureProfileForm } from './admin-configure-profile-form';
 import { NavBar } from '@/components/admin/nav-bar';
 
@@ -13,6 +13,10 @@ type Props = {
 export default async function AdminProfileEditPage({ params: { id } }: Props) {
 	const session = await auth();
 
+	if (!session?.user.roles.includes('admin')) {
+		redirect('/admin/dashboard');
+	}
+	
 	if (session?.user.id === id) {
 		redirect('/admin/users');
 	}
@@ -20,7 +24,7 @@ export default async function AdminProfileEditPage({ params: { id } }: Props) {
 	const { ok, message, user } = await getUserById(id);
 
 	if (!ok) {
-		return <h1>{message}</h1>;
+		return notFound();
 	}
 
 	return (

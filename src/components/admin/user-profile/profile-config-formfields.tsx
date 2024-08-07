@@ -129,13 +129,14 @@ export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, adm
 											<SelectItem value='editor'>Editor</SelectItem>
 										</SelectContent>
 									</Select>
+									<FormDescription>Role changes require the user to log out and back in.</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}
 						></FormField>
 
 						<AlertDialog>
-							<Button variant='destructive' className='mt-6 mb-8 min-w-[160px]' asChild>
+							<Button variant='destructive' className='mt-6 min-w-[160px]' asChild>
 								<AlertDialogTrigger>
 									<PiGavel className='mr-2' size={24} /> {banned ? 'Unban' : 'Ban'} user
 								</AlertDialogTrigger>
@@ -158,6 +159,8 @@ export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, adm
 								</AlertDialogFooter>
 							</AlertDialogContent>
 						</AlertDialog>
+
+						<hr className='mt-6' />
 					</div>
 				)}
 

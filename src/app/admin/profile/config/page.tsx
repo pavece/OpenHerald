@@ -1,15 +1,15 @@
 import { NavBar } from '@/components/admin/nav-bar';
-import { ProfileConfigFormFields } from '@/components/admin/user-profile/profile-config-formfields';
 import { ConfigureProfileForm } from './self-configure-profile-form';
 import { getUserById } from '@/actions/profile-config/get-user-by-id';
 import { auth } from '@/auth';
+import { notFound } from 'next/navigation';
 
 export default async function NamePage() {
 	const session = await auth();
 	const { ok, user } = await getUserById(session?.user.id!);
 
 	if (!ok) {
-		return <h1>Server error</h1>;
+		return notFound();
 	}
 
 	return (

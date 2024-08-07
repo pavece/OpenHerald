@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { PiWarning } from 'react-icons/pi';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 const formSchema = z.object({
@@ -59,7 +61,15 @@ export const ConfigureProfileForm = ({ user }: Props) => {
 		if (result.ok) {
 			setLoading(false);
 			router.refresh();
+			return;
 		}
+
+		toast('Error', {
+			description: `An error ocurred while trying to update the article, Error: ${result.message}`,
+			duration: 5000,
+			icon: <PiWarning size={24} />,
+			className: 'text-red-400 gap-4 border-red-400',
+		});
 	};
 
 	return <ProfileConfigFormFields form={form} onSubmit={onSubmit} isGoogle={user.isGoogle} loading={loading} />;
