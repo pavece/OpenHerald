@@ -1,6 +1,6 @@
 import { NavBar } from '@/components/admin/nav-bar';
 import { ProfileConfigFormFields } from '@/components/admin/user-profile/profile-config-formfields';
-import { ConfigureProfileForm } from './configure-profile-form';
+import { ConfigureProfileForm } from './self-configure-profile-form';
 import { getUserById } from '@/actions/profile-config/get-user-by-id';
 import { auth } from '@/auth';
 

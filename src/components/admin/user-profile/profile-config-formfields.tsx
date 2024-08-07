@@ -141,9 +141,9 @@ export const ProfileConfigFormFields = ({ form, isGoogle, loading, onSubmit, adm
 								<AlertDialogHeader>
 									<AlertDialogTitle>Are you sure?</AlertDialogTitle>
 									<AlertDialogDescription>
-										Banning a user will revoke all privileges they have. This action won't take immediate effect. The
-										user will still be able to view some data but won't be able to perform any relevant actions. Full
-										user access will be revoked when the session expires or if the user tries to perform a relevant
+										Banning a user will revoke all privileges they have. This action {"won't"} take immediate effect.
+										The user will still be able to view some data but {"won't"} be able to perform any relevant actions.
+										Full user access will be revoked when the session expires or if the user tries to perform a relevant
 										action.
 									</AlertDialogDescription>
 								</AlertDialogHeader>
