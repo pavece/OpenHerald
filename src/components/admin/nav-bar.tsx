@@ -35,7 +35,7 @@ export const NavBar = ({ className, title, subtitle }: Props) => {
 				<UserProfile
 					username={user?.name ?? 'John Doe'}
 					role={user?.roles![0] ?? 'Editor'}
-					avatar={user?.image ?? '/images/user-fallback.png'}
+					avatar={user?.image|| '/images/user-fallback.png'}
 				/>
 			</div>
 		</nav>

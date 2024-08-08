@@ -28,7 +28,7 @@ export const createUser = async (username: string, email: string, password: stri
 			};
 		}
 
-		const hashSaltPassword = bcrypt.hashSync(password);
+		const hashSaltPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
 		const user = await prisma.user.create({ data: { name: username, email, password: hashSaltPassword } });
 
