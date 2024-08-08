@@ -116,9 +116,9 @@ export const columns: ColumnDef<UserTableRow>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem>
-							<Link href={`/admin/profile/config/${userId}`}>Edit</Link>
-						</DropdownMenuItem>
+						<Link href={`/admin/profile/config/${userId}`}>
+							<DropdownMenuItem>Edit</DropdownMenuItem>
+						</Link>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);

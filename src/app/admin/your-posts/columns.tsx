@@ -112,12 +112,20 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 							<PiDotsThree size={28} />
 						</Button>
 					</DropdownMenuTrigger>
+
 					<DropdownMenuContent>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem>{visibleForUsers && <Link href={`/article/${articleSlug}`}>View</Link>}</DropdownMenuItem>
-						<DropdownMenuItem>
-							<Link href={`/admin/article/edit/${articleId}`}>Edit</Link>
-						</DropdownMenuItem>
+						<DropdownMenuContent>
+							<DropdownMenuLabel>Actions</DropdownMenuLabel>
+							{visibleForUsers && (
+								<Link href={`/article/${articleSlug}`}>
+									<DropdownMenuItem>View</DropdownMenuItem>
+								</Link>
+							)}
+							<Link href={`/admin/article/edit/${articleId}`}>
+								<DropdownMenuItem>Edit</DropdownMenuItem>
+							</Link>
+						</DropdownMenuContent>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);
