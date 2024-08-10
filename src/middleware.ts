@@ -2,7 +2,14 @@ import { auth } from '@/auth';
 
 export default auth(req => {
 	const superAdminUrls = ['/admin/site-config'];
-	const adminUrls = ['/admin/metrics', '/admin/accounts', '/admin/posts', '/admin/ad-manager', '/admin/banners'];
+	const adminUrls = [
+		'/admin/metrics',
+		'/admin/accounts',
+		'/admin/posts',
+		'/admin/ad-manager',
+		'/admin/banners',
+		'/admin/categories',
+	];
 	const publisherUrls = [
 		'/admin/dashboard',
 		'/admin/publish',

@@ -10,6 +10,7 @@ import {
 	PiHouse,
 	PiMegaphone,
 	PiNotePencil,
+	PiTag,
 	PiUsers,
 } from 'react-icons/pi';
 import { MenuItem } from './menu-item';
@@ -56,6 +57,12 @@ const options = [
 		title: 'Publish',
 		link: '/admin/publish',
 		role: 'all',
+	},
+	{
+		icon: <PiTag size={24} />,
+		title: 'Categories',
+		link: '/admin/categories',
+		role: 'admin',
 	},
 	{
 		icon: <PiHandCoins size={24} />,
