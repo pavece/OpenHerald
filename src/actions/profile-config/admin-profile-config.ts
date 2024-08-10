@@ -4,6 +4,7 @@ import prisma from '@/db/db';
 import { uploadImage } from '../images/upload-image';
 import { getUserById } from './get-user-by-id';
 import { auth } from '@/auth';
+import { checkUser } from '../auth/check-user';
 
 const roles = {
 	'super-admin': ['super-admin', 'admin', 'editor'],
@@ -30,10 +31,25 @@ export const adminProfileUpdate = async (id: string, fields: Fields, imageFormDa
 		}
 
 		const session = await auth();
+		const { ok: getUpdaterUserOk, user: updaterUser } = await checkUser(session?.user.id ?? '');
+
+		if (!getUpdaterUserOk) {
+			return {
+				ok: false,
+				message: 'Not allowed',
+			};
+		}
+
+		if (updaterUser?.banned || !updaterUser?.roles.includes('admin')) {
+			return {
+				ok: false,
+				message: 'Not allowed',
+			};
+		}
 
 		const updaterProps: any = { description: fields.description, name: fields.name };
 
-		if (!(!session?.user.roles.includes('super-admin') && fields.role === 'super-admin')) {
+		if (!(!updaterUser!.roles.includes('super-admin') && fields.role === 'super-admin')) {
 			updaterProps.roles = roles[fields.role];
 		}
 
