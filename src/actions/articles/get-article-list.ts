@@ -20,7 +20,6 @@ export const getArticleList = async (all: boolean = false) => {
 		if (all) {
 			articles = await prisma.article.findMany({
 				select: {
-					category: true,
 					createdAt: true,
 					creatorId: true,
 					id: true,
@@ -33,6 +32,7 @@ export const getArticleList = async (all: boolean = false) => {
 							name: true,
 						},
 					},
+					category: true,
 				},
 			});
 		} else {
@@ -41,7 +41,6 @@ export const getArticleList = async (all: boolean = false) => {
 					creatorId: session.user.id,
 				},
 				select: {
-					category: true,
 					createdAt: true,
 					creatorId: true,
 					id: true,
@@ -54,6 +53,7 @@ export const getArticleList = async (all: boolean = false) => {
 							name: true,
 						},
 					},
+					category: true,
 				},
 			});
 		}

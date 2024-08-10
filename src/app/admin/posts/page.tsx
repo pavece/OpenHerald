@@ -10,6 +10,8 @@ export default async function YourPostsPage() {
 		return;
 	}
 
+	const articles = result.articles!.map(({ category, ...rest }) => ({ ...rest, category: category.name }));
+
 	return (
 		<div>
 			<NavBar className='hidden md:flex mb-4' title='All articles' subtitle='View every article in the system' />
@@ -17,7 +19,7 @@ export default async function YourPostsPage() {
 				<h1 className='text-xl'>All articles</h1>
 				<p className='text-zinc-500'>View every article in the system</p>
 			</div>
-			<DataTable columns={columns} data={result.articles!} filterBy='title' />
+			<DataTable columns={columns} data={articles} filterBy='title' />
 		</div>
 	);
 }

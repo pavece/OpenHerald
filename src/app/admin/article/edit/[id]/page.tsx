@@ -1,4 +1,5 @@
 import { getArticle } from '@/actions/articles/get-article';
+import { getCategories } from '@/actions/categories/get-categories';
 import { auth } from '@/auth';
 import { NavBar } from '@/components/admin/nav-bar';
 import { UpdateArticleForm } from '@/components/admin/publish/update-article-form';
@@ -24,10 +25,11 @@ export default async function EditArticlePage({ params: { id } }: Props) {
 		redirect('/admin/dashboard');
 	}
 
-	const { verticalAds, priority, ...rest } = result.article!;
+	const { verticalAds, priority, category, ...rest } = result.article!;
 
 	const defaultValues = {
 		...rest,
+		category: category.id,
 		verticalAds: verticalAds.toString().toLowerCase() as 'none' | 'left' | 'right',
 		priority: priority.toString(),
 	};

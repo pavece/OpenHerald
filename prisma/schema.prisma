@@ -64,6 +64,14 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
+//Categories
+model Category {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  Article     Article[]
+}
+
 //Articles
 enum ArticleVerticalAds {
   NONE
@@ -78,7 +86,6 @@ model Article {
   description     String
   thumbnail       String
   priority        Int
-  category        String
   readingTime     Int
   content         String
   showAds         Boolean            @default(true)
@@ -88,6 +95,9 @@ model Article {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
 
   creatorId String
   creator   User   @relation(fields: [creatorId], references: [id])

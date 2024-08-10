@@ -8,7 +8,7 @@ import { generateArticleSlug } from './generate-slug';
 
 export const createArticle = async (article: IArticle, imageFormData: FormData) => {
 	const session = await auth();
-	const { verticalAds, thumbnail, ...rest } = article;
+	const { verticalAds, thumbnail, category, ...rest } = article;
 	const verticalAdsOption = verticalAds.toString().toUpperCase() as 'NONE' | 'LEFT' | 'RIGHT';
 
 	try {
@@ -36,8 +36,9 @@ export const createArticle = async (article: IArticle, imageFormData: FormData) 
 		const result = await prisma.article.create({
 			data: {
 				slug,
+				categoryId: category,
+				creatorId: creator!.id,
 				verticalAds: verticalAdsOption,
-				creator: { connect: { id: creator?.id } },
 				thumbnail: thumbnailUrl,
 				...rest,
 			},

@@ -11,6 +11,7 @@ import { PiWarning } from 'react-icons/pi';
 import { signOut } from 'next-auth/react';
 import { updateArticle } from '@/actions/articles/update-article';
 import { CreateUpdateFormFields } from './create-update-form-fields';
+import { Category } from '@prisma/client';
 
 const formSchema = z.object({
 	title: z

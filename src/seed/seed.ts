@@ -1,13 +1,19 @@
 import prisma from '../db/db';
 import { seedArticles } from './data/articles';
+import { seedCategories } from './data/categories';
 import { seedUsers } from './data/users';
 
 async function seedDatabase() {
 	try {
-		//Purge database
+		//Clear database
 		await prisma.article.deleteMany();
 		await prisma.user.deleteMany();
+		await prisma.category.deleteMany();
 		await prisma.registerAuthorization.deleteMany();
+		await prisma.account.deleteMany();
+
+		//Insert categories
+		await prisma.category.createMany({ data: seedCategories });
 
 		//Insert users
 		await prisma.user.createMany({ data: seedUsers });

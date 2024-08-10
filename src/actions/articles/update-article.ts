@@ -34,10 +34,15 @@ export const updateArticle = async (articleId: string, article: Partial<IArticle
 			};
 		}
 
-		const { thumbnail: _, verticalAds, ...rest } = article;
+		const { thumbnail: _, verticalAds, category, ...rest } = article;
 
 		const verticalAdsOption = verticalAds?.toString().toUpperCase() as 'NONE' | 'LEFT' | 'RIGHT';
-		const updateProps = { verticalAds: verticalAdsOption, thumbnail: articleFromDb?.thumbnail, ...rest };
+		const updateProps = {
+			verticalAds: verticalAdsOption,
+			thumbnail: articleFromDb?.thumbnail,
+			categoryId: category,
+			...rest,
+		};
 
 		if (thumbnailFormData) {
 			const image = thumbnailFormData.get('image') as File;

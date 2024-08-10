@@ -4,7 +4,7 @@ import prisma from '@/db/db';
 
 export const getArticle = async (id: string) => {
 	try {
-		const result = await prisma.article.findUnique({ where: { id } });
+		const result = await prisma.article.findUnique({ where: { id }, include: { category: true } });
 		if (!result) {
 			return { ok: false, notFound: true };
 		}

@@ -13,6 +13,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { MdxEditorComponent } from './mdx-editor-component';
 import { FormImagePreview } from './form-image-preview';
 import { PiFloppyDiskBack, PiWarningOctagon } from 'react-icons/pi';
+import { Category } from '@prisma/client';
+import { getCategories } from '@/actions/categories/get-categories';
 
 type Props = {
 	form: any;
@@ -22,6 +24,20 @@ type Props = {
 };
 
 export const CreateUpdateFormFields = ({ form, isUploading, update = false, submitForm }: Props) => {
+	const [categories, setCategories] = useState<Category[] | null>(null);
+
+	useEffect(() => {
+		const fetchCategories = async () => {
+			const { ok, categories } = await getCategories();
+
+			if (ok) {
+				setCategories(categories!);
+			}
+		};
+
+		fetchCategories();
+	}, []);
+
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(submitForm)}>
@@ -119,8 +135,12 @@ export const CreateUpdateFormFields = ({ form, isUploading, update = false, subm
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value='politics'>Politics</SelectItem>
-											<SelectItem value='technology'>Technology</SelectItem>
+											{categories &&
+												categories.map(c => (
+													<SelectItem value={c.id} key={c.id}>
+														{c.name}
+													</SelectItem>
+												))}
 										</SelectContent>
 									</Select>
 									<FormMessage />

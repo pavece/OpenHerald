@@ -6,7 +6,7 @@ export const getArticleBySlug = async (slug: string) => {
 	try {
 		const article = await prisma.article.findFirst({
 			where: { slug },
-			include: { creator: { select: { name: true } } },
+			include: { creator: { select: { name: true } }, category: true },
 		});
 
 		if (!article) {
