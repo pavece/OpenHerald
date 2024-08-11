@@ -2,14 +2,18 @@ import Link from 'next/link';
 import { ArticleCard } from './article-card';
 import { FeaturedArticleCard } from './featured-article-card';
 import { PiDotsThree } from 'react-icons/pi';
+import { IMainPageArticle } from '@/actions/articles/get-articles-mainpage';
 
 type Props = {
 	sectionTitle: string;
 	moreLink?: string;
 	hasFeatured?: boolean;
+	articles: IMainPageArticle[];
 };
 
-export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink }: Props) => {
+export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink, articles }: Props) => {
+	const featuredArticle = articles[0];
+
 	return (
 		<section className='mt-10'>
 			<hr className='mb-8' />
@@ -25,47 +29,35 @@ export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink }: Props) 
 				{hasFeatured && (
 					<div className='md:col-span-2 md:row-span-2'>
 						<FeaturedArticleCard
-							author='John Doe'
-							date={new Date().toISOString()}
-							slug='some-post-title'
-							title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
-							readingTime={10}
-							thumbnail='/images/dev/test-image-2.jpg'
-							thumbnailAlt='Thumbnail'
+							author={featuredArticle.creator.name ?? ''}
+							date={featuredArticle.createdAt.toISOString()}
+							slug={featuredArticle.slug}
+							title={featuredArticle.title}
+							readingTime={featuredArticle.readingTime}
+							thumbnail={featuredArticle.thumbnail}
+							thumbnailAlt={featuredArticle.title + ' thumbnail'}
 						/>
 					</div>
 				)}
 
-				<ArticleCard
-					author='John Doe'
-					date={new Date().toISOString()}
-					slug='some-post-title'
-					title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
-					thumbnailUrl='/images/dev/test-image-1.jpg'
-					thumbnailAlt='Thumbnail'
-					category='Technology'
-					header={hasFeatured}
-				/>
-
-				<ArticleCard
-					author='John Doe'
-					date={new Date().toISOString()}
-					slug='some-post-title'
-					title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
-					thumbnailUrl='/images/dev/test-image-1.jpg'
-					thumbnailAlt='Thumbnail'
-					category='Technology'
-					header={hasFeatured}
-				/>
-				<ArticleCard
-					author='John Doe'
-					date={new Date().toISOString()}
-					slug='some-post-title'
-					title='Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam, obcaecati.'
-					thumbnailUrl='/images/dev/test-image-1.jpg'
-					thumbnailAlt='Thumbnail'
-					category='Technology'
-				/>
+				{articles.map((article, i) => {
+					if (hasFeatured && i === 0) {
+						return;
+					}
+					return (
+						<ArticleCard
+							key={article.slug}
+							author={article.creator.name ?? ''}
+							date={article.createdAt.toISOString()}
+							slug={article.slug}
+							title={article.title}
+							thumbnailUrl={article.thumbnail}
+							thumbnailAlt={article.title + ' thumbnail'}
+							category={article.category?.name ?? ''}
+							header={hasFeatured && i < 3}
+						/>
+					);
+				})}
 			</div>
 		</section>
 	);
