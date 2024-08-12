@@ -15,10 +15,21 @@ export default async function Home() {
 				featuredArticle={result.articles!.coverArticles.featured!}
 				normalArticles={result.articles!.coverArticles.normal}
 			/>
-			<ArticlesSection sectionTitle='Latest news' articles={result.articles!.latestArticles} />
+			<ArticlesSection
+				sectionTitle='Latest news'
+				articles={result.articles!.latestArticles}
+				moreLink='/articles/latest-articles'
+			/>
 
 			{result.articles?.categoryArticles.map(category => {
-				return <ArticlesSection sectionTitle={category.name} key={category.name} articles={category.Article} />;
+				return (
+					<ArticlesSection
+						sectionTitle={category.name}
+						key={category.name}
+						articles={category.Article}
+						moreLink={`/articles/${category.name}`}
+					/>
+				);
 			})}
 		</div>
 	);
