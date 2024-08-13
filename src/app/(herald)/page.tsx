@@ -1,3 +1,5 @@
+export const revalidate = 1800;
+
 import { getArticlesMainPage } from '@/actions/articles/get-articles-mainpage';
 import { ArticlesSection } from '@/components/main-page/articles-section';
 import { TopArticlesSection } from '@/components/main-page/top-articles';

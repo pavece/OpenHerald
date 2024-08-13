@@ -1,3 +1,5 @@
+export const revalidate = 1800;
+
 import { getLatestArticles } from '@/actions/articles/get-latest-articles';
 import { ArticleListItem } from '@/components/article-list/article-list-item';
 
