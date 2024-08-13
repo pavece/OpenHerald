@@ -18,13 +18,25 @@ import {
 	imagePlugin,
 } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
+import { PiWarning } from 'react-icons/pi';
+import { toast } from 'sonner';
 
 const imageUploadHandler = async (image: File) => {
-	const imageFormData = new FormData();
-	imageFormData.append('image', image);
+	try {
+		const imageFormData = new FormData();
+		imageFormData.append('image', image);
 
-	const result = await uploadImageFromClient(imageFormData);
-	return result;
+		const result = await uploadImageFromClient(imageFormData);
+		return result;
+	} catch (error) {
+		toast('Error', {
+			description: 'An error ocurred while trying to upload this image.',
+			duration: 5000,
+			icon: <PiWarning size={24} />,
+			className: 'text-red-400 gap-4 border-red-400',
+		});
+		return '';
+	}
 };
 
 export const MdxEditorComponent = ({ markdown, ...props }: any) => {
