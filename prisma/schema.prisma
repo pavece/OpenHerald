@@ -73,7 +73,7 @@ model Category {
 }
 
 //Ads
-model Advertisment {
+model Advertisement {
   id             String  @id @default(uuid())
   title          String?
   destinationUrl String

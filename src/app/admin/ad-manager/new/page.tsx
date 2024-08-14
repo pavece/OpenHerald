@@ -12,15 +12,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { FormImagePreview } from '@/components/admin/publish/form-image-preview';
 import { VerticalAD } from '@/components/ads/vertical-ad';
 import { HorizontalAd } from '@/components/ads/horizontal-ad';
+import { createAd } from '@/actions/ads/create-ad';
+import { useRouter } from 'next/navigation';
+import { PiWarning } from 'react-icons/pi';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
 	title: z.string().optional(),
 	destinationUrl: z.string().url(),
-	image: z.any().refine(files => !(!files || files[0] instanceof File), 'Ad image is required'),
+	image: z.any().refine(files => !!files, 'Ad image is required'),
 	type: z.string(),
 });
 
 export default function CreateAdPage() {
+	const router = useRouter();
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -31,8 +36,24 @@ export default function CreateAdPage() {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		const { image, ...rest } = values;
+		const imageFormData = new FormData();
+		imageFormData.append('image', image[0]);
+
+		const result = await createAd(rest, imageFormData);
+
+		console.log(result);
+
+		if (result.ok) {
+			return router.replace('/admin/ad-manager');
+		}
+
+		toast('Error', {
+			description: 'An error ocurred while trying to create the AD',
+			icon: <PiWarning size={24} />,
+			className: 'text-red-400 gap-4 border-red-400',
+		});
 	}
 
 	return (
