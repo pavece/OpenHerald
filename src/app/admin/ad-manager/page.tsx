@@ -1,7 +1,23 @@
-export default function AdManager() {
+import { columns } from './columns';
+import { NavBar } from '@/components/admin/nav-bar';
+import { AdsDataTable } from '@/components/admin/ads/ads-datatable';
+import { getAdList } from '@/actions/ads/get-ad-list';
+
+export default async function AdManagerPage() {
+	const result = await getAdList();
+
+	if (!result.ok) {
+		return;
+	}
+
 	return (
 		<div>
-			<h1>Hello Page</h1>
+			<NavBar className='hidden md:flex mb-4' title='AD manager' subtitle='Manage every AD in the system.' />
+			<div className='md:hidden'>
+				<h1 className='text-xl'>AD manager</h1>
+				<p className='text-zinc-500'>Manage every AD in the system.</p>
+			</div>
+			<AdsDataTable columns={columns} data={result.ads!} filterBy='title' />
 		</div>
 	);
 }
