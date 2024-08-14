@@ -72,6 +72,15 @@ model Category {
   Article     Article[]
 }
 
+//Ads
+model Advertisment {
+  id             String  @id @default(uuid())
+  title          String?
+  destinationUrl String
+  mediaLink      String
+  vertical       Boolean @default(false)
+}
+
 //Articles
 enum ArticleVerticalAds {
   NONE

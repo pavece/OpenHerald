@@ -11,6 +11,7 @@ type Props = {
 	className?: string;
 	side?: 'left' | 'right';
 	description?: string;
+	relative?: boolean;
 };
 
 /**
@@ -18,11 +19,15 @@ type Props = {
  *
  * 	@param description Will be cropped to 50 characters
  *  */
-export const VerticalAD = ({ className, side, description, link, src }: Props) => {
+export const VerticalAD = ({ className, side, description, link, src, relative = false }: Props) => {
 	return (
-		<div className={clsx('absolute top-44', { 'left-5': side !== 'right', 'right-5': side === 'right' })}>
+		<div
+			className={clsx('', { 'left-5': side !== 'right', 'right-5': side === 'right', 'absolute top-44': !relative })}
+		>
 			<div
-				className={`h-[500px] w-[250px] hidden 2xl:block bg-cover bg-center bg-no-repeat rounded-md  ${className}`}
+				className={`h-[500px] w-[250px] ${
+					!relative && 'hidden 2xl:block'
+				}  bg-cover bg-center bg-no-repeat rounded-md  ${className}`}
 				style={{ backgroundImage: `url('${src}')` }}
 			>
 				<div className='w-full h-full rounded-md bg-gradient-to-b from-slate-900/5 to-slate-900/80 flex items-bottom relative'>

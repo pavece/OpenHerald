@@ -9,6 +9,7 @@ export default auth(req => {
 		'/admin/ad-manager',
 		'/admin/banners',
 		'/admin/categories',
+		'/admin/ad-manager/new',
 	];
 	const publisherUrls = [
 		'/admin/dashboard',
