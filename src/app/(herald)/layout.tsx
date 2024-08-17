@@ -4,6 +4,7 @@ import '../globals.css';
 import { NavBar } from '@/components/ui/layout/nav-bar';
 import { Footer } from '@/components/ui/layout/footer';
 import { Banner } from '@/components/banners/banner';
+import { getLatestBanner } from '@/actions/banners/get-latest-banner';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -16,16 +17,27 @@ export const metadata: Metadata = {
 	title: 'OpenHerald',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const { banner } = await getLatestBanner();
+
 	return (
 		<html lang='en'>
 			<body className={poppins.className + ' text-zinc-800 min-h-screen flex flex-col justify-between'}>
 				<div>
-					<Banner id='101010' text='Some important banner with some important info' bgColor='#179BAE' showIcon />
+					{banner && (
+						<Banner
+							id={banner.id}
+							text={banner.text}
+							bgColor={banner.bgColor}
+							showIcon={banner.showIcon}
+							textColor={banner.textColor}
+						/>
+					)}
+
 					<NavBar />
 					<main className=''>
 						<div className='flex justify-center mt-6'>
