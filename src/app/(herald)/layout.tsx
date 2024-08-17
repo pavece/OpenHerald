@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import '../globals.css';
 import { NavBar } from '@/components/ui/layout/nav-bar';
 import { Footer } from '@/components/ui/layout/footer';
+import { Banner } from '@/components/banners/banner';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={poppins.className + ' text-zinc-800 min-h-screen flex flex-col justify-between'}>
 				<div>
+					<Banner id='101010' text='Some important banner with some important info' bgColor='#179BAE' showIcon />
 					<NavBar />
 					<main className=''>
 						<div className='flex justify-center mt-6'>
