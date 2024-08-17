@@ -81,6 +81,17 @@ model Advertisement {
   vertical       Boolean @default(false)
 }
 
+//Banners
+model Banner {
+  id        String   @id @default(uuid())
+  text      String
+  bgColor   String
+  textColor String
+  showIcon  Boolean
+  isActive  Boolean
+  createdAt DateTime @default(now())
+}
+
 //Articles
 enum ArticleVerticalAds {
   NONE

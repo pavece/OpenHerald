@@ -14,7 +14,7 @@ export default async function CategoriesPage() {
 
 	return (
 		<div>
-			<NavBar className='hidden md:flex mb-4' title='All articles' subtitle='View every article in the system' />
+			<NavBar className='hidden md:flex mb-4' title='Categories' subtitle='View and add categories.' />
 			<div className='md:hidden'>
 				<h1 className='text-xl'>Categories</h1>
 				<p className='text-zinc-500'>View and add categories.</p>
