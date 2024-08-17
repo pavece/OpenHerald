@@ -1,6 +1,7 @@
 'use client';
 import { ColumnDef } from '@tanstack/react-table';
 import clsx from 'clsx';
+import { BannerRowActions } from './banner-row-actions';
 
 interface BannerTableColumn {
 	id: string;
@@ -64,6 +65,16 @@ export const columns: ColumnDef<BannerTableColumn>[] = [
 					{isActive ? 'Yes' : 'No'}
 				</p>
 			);
+		},
+	},
+
+	{
+		id: 'actions',
+		cell: ({ row }) => {
+			const bannerId = row.getValue('id') as string;
+			const isActive = row.getValue('isActive') as boolean;
+
+			return <BannerRowActions bannerId={bannerId} isActive={isActive} />;
 		},
 	},
 ];

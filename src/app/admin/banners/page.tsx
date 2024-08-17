@@ -10,7 +10,7 @@ export default async function CategoriesPage() {
 		return <h1>Server error</h1>;
 	}
 
-	const banners = result.banners;
+	const banners = result.banners?.toSorted(b => (!b.isActive ? 1 : -1));
 
 	return (
 		<div>
