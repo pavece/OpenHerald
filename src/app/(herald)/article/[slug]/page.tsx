@@ -47,6 +47,7 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 	return (
 		<div className=''>
 			<ArticleHeader
+				slug={slug}
 				author={creator.name!}
 				date={createdAt.toISOString()}
 				title={title}

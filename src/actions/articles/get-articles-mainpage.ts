@@ -81,8 +81,6 @@ export const getArticlesMainPage = async () => {
 			},
 		});
 
-		console.log(coverArticleList);
-
 		latestArticles.forEach(article => seenArticles.push(article.slug));
 
 		//Category articles

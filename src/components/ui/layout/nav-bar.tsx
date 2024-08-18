@@ -25,9 +25,11 @@ export const NavBar = () => {
 			</div>
 			<div className='flex gap-3 items-center justify-center'>
 				<ArticleSearch />
-				<Button className='bg-zinc-800'>
-					<PiBookmarkSimple size={24} className='md:mr-2' /> <span className='hidden md:block'>Saved articles</span>
-				</Button>
+				<Link href='/saved-articles'>
+					<Button className='bg-zinc-800'>
+						<PiBookmarkSimple size={24} className='md:mr-2' /> <span className='hidden md:block'>Saved articles</span>
+					</Button>
+				</Link>
 			</div>
 		</div>
 	);

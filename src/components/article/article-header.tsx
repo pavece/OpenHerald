@@ -1,8 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { ImageContainer } from '../ui/image-container';
-import { PiBookmarkSimple, PiCalendar, PiClock, PiUser, PiXLogo } from 'react-icons/pi';
+import { PiBookmarkSimple, PiBookmarkSimpleFill, PiCalendar, PiClock, PiUser, PiXLogo } from 'react-icons/pi';
 import { Badge } from '../ui/badge';
 import { format, parseISO } from 'date-fns';
+import { useSavedArticlesStore } from '@/stores/saved-articles-store';
+import clsx from 'clsx';
 
 type Props = {
 	title: string;
@@ -12,9 +16,23 @@ type Props = {
 	author: string;
 	readingTime: number;
 	description: string;
+	slug: string;
 };
 
-export const ArticleHeader = ({ title, thumbnail, thumbnailAlt, date, author, readingTime, description }: Props) => {
+export const ArticleHeader = ({
+	title,
+	thumbnail,
+	thumbnailAlt,
+	date,
+	author,
+	readingTime,
+	description,
+	slug,
+}: Props) => {
+	const saveArticle = useSavedArticlesStore(state => state.addSavedArticle);
+	const removeArticle = useSavedArticlesStore(state => state.removeSavedArticle);
+	const isSaved = !!useSavedArticlesStore(state => state.savedArticles).find(article => article.slug === slug);
+
 	return (
 		<div className=''>
 			<ImageContainer url={thumbnail} alt={thumbnailAlt} className='h-[180px] md:h-[300px] w-full' />
@@ -39,8 +57,20 @@ export const ArticleHeader = ({ title, thumbnail, thumbnailAlt, date, author, re
 							<PiXLogo size={24} />
 						</Badge>
 					</Link>
-					<Badge variant='outline' className='text-xs md:text-sm font-normal py-1 text-zinc-700 cursor-pointer'>
-						<PiBookmarkSimple size={24} className='' />
+					<Badge
+						variant='outline'
+						className={clsx('text-xs md:text-sm font-normal py-1  cursor-pointer', {
+							'text-zinc-700': !isSaved,
+							'text-white bg-zinc-700': isSaved,
+						})}
+						onClick={() => {
+							if (isSaved) {
+								return removeArticle(slug);
+							}
+							saveArticle({ title, thumbnail, date, author, slug });
+						}}
+					>
+						{!isSaved ? <PiBookmarkSimple size={24} /> : <PiBookmarkSimpleFill size={24} />}
 					</Badge>
 				</div>
 			</div>
