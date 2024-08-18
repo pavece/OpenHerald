@@ -1,6 +1,7 @@
 import prisma from '../db/db';
 import { seedAds } from './data/ads';
 import { seedArticles } from './data/articles';
+import { seedBanners } from './data/banners';
 import { seedCategories } from './data/categories';
 import { seedUsers } from './data/users';
 
@@ -13,6 +14,7 @@ async function seedDatabase() {
 		await prisma.registerAuthorization.deleteMany();
 		await prisma.account.deleteMany();
 		await prisma.advertisement.deleteMany();
+		await prisma.banner.deleteMany();
 
 		//Insert categories
 		await prisma.category.createMany({ data: seedCategories });
@@ -25,6 +27,9 @@ async function seedDatabase() {
 
 		//Insert ads
 		await prisma.advertisement.createMany({ data: seedAds });
+
+		//Insert banners
+		await prisma.banner.createMany({ data: seedBanners });
 
 		console.log('Seed executed successfully!');
 	} catch (error) {

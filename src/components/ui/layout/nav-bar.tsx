@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import Link from "next/link"
+import Link from 'next/link';
 import { Button } from '../button';
 import { PiBookmarkSimple, PiMagnifyingGlass } from 'react-icons/pi';
 import { CategoryList, CategoryListItem } from './category-list';
-
-
+import { ArticleSearch } from '@/components/main-page/article-search';
 
 export const NavBar = () => {
 	const categories: CategoryListItem[] = [
@@ -17,7 +16,7 @@ export const NavBar = () => {
 	return (
 		<div className='px-4 py-3 md:px-6 md:py-5 flex justify-between items-center'>
 			<div>
-				<Link href="/">
+				<Link href='/'>
 					<Image src={'/images/logo.svg'} alt='Open herald logo' width={600} height={250} className='w-[205px]' />
 				</Link>
 			</div>
@@ -25,9 +24,7 @@ export const NavBar = () => {
 				<CategoryList categories={categories} />
 			</div>
 			<div className='flex gap-3 items-center justify-center'>
-				<Button variant='outline'>
-					<PiMagnifyingGlass size={24} className='md:mr-2' /> <span className='hidden md:block'>Search</span>
-				</Button>
+				<ArticleSearch />
 				<Button className='bg-zinc-800'>
 					<PiBookmarkSimple size={24} className='md:mr-2' /> <span className='hidden md:block'>Saved articles</span>
 				</Button>
