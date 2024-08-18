@@ -21,6 +21,7 @@ export const TopArticlesSection = ({ featuredArticle, normalArticles }: Props) =
 						readingTime={featuredArticle.readingTime}
 						thumbnail={featuredArticle.thumbnail}
 						thumbnailAlt={featuredArticle.title + ' thumbnail'}
+						showFeaturedLabel
 					/>
 				</div>
 				<div className='md:col-span-2 lg:col-span-1 flex flex-col md:flex-row lg:flex-col w-full gap-4 mt-4 lg:mt-0'>

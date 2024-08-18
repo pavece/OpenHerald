@@ -7,12 +7,17 @@ import { IMainPageArticle } from '@/actions/articles/get-articles-mainpage';
 type Props = {
 	sectionTitle: string;
 	moreLink?: string;
-	hasFeatured?: boolean;
 	articles: IMainPageArticle[];
 };
 
-export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink, articles }: Props) => {
-	const featuredArticle = articles[0];
+export const ArticlesSection = ({ sectionTitle, moreLink, articles }: Props) => {
+	let featuredArticle = null;
+
+	if (sectionTitle !== 'Latest news') {
+		featuredArticle = articles.filter(article => article.priority === 1)[0];
+	}
+
+	articles = articles.filter(article => article.slug !== featuredArticle?.slug);
 
 	return (
 		<section className='mt-10'>
@@ -26,8 +31,8 @@ export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink, articles 
 				</Link>
 			</div>
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-				{hasFeatured && (
-					<div className='md:col-span-2 md:row-span-2'>
+				{featuredArticle && (
+					<div className='md:col-span-2 md:row-span-2 pt-2'>
 						<FeaturedArticleCard
 							author={featuredArticle.creator.name ?? ''}
 							date={featuredArticle.createdAt.toISOString()}
@@ -36,14 +41,12 @@ export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink, articles 
 							readingTime={featuredArticle.readingTime}
 							thumbnail={featuredArticle.thumbnail}
 							thumbnailAlt={featuredArticle.title + ' thumbnail'}
+							showFeaturedLabel={false}
 						/>
 					</div>
 				)}
 
 				{articles.map((article, i) => {
-					if (hasFeatured && i === 0) {
-						return;
-					}
 					return (
 						<ArticleCard
 							key={article.slug}
@@ -54,7 +57,7 @@ export const ArticlesSection = ({ hasFeatured, sectionTitle, moreLink, articles 
 							thumbnailUrl={article.thumbnail}
 							thumbnailAlt={article.title + ' thumbnail'}
 							category={article.category?.name ?? ''}
-							header={hasFeatured && i < 3}
+							header={!!featuredArticle && i < 3}
 						/>
 					);
 				})}

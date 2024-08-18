@@ -12,12 +12,22 @@ type Props = {
 	thumbnail: string;
 	slug: string;
 	thumbnailAlt: string;
+	showFeaturedLabel: boolean;
 };
 
-export const FeaturedArticleCard = ({ author, date, readingTime, title, thumbnail, slug, thumbnailAlt }: Props) => {
+export const FeaturedArticleCard = ({
+	author,
+	date,
+	readingTime,
+	title,
+	thumbnail,
+	slug,
+	thumbnailAlt,
+	showFeaturedLabel,
+}: Props) => {
 	return (
 		<article className='min-w-full'>
-			<h4 className='text-md text-zinc-500 tracking-wide mb-2'>Featured Article</h4>
+			{showFeaturedLabel && <h4 className='text-md text-zinc-500 tracking-wide mb-2'>Featured Article</h4>}
 			<Link href={`/article/${slug}`}>
 				<ImageContainer url={thumbnail} alt={thumbnailAlt} className='h-[250px] md:h-[350px] w-full' />
 			</Link>

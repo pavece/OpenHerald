@@ -42,7 +42,7 @@ export const getArticlesMainPage = async () => {
 				readingTime: true,
 				thumbnail: true,
 			},
-			take: 10,
+			take: 6,
 		});
 
 		const featuredCoverArticle = coverArticleList.find(a => a.priority === 1) ?? coverArticleList.shift();
@@ -80,6 +80,10 @@ export const getArticlesMainPage = async () => {
 				thumbnail: true,
 			},
 		});
+
+		console.log(coverArticleList);
+
+		latestArticles.forEach(article => seenArticles.push(article.slug));
 
 		//Category articles
 		const categoryArticles = await prisma.category.findMany({
