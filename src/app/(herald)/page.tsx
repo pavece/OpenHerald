@@ -1,6 +1,7 @@
 export const revalidate = 1800;
 
 import { getArticlesMainPage } from '@/actions/articles/get-articles-mainpage';
+import { addView } from '@/actions/metrics/add-view';
 import { ArticlesSection } from '@/components/main-page/articles-section';
 import { TopArticlesSection } from '@/components/main-page/top-articles';
 
@@ -10,6 +11,8 @@ export default async function Home() {
 	if (!result.ok) {
 		return <h1>{result.message}</h1>;
 	}
+
+	await addView('mainPage', 'page');
 
 	return (
 		<div>
