@@ -1,5 +1,6 @@
 export const revalidate = 1800;
 
+import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getLatestArticles } from '@/actions/articles/get-latest-articles';
 import { ArticleListItem } from '@/components/article-list/article-list-item';
 
@@ -9,6 +10,8 @@ export default async function LatestArticlesPage() {
 	if (!result.ok) {
 		return <h1>{result.message}</h1>;
 	}
+
+	await addAnalyticsView('latest', 'categoryPage');
 
 	return (
 		<div>

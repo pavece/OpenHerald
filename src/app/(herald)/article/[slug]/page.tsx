@@ -1,4 +1,5 @@
 import { getArticleAds } from '@/actions/ads/get-article-ads';
+import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getArticleBySlug } from '@/actions/articles/get-article-by-slug';
 import { HorizontalAd } from '@/components/ads/horizontal-ad';
 import { VerticalAD } from '@/components/ads/vertical-ad';
@@ -44,6 +45,8 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 
 	const { creator, createdAt, content, title, thumbnail, description, readingTime } = article!;
 
+	await addAnalyticsView(slug, 'article');
+
 	return (
 		<div className=''>
 			<ArticleHeader
@@ -61,6 +64,7 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 
 			{horizontalAd && (
 				<HorizontalAd
+					id={horizontalAd.id}
 					link={horizontalAd.destinationUrl}
 					src={horizontalAd.mediaLink}
 					description={horizontalAd.title ?? ''}
@@ -69,6 +73,7 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 
 			{verticalAd && (
 				<VerticalAD
+					id={verticalAd.id}
 					description={verticalAd.title ?? ''}
 					link={verticalAd.destinationUrl}
 					side={article.verticalAds.toString().toLowerCase() as 'left' | 'right'}

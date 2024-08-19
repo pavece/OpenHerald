@@ -4,6 +4,7 @@ import { getArticlesByCategory } from '@/actions/articles/get-articles-by-catego
 import { ArticleListItem } from '@/components/article-list/article-list-item';
 import { notFound } from 'next/navigation';
 import { CategoryPagination } from './category-pagination';
+import { addAnalyticsView } from '@/actions/analytics/add-view';
 
 type Props = {
 	params: {
@@ -27,6 +28,8 @@ export default async function CategoryPage({ params: { category }, searchParams 
 	if (result.articles === null || !result.articles?.Article.length) {
 		return notFound();
 	}
+
+	addAnalyticsView(category, 'categoryPage');
 
 	return (
 		<div>

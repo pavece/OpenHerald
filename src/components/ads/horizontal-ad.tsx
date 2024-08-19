@@ -1,3 +1,4 @@
+import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { cropText } from '@/lib/utils';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -7,13 +8,16 @@ type Props = {
 	src: string;
 	link: string;
 	description?: string;
+	id: string;
 };
 
 /**
  * 	Horizontal ads will show anywhere, it's recommended to use these ads at the bottom of posts (not between paragraphs as it is intrusive)
  * 	@param description Will be cropped to 50 characters
  *  */
-export const HorizontalAd = ({ description, link, src }: Props) => {
+export const HorizontalAd = async ({ description, link, src, id }: Props) => {
+	await addAnalyticsView(id, 'ads');
+
 	return (
 		<div
 			className='w-full h-[180px] md:h-[250px] rounded-md my-4 bg-center bg-cover bg-no-repeat'

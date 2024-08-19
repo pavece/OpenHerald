@@ -1,7 +1,7 @@
 export const revalidate = 1800;
 
+import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getArticlesMainPage } from '@/actions/articles/get-articles-mainpage';
-import { addView } from '@/actions/metrics/add-view';
 import { ArticlesSection } from '@/components/main-page/articles-section';
 import { TopArticlesSection } from '@/components/main-page/top-articles';
 
@@ -12,7 +12,7 @@ export default async function Home() {
 		return <h1>{result.message}</h1>;
 	}
 
-	await addView('mainPage', 'page');
+	await addAnalyticsView('mainPage', 'page');
 
 	return (
 		<div>

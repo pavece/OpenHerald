@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { PiInfo, PiLink } from 'react-icons/pi';
 import clsx from 'clsx';
 import { cropText } from '@/lib/utils';
+import { addAnalyticsView } from '@/actions/analytics/add-view';
 
 type Props = {
 	link: string;
@@ -12,6 +13,7 @@ type Props = {
 	side?: 'left' | 'right';
 	description?: string;
 	relative?: boolean;
+	id: string;
 };
 
 /**
@@ -19,7 +21,8 @@ type Props = {
  *
  * 	@param description Will be cropped to 50 characters
  *  */
-export const VerticalAD = ({ className, side, description, link, src, relative = false }: Props) => {
+export const VerticalAD = async ({ className, side, description, link, src, relative = false, id }: Props) => {
+	await addAnalyticsView(id, 'ads');
 	return (
 		<div
 			className={clsx('', { 'left-5': side !== 'right', 'right-5': side === 'right', 'absolute top-44': !relative })}

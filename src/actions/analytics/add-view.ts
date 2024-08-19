@@ -5,12 +5,12 @@ import { format } from 'date-fns';
 
 /**
  *  Used for storing view analytics for any resource.
- * 
+ *
  *  @param id Determines the ID from the resource the user is visiting ie: article ID | ad ID.
  *  @param type Determines the type of resource the user is visiting ie: Page, Article, AD
  *  */
 
-export const addView = async (id: string, type: string) => {
+export const addAnalyticsView = async (id: string, type: string) => {
 	try {
 		const date = format(new Date(), 'MM-dd-yyyy');
 		const existingRecord = await redisClient.get(`${type}:${id}:${date}`);
