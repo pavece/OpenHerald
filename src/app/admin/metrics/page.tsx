@@ -1,16 +1,23 @@
-export const revalidate = 0;
+export const revalidate = 180;
 
 import { NavBar } from '@/components/admin/nav-bar';
 import { MetricsCharts } from './metrics-charts';
 import { getDailyStatsByType } from '@/actions/analytics/get-daily-stats-by-type';
+import { getTotalSystemViews } from '@/actions/analytics/get-total-system-views';
+import { getResourceStats } from '@/actions/analytics/get-resouce-stats';
+import { getStatsBySourceTypeTotal } from '@/actions/analytics/get-stats-by-source-type-total';
 
 export default async function Metrics() {
 	const metricsPromises = [
 		getDailyStatsByType('article'),
 		getDailyStatsByType('ads'),
 		getDailyStatsByType('categoryPage'),
+		getTotalSystemViews(),
+		getStatsBySourceTypeTotal('article', 7),
+		getResourceStats('page', 'mainPage', 15),
 	];
-	const [articlesBarChart, adsBarChart, categoryBarChart] = await Promise.all(metricsPromises);
+	const [articlesBarChart, adsBarChart, categoryBarChart, systemViewsAreaChart, articlesArea, mainPageArea] =
+		await Promise.all(metricsPromises);
 
 	return (
 		<div>
@@ -23,6 +30,9 @@ export default async function Metrics() {
 				articlesBarChartData={articlesBarChart.metrics}
 				adsBarChartData={adsBarChart.metrics}
 				categoryPagesChartData={categoryBarChart.metrics}
+				totalSystemAreaData={systemViewsAreaChart.metrics}
+				articlesAreaData={articlesArea.metrics}
+				mainPageAreaData={mainPageArea.metrics}
 			/>
 		</div>
 	);
