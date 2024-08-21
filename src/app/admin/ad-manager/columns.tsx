@@ -93,6 +93,17 @@ export const columns: ColumnDef<AdTableRow>[] = [
 		},
 	},
 	{
+		id: 'stats',
+		cell: ({ row }) => {
+			const adId = row.getValue('id') as string;
+			return (
+				<Link href={`/admin/metrics/ad/${adId}`} className='underline'>
+					View stats
+				</Link>
+			);
+		},
+	},
+	{
 		id: 'actions',
 		cell: ({ row }) => {
 			const adId = row.getValue('id') as string;

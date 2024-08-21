@@ -150,6 +150,7 @@ export default function CreateAdPage() {
 					<h1 className='text-lg'>Preview</h1>
 					{form.getValues('type') === 'vertical' ? (
 						<VerticalAD
+							id='placeholder'
 							link={form.getValues('destinationUrl')}
 							description={form.getValues('title')}
 							src={form.getValues('image') ? URL.createObjectURL(form.getValues('image')?.[0]) : ''}
@@ -157,6 +158,7 @@ export default function CreateAdPage() {
 						/>
 					) : (
 						<HorizontalAd
+							id='placeholder'
 							link={form.getValues('destinationUrl')}
 							description={form.getValues('title')}
 							src={form.getValues('image') ? URL.createObjectURL(form.getValues('image')?.[0]) : ''}

@@ -1,5 +1,6 @@
 import { BarChartCard } from '@/components/charts/bar-chart';
 import { AreaChartCard } from '@/components/charts/area-chart';
+import { parse } from 'date-fns';
 
 const configs = {
 	articlesBarChartConfig: {
@@ -40,11 +41,23 @@ const configs = {
 	},
 };
 
-export const parseData = (keyName: string, valueName: string, unparsedSource: any) => {
+export const parseData = (keyName: string, valueName: string, unparsedSource: any, requiresSorting?: boolean) => {
 	const destinationArr = [];
 	for (const key in unparsedSource) {
 		destinationArr.push({ [keyName]: key, [valueName]: unparsedSource[key] });
 	}
+
+	//Sort series by date
+	if (requiresSorting) {
+		destinationArr.sort((a, b) => {
+			const parsedA = parse(a[keyName], 'MM-dd-yyyy', new Date()).getTime();
+			const parsedB = parse(b[keyName], 'MM-dd-yyyy', new Date()).getTime();
+			if (parsedA > parsedB) return 1;
+
+			return -1;
+		});
+	}
+
 	return destinationArr;
 };
 
@@ -69,9 +82,9 @@ export const MetricsCharts = ({
 	const adsBarChartParsed = parseData('ad', 'views', adsBarChartData);
 	const categoryPagesChartParsed = parseData('category', 'views', categoryPagesChartData);
 
-	const systemViewsAreaParsed = parseData('day', 'views', totalSystemAreaData);
-	const articlesAreaParsed = parseData('day', 'views', articlesAreaData);
-	const mainPageAreaParsed = parseData('day', 'views', mainPageAreaData);
+	const systemViewsAreaParsed = parseData('day', 'views', totalSystemAreaData, true);
+	const articlesAreaParsed = parseData('day', 'views', articlesAreaData, true);
+	const mainPageAreaParsed = parseData('day', 'views', mainPageAreaData, true);
 
 	return (
 		<div className='flex gap-4 flex-wrap flex-1'>

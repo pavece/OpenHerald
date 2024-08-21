@@ -16,7 +16,9 @@ type Props = {
  * 	@param description Will be cropped to 50 characters
  *  */
 export const HorizontalAd = async ({ description, link, src, id }: Props) => {
-	await addAnalyticsView(id, 'ads');
+	if (id !== 'placeholder') {
+		await addAnalyticsView(id, 'ads');
+	}
 
 	return (
 		<div

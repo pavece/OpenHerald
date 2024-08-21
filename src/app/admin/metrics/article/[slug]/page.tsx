@@ -43,7 +43,7 @@ export default async function ArticleMetricsPage({ params: { slug } }: Props) {
 	}
 
 	const articleViews = await getResourceStats('article', slug, 30);
-	const parsedViews = parseData('day', 'views', articleViews.metrics);
+	const parsedViews = parseData('day', 'views', articleViews.metrics, true);
 
 	return (
 		<div>
@@ -71,7 +71,7 @@ export default async function ArticleMetricsPage({ params: { slug } }: Props) {
 				<Card className='w-full md:w-auto min-w-[300px]'>
 					<CardHeader className='border-b'>
 						<CardTitle>Article info</CardTitle>
-						<CardDescription>Check the article's basic information</CardDescription>
+						<CardDescription>Check the article{"'s"} basic information</CardDescription>
 					</CardHeader>
 					<CardContent className='px-6 py-4'>
 						<ul>
@@ -82,7 +82,7 @@ export default async function ArticleMetricsPage({ params: { slug } }: Props) {
 								Author: <span className='font-semibold'> {article.creator.name}</span>
 							</li>
 							<li>
-								Publishing date: <span className='font-semibold'>{format(article.createdAt, 'dd-MM-yyyy')}</span>
+								Publishing date: <span className='font-semibold'>{format(article.createdAt, 'MM-dd-yyyy')}</span>
 							</li>
 						</ul>
 					</CardContent>
