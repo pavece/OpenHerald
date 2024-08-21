@@ -40,7 +40,7 @@ const configs = {
 	},
 };
 
-const parseData = (keyName: string, valueName: string, unparsedSource: any) => {
+export const parseData = (keyName: string, valueName: string, unparsedSource: any) => {
 	const destinationArr = [];
 	for (const key in unparsedSource) {
 		destinationArr.push({ [keyName]: key, [valueName]: unparsedSource[key] });

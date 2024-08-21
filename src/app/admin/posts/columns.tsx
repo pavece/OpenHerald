@@ -102,6 +102,17 @@ export const columns: ColumnDef<ArticleTableRow>[] = [
 		},
 	},
 	{
+		id: 'stats',
+		cell: ({ row }) => {
+			const articleSlug = row.original.slug;
+			return (
+				<Link href={`/admin/metrics/article/${articleSlug}`} className='underline'>
+					View stats
+				</Link>
+			);
+		},
+	},
+	{
 		id: 'actions',
 		cell: ({ row }) => {
 			const articleId = row.getValue('id') as string;
