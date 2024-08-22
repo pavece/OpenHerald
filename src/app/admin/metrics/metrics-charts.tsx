@@ -119,6 +119,7 @@ export const MetricsCharts = ({
 				valueName='views'
 				title='Articles today'
 				description='Showing number of views per article today.'
+				elementLink='/admin/metrics/article/'
 			/>
 			<BarChartCard
 				chartConfig={configs.adsBarChartConfig}
@@ -127,6 +128,7 @@ export const MetricsCharts = ({
 				valueName='views'
 				description='Showing number of views per ad today.'
 				title='ADS today'
+				elementLink='/admin/metrics/ad/'
 			/>
 			<BarChartCard
 				chartConfig={configs.categoriesChartConfig}

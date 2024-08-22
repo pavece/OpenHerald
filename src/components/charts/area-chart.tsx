@@ -26,7 +26,7 @@ export const AreaChartCard = ({ chartConfig, chartData, keyName, valueName, titl
 				<ChartContainer config={chartConfig} className={clsx('min-h-[250px]', { 'md:min-w-[600px]': big })}>
 					<AreaChart data={chartData}>
 						<CartesianGrid vertical={false} />
-						<XAxis dataKey={keyName} tickLine={false} tickMargin={10} axisLine={false} />
+						<XAxis dataKey={keyName} tickLine={false} axisLine={false} tickMargin={8} />
 						<ChartTooltip cursor={false} content={<ChartTooltipContent />} wrapperClassName='bg-red-500' />
 						<Area dataKey={valueName} fill={`var(--color-${valueName})`} stroke='' type='natural' radius={4} />
 					</AreaChart>
