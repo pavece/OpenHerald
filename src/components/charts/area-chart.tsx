@@ -2,8 +2,9 @@
 
 import { Area, CartesianGrid, XAxis, AreaChart } from 'recharts';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import clsx from 'clsx';
+import { PiInfo } from 'react-icons/pi';
 
 interface Props {
 	keyName: string;
@@ -13,9 +14,19 @@ interface Props {
 	chartConfig: ChartConfig;
 	chartData: any;
 	big?: boolean;
+	footerDescription?: string;
 }
 
-export const AreaChartCard = ({ chartConfig, chartData, keyName, valueName, title, description, big }: Props) => {
+export const AreaChartCard = ({
+	chartConfig,
+	chartData,
+	keyName,
+	valueName,
+	title,
+	description,
+	big,
+	footerDescription,
+}: Props) => {
 	return (
 		<Card className='flex-1'>
 			<CardHeader className='border-b'>
@@ -32,6 +43,14 @@ export const AreaChartCard = ({ chartConfig, chartData, keyName, valueName, titl
 					</AreaChart>
 				</ChartContainer>
 			</CardContent>
+			{footerDescription && (
+				<CardFooter className='border-t pt-4 pb-4'>
+					<CardDescription className='flex items-center'>
+						<PiInfo size={22} className='mr-2' />
+						{footerDescription}
+					</CardDescription>
+				</CardFooter>
+			)}
 		</Card>
 	);
 };
