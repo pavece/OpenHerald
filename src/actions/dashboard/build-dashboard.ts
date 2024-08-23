@@ -25,17 +25,18 @@ export const buildDashboard = async () => {
 			};
 		}
 
+		const today = startOfDay(new Date());
+		const tomorrow = addDays(today, 1);
+
+		const newArticlesToday = await prisma.article.count({
+			where: {
+				createdAt: { lte: tomorrow, gte: today },
+			},
+		});
+
+		const totalArticles = await prisma.article.count();
+
 		if (userFromDb.user?.roles.includes('admin')) {
-			const today = startOfDay(new Date());
-			const tomorrow = addDays(today, 1);
-
-			const newArticlesToday = await prisma.article.count({
-				where: {
-					createdAt: { lte: tomorrow, gte: today },
-				},
-			});
-
-			const totalArticles = await prisma.article.count();
 			const editorCount = await prisma.user.count();
 			const topEditorCount = await prisma.article.groupBy({
 				by: ['creatorId'],
@@ -68,9 +69,16 @@ export const buildDashboard = async () => {
 			};
 		}
 
+		const yourArticles = await prisma.article.count({ where: { creatorId: session.user.id } });
+
 		return {
 			ok: true,
 			type: 'editor',
+			dashboard: {
+				newArticlesToday,
+				totalArticles,
+				yourArticles,
+			},
 		};
 	} catch (error) {
 		console.log(error);

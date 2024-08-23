@@ -1,6 +1,7 @@
 import { NavBar } from '@/components/admin/nav-bar';
 import { buildDashboard } from '@/actions/dashboard/build-dashboard';
 import { AdminDashboard } from './admin-dasboard';
+import { EditorDashboard } from './editor-dashboard';
 
 export default async function Dashboard() {
 	const { ok, dashboard, type, message } = await buildDashboard();
@@ -12,7 +13,9 @@ export default async function Dashboard() {
 	return (
 		<div>
 			<NavBar className='hidden md:flex mb-4' />
-			<div>{type === 'admin' && <AdminDashboard data={dashboard!} />}</div>
+			<div>
+				{type === 'admin' ? <AdminDashboard data={dashboard! as any} /> : <EditorDashboard data={dashboard! as any} />}
+			</div>
 		</div>
 	);
 }
