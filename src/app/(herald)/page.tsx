@@ -16,10 +16,13 @@ export default async function Home() {
 
 	return (
 		<div>
-			<TopArticlesSection
-				featuredArticle={result.articles!.coverArticles.featured!}
-				normalArticles={result.articles!.coverArticles.normal}
-			/>
+			{result.articles?.coverArticles.featured && result.articles.coverArticles.normal && (
+				<TopArticlesSection
+					featuredArticle={result.articles!.coverArticles.featured!}
+					normalArticles={result.articles!.coverArticles.normal}
+				/>
+			)}
+
 			<ArticlesSection
 				sectionTitle='Latest news'
 				articles={result.articles!.latestArticles}

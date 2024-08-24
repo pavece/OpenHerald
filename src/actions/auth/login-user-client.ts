@@ -9,7 +9,8 @@ type formData = {
 
 export const loginUserClient = async (formData: formData) => {
 	await signIn('credentials', {
-		redirect: false,
+		redirect: true,
+		redirectTo: '/admin/dashboard',
 		...formData,
 	});
 };

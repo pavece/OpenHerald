@@ -7,11 +7,23 @@ import prisma from './db/db';
 import { checkGoogleMail } from './actions/auth/check-google-email';
 import { markAsUsed } from './actions/auth/register-link-actions';
 
+const prismaAdapter = PrismaAdapter(prisma);
+
+// @ts-ignore
+prismaAdapter.createUser = async data => {
+	const { id, ...rest } = data;
+	const userCount = await prisma.user.count();
+
+	return prisma.user.create({
+		data: { ...rest, roles: userCount === 0 ? ['super-admin', 'admin', 'editor'] : ['editor'] },
+	});
+};
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
 	session: {
 		strategy: 'jwt',
 	},
-	adapter: PrismaAdapter(prisma),
+	adapter: prismaAdapter,
 	providers: [
 		credentials({
 			credentials: {
@@ -32,8 +44,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 	],
 	callbacks: {
 		async signIn({ user: { email } }) {
-			const emailSearchResult = await checkGoogleMail(email ?? '');
+			if ((await prisma.user.count()) === 0) {
+				return true;
+			}
 
+			const emailSearchResult = await checkGoogleMail(email ?? '');
 			if (!emailSearchResult.ok) {
 				return false;
 			}

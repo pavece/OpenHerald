@@ -51,11 +51,15 @@ export const buildDashboard = async () => {
 				take: 1,
 			});
 
-			const topEditor = await prisma.user.findUnique({
-				where: {
-					id: topEditorCount[0].creatorId,
-				},
-			});
+			let topEditor = { name: 'Nobody' };
+
+			if (topEditorCount[0]) {
+				topEditor = (await prisma.user.findUnique({
+					where: {
+						id: topEditorCount[0]?.creatorId,
+					},
+				})) as any;
+			}
 
 			return {
 				ok: true,

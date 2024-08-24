@@ -11,9 +11,7 @@ import { PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
 import { createUser } from '@/actions/auth/register-user';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import { signIn } from 'next-auth/react';
 import { GoogleButton } from './google-button';
-import { useRouter } from 'next/navigation';
 
 const formSchema = z
 	.object({
@@ -29,10 +27,10 @@ const formSchema = z
 
 type Props = {
 	linkId: string;
+	firstTime?: boolean;
 };
 
-export const RegisterForm = ({ linkId }: Props) => {
-	const router = useRouter();
+export const RegisterForm = ({ linkId, firstTime }: Props) => {
 	const [credentialsError, setCredentialsError] = useState(false);
 	const [credentialsErrorMessage, setCredentialsErrorMessage] = useState('');
 
@@ -47,7 +45,6 @@ export const RegisterForm = ({ linkId }: Props) => {
 			const user = await createUser(values.username, values.email, values.password, linkId);
 			if (user?.ok) {
 				await loginUserClient({ password: values.password, email: values.email });
-				router.replace('/admin/dashboard');
 				return;
 			}
 
@@ -134,7 +131,7 @@ export const RegisterForm = ({ linkId }: Props) => {
 				</form>
 			</Form>
 			<hr className='mt-4' />
-			<GoogleButton register linkId={linkId} />
+			<GoogleButton register={!firstTime} linkId={linkId} />
 		</div>
 	);
 };

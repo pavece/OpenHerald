@@ -19,6 +19,15 @@ export interface IMainPageArticle {
 
 export const getArticlesMainPage = async () => {
 	try {
+		const articleCount = await prisma.article.count();
+
+		if (articleCount === 0) {
+			return {
+				ok: false,
+				message: 'No articles available',
+			};
+		}
+
 		//Cover articles
 		const seenArticles: string[] = [];
 		const coverArticleList = await prisma.article.findMany({
