@@ -7,6 +7,7 @@ import { PiMagnifyingGlass, PiX } from 'react-icons/pi';
 import { MenuOptionsContainer } from './menu-options-container';
 import { Input } from '@/components/ui/input';
 import { useAdminUiStore } from '@/stores/admin-ui-store';
+import { SideMenuSearch } from './side-menu-search';
 
 export const MobileSideMenu = () => {
 	const { isSideMenuOpen, closeSideMenu } = useAdminUiStore();
@@ -25,9 +26,7 @@ export const MobileSideMenu = () => {
 					</Button>
 				</div>
 				<div className='p-4'>
-					<form action=''>
-						<Input placeholder='search' icon={PiMagnifyingGlass} />
-					</form>
+					<SideMenuSearch />
 				</div>
 				<div className='px-4'>
 					<MenuOptionsContainer />

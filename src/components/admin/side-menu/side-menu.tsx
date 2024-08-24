@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Input } from '../../ui/input';
 import { PiMagnifyingGlass } from 'react-icons/pi';
 import { MenuOptionsContainer } from './menu-options-container';
+import { SideMenuSearch } from './side-menu-search';
 
 type Props = {
 	className?: string;
@@ -19,9 +20,7 @@ export const SideMenu = ({ className }: Props) => {
 				</Link>
 			</div>
 			<div className='pt-6 pb-3'>
-				<form action=''>
-					<Input placeholder='search' icon={PiMagnifyingGlass} />
-				</form>
+				<SideMenuSearch />
 			</div>
 			<MenuOptionsContainer />
 		</nav>
