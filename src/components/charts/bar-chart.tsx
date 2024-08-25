@@ -34,7 +34,7 @@ export const BarChartCard = ({
 				<CardDescription>{description}</CardDescription>
 			</CardHeader>
 			<CardContent className='px-6 py-4'>
-				<ChartContainer config={chartConfig} className='min-h-[250px]'>
+				<ChartContainer config={chartConfig} className='min-h-[150px] md:min-h-[250px]'>
 					<BarChart accessibilityLayer data={chartData}>
 						<CartesianGrid vertical={false} />
 						<XAxis

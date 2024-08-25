@@ -34,7 +34,7 @@ export const AreaChartCard = ({
 				<CardDescription>{description}</CardDescription>
 			</CardHeader>
 			<CardContent className='px-6 py-4'>
-				<ChartContainer config={chartConfig} className={clsx('min-h-[250px]', { 'md:min-w-[600px]': big })}>
+				<ChartContainer config={chartConfig} className='min-h-[150px] md:min-h-[250px]'>
 					<AreaChart data={chartData}>
 						<CartesianGrid vertical={false} />
 						<XAxis dataKey={keyName} tickLine={false} axisLine={false} tickMargin={8} />

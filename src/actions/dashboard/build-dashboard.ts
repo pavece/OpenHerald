@@ -18,7 +18,14 @@ export const buildDashboard = async () => {
 
 		const userFromDb = await checkUser(session.user.id);
 
-		if (userFromDb.user?.banned) {
+		if (!userFromDb.user) {
+			return {
+				ok: false,
+				message: 'unauthorized',
+			};
+		}
+
+		if (userFromDb.user.banned) {
 			return {
 				ok: false,
 				message: 'unauthorized',

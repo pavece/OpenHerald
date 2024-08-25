@@ -61,10 +61,10 @@ export default async function AdMetricsPage({ params: { id } }: Props) {
 						keyName='day'
 						valueName='views'
 						description='Showing the number of views for the last month.'
-						title='Article views'
+						title='Ad views'
 					/>
 				</div>
-				<Card className='w-full md:w-fit min-w-[300px]'>
+				<Card className='w-full md:w-fit md:min-w-[300px]'>
 					<CardHeader className='border-b'>
 						<CardTitle>Ad preview</CardTitle>
 						<CardDescription>Check the ad{"'s"} basic information</CardDescription>

@@ -4,12 +4,20 @@ import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getArticlesMainPage } from '@/actions/articles/get-articles-mainpage';
 import { ArticlesSection } from '@/components/main-page/articles-section';
 import { TopArticlesSection } from '@/components/main-page/top-articles';
+import { PiWarning } from 'react-icons/pi';
 
 export default async function Home() {
 	const result = await getArticlesMainPage();
 
 	if (!result.ok) {
-		return <h1>{result.message}</h1>;
+		return (
+			<div className='text-red-500 h-[50vh] flex items-center justify-center'>
+				<div className='flex items-center justify-center gap-4'>
+					<PiWarning size={45} />
+					<h1 className='text-2xl'>{result.message}</h1>
+				</div>
+			</div>
+		);
 	}
 
 	await addAnalyticsView('mainPage', 'page');

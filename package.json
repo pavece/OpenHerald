@@ -7,7 +7,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"seed": "ts-node ./src/seed/seed.ts"
+		"seed": "ts-node ./src/seed/seed.ts",
+		"seed:partial": "ts-node ./src/seed/partial-seed.ts"
 	},
 	"dependencies": {
 		"@auth/prisma-adapter": "^2.4.1",
