@@ -40,7 +40,7 @@ export const AdminDashboard = async ({ data }: Props) => {
 	]);
 
 	const articlesBarChartParsed = parseData('article', 'views', articlesBarChart.metrics);
-	const mainPageAreaParsed = parseData('day', 'views', mainPageWeek.metrics);
+	const mainPageAreaParsed = parseData('day', 'views', mainPageWeek.metrics, true);
 
 	return (
 		<>
