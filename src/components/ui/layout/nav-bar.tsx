@@ -1,17 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../button';
-import { PiBookmarkSimple, PiMagnifyingGlass } from 'react-icons/pi';
-import { CategoryList, CategoryListItem } from './category-list';
+import { PiBookmarkSimple } from 'react-icons/pi';
+import { CategoryList } from './category-list';
 import { ArticleSearch } from '@/components/main-page/article-search';
+import { getSiteConfig } from '@/actions/site-config/get-site-config';
 
-export const NavBar = () => {
-	const categories: CategoryListItem[] = [
-		{ title: 'Politics', link: '', priority: 3 },
-		{ title: 'Economics', link: '', priority: 5 },
-		{ title: 'Technology', link: '', priority: 4 },
-		{ title: 'Culture', link: '', priority: 4 },
-	];
+export const NavBar = async () => {
+	const {
+		config: { navbarCategories },
+	} = await getSiteConfig();
 
 	return (
 		<div className='px-4 py-3 md:px-6 md:py-5 flex justify-between items-center'>
@@ -21,7 +19,7 @@ export const NavBar = () => {
 				</Link>
 			</div>
 			<div>
-				<CategoryList categories={categories} />
+				<CategoryList categories={navbarCategories} />
 			</div>
 			<div className='flex gap-3 items-center justify-center'>
 				<ArticleSearch />

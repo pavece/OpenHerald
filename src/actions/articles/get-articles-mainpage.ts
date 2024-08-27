@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/db/db';
+import { getSiteConfig } from '../site-config/get-site-config';
 
 export interface IMainPageArticle {
 	category?: {
@@ -93,7 +94,18 @@ export const getArticlesMainPage = async () => {
 		latestArticles.forEach(article => seenArticles.push(article.slug));
 
 		//Category articles
+		const {
+			config: { mainPageCategories },
+		} = await getSiteConfig();
+
 		const categoryArticles = await prisma.category.findMany({
+			where: mainPageCategories.length
+				? {
+						name: {
+							in: mainPageCategories,
+						},
+				  }
+				: {},
 			select: {
 				name: true,
 				Article: {
