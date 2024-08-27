@@ -5,6 +5,7 @@ import { ArticleListItem } from '@/components/article-list/article-list-item';
 import { notFound } from 'next/navigation';
 import { CategoryPagination } from './category-pagination';
 import { addAnalyticsView } from '@/actions/analytics/add-view';
+import { Metadata } from 'next';
 
 type Props = {
 	params: {
@@ -14,6 +15,18 @@ type Props = {
 		page: number;
 	};
 };
+
+export async function generateMetadata({ params: { category } }: Props): Promise<Metadata> {
+	return {
+		title: category,
+		openGraph: {
+			title: category,
+		},
+		twitter: {
+			title: category,
+		},
+	};
+}
 
 export default async function CategoryPage({ params: { category }, searchParams }: Props) {
 	const currentPage = !isNaN(Number(searchParams.page)) ? Number(searchParams.page) : 1;

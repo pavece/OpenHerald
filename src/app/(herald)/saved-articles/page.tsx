@@ -2,7 +2,6 @@
 
 import { useSavedArticlesStore } from '@/stores/saved-articles-store';
 import { SavedArticle } from './saved-article';
-import { PiBookmarkSimple } from 'react-icons/pi';
 
 export default function SavedArticlesPage() {
 	const savedArticles = useSavedArticlesStore(state => state.savedArticles);

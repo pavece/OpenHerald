@@ -4,6 +4,16 @@ import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getLatestArticles } from '@/actions/articles/get-latest-articles';
 import { ArticleListItem } from '@/components/article-list/article-list-item';
 
+export const metadata = {
+	title: 'Latest news',
+	og: {
+		title: 'Latest news',
+	},
+	twitter: {
+		title: 'Latest news',
+	},
+};
+
 export default async function LatestArticlesPage() {
 	const result = await getLatestArticles();
 

@@ -5,6 +5,7 @@ import { NavBar } from '@/components/ui/layout/nav-bar';
 import { Footer } from '@/components/ui/layout/footer';
 import { Banner } from '@/components/banners/banner';
 import { getLatestBanner } from '@/actions/banners/get-latest-banner';
+import { getSiteConfig } from '@/actions/site-config/get-site-config';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -13,9 +14,34 @@ const poppins = Poppins({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-export const metadata: Metadata = {
-	title: 'OpenHerald',
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const siteConfig = await getSiteConfig();
+
+	return {
+		title: {
+			template: siteConfig.config.siteName + ' - %s',
+			default: siteConfig.config.siteName + ' - Home',
+		},
+		description: siteConfig.config.siteDescription,
+		openGraph: {
+			title: {
+				template: siteConfig.config.siteName + ' - %s',
+				default: siteConfig.config.siteName + ' - Home',
+			},
+			description: siteConfig.config.siteDescription,
+			images: '/images/og.png',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: {
+				template: siteConfig.config.siteName + ' - %s',
+				default: siteConfig.config.siteName + ' - Home',
+			},
+			description: siteConfig.config.siteDescription,
+			images: '/images/og.png',
+		},
+	};
+}
 
 export default async function RootLayout({
 	children,

@@ -2,6 +2,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PiHouse } from 'react-icons/pi';
 
+export const metadata = {
+	title: 'Not found',
+};
+
 export default function NotFoundPage() {
 	return (
 		<div className='flex items-center justify-center h-[70vh]'>

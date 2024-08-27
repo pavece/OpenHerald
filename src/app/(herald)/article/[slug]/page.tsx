@@ -7,6 +7,7 @@ import { ArticleBody } from '@/components/article/article-body';
 import { ArticleHeader } from '@/components/article/article-header';
 import { RecommendedArticles } from '@/components/article/recommended-articles';
 import { ArticleVerticalAds } from '@prisma/client';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 type Props = {
@@ -14,6 +15,32 @@ type Props = {
 		slug: string;
 	};
 };
+
+export async function generateMetadata({ params: { slug } }: Props): Promise<Metadata> {
+	const { ok, article } = await getArticleBySlug(slug);
+
+	if (!ok) {
+		return {
+			title: 'not found',
+		};
+	}
+
+	return {
+		title: article?.title,
+		description: article?.description,
+		openGraph: {
+			title: article?.title,
+			description: article?.description,
+			images: article?.thumbnail,
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: article?.title,
+			description: article?.description,
+			images: article?.thumbnail,
+		},
+	};
+}
 
 export default async function ArticlePage({ params: { slug } }: Props) {
 	const { ok, article } = await getArticleBySlug(slug);
