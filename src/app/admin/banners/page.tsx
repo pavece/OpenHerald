@@ -3,6 +3,16 @@ import { NavBar } from '@/components/admin/nav-bar';
 import { columns } from './columns';
 import { getBanners } from '@/actions/banners/get-banners';
 
+export const metadata = {
+	title: 'Banners',
+	ok: {
+		title: 'Banners',
+	},
+	twitter: {
+		title: 'Banners',
+	},
+};
+
 export default async function CategoriesPage() {
 	const result = await getBanners();
 

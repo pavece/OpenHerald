@@ -3,6 +3,16 @@ import { NavBar } from '@/components/admin/nav-bar';
 import { getCategories } from '@/actions/categories/get-categories';
 import { columns } from './columns';
 
+export const metadata = {
+	title: 'Categories',
+	ok: {
+		title: 'Categories',
+	},
+	twitter: {
+		title: 'Categories',
+	},
+};
+
 export default async function CategoriesPage() {
 	const result = await getCategories();
 

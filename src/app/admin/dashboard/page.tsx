@@ -3,6 +3,16 @@ import { buildDashboard } from '@/actions/dashboard/build-dashboard';
 import { AdminDashboard } from './admin-dasboard';
 import { EditorDashboard } from './editor-dashboard';
 
+export const metadata = {
+	title: 'Dashboard',
+	ok: {
+		title: 'Dashboard',
+	},
+	twitter: {
+		title: 'Dashboard',
+	},
+};
+
 export default async function Dashboard() {
 	const { ok, dashboard, type, message } = await buildDashboard();
 

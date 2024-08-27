@@ -9,7 +9,16 @@ import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { auth } from '@/auth';
-import { getArticle } from '@/actions/articles/get-article';
+
+export const metadata = {
+	title: 'Article metrics',
+	ok: {
+		title: 'Article metrics',
+	},
+	twitter: {
+		title: 'Article metrics',
+	},
+};
 
 type Props = {
 	params: {

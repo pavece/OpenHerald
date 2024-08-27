@@ -3,6 +3,16 @@ import { columns } from './columns';
 import { getArticleList } from '@/actions/articles/get-article-list';
 import { NavBar } from '@/components/admin/nav-bar';
 
+export const metadata = {
+	title: 'Your articles',
+	ok: {
+		title: 'Your articles',
+	},
+	twitter: {
+		title: 'Your articles',
+	},
+};
+
 export default async function YourPostsPage() {
 	const result = await getArticleList();
 

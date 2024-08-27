@@ -11,6 +11,16 @@ type Props = {
 	};
 };
 
+export const metadata = {
+	title: 'Register',
+	og: {
+		title: 'Register',
+	},
+	twitter: {
+		title: 'Register',
+	},
+};
+
 export default async function RegisterPage({ params: { id } }: Props) {
 	if (await auth()) {
 		redirect('/admin');

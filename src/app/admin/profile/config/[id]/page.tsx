@@ -4,6 +4,16 @@ import { notFound, redirect } from 'next/navigation';
 import { ConfigureProfileForm } from './admin-configure-profile-form';
 import { NavBar } from '@/components/admin/nav-bar';
 
+export const metadata = {
+	title: 'Profile config',
+	ok: {
+		title: 'Profile config',
+	},
+	twitter: {
+		title: 'Profile config',
+	},
+};
+
 type Props = {
 	params: {
 		id: string;
@@ -16,7 +26,7 @@ export default async function AdminProfileEditPage({ params: { id } }: Props) {
 	if (!session?.user.roles.includes('admin')) {
 		redirect('/admin/dashboard');
 	}
-	
+
 	if (session?.user.id === id) {
 		redirect('/admin/users');
 	}

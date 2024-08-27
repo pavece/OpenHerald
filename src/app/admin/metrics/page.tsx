@@ -7,6 +7,16 @@ import { getTotalSystemViews } from '@/actions/analytics/get-total-system-views'
 import { getResourceStats } from '@/actions/analytics/get-resouce-stats';
 import { getStatsBySourceTypeTotal } from '@/actions/analytics/get-stats-by-source-type-total';
 
+export const metadata = {
+	title: 'Metrics',
+	ok: {
+		title: 'Metrics',
+	},
+	twitter: {
+		title: 'Metrics',
+	},
+};
+
 export default async function Metrics() {
 	const metricsPromises = [
 		getDailyStatsByType('article'),

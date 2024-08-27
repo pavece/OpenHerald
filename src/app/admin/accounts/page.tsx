@@ -1,8 +1,17 @@
 import { AccountsDataTable } from './data-table';
 import { columns } from './columns';
 import { getAccounts } from '@/actions/accounts/get-accounts';
-import { Button } from '@/components/ui/button';
 import { NavBar } from '@/components/admin/nav-bar';
+
+export const metadata = {
+	title: 'Accounts',
+	ok: {
+		title: 'Accounts',
+	},
+	twitter: {
+		title: 'Accounts',
+	},
+};
 
 export default async function AccountsPage() {
 	const result = await getAccounts();

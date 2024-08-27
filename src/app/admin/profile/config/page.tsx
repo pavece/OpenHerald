@@ -4,6 +4,16 @@ import { getUserById } from '@/actions/profile-config/get-user-by-id';
 import { auth } from '@/auth';
 import { notFound } from 'next/navigation';
 
+export const metadata = {
+	title: 'Profile config',
+	ok: {
+		title: 'Profile config',
+	},
+	twitter: {
+		title: 'Profile config',
+	},
+};
+
 export default async function NamePage() {
 	const session = await auth();
 	const { ok, user } = await getUserById(session?.user.id!);

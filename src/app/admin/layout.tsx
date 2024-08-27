@@ -7,6 +7,7 @@ import { NavBar } from '@/components/admin/nav-bar';
 import { Providers } from '@/components/providers/providers';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Toaster } from 'sonner';
+import { getSiteConfig } from '@/actions/site-config/get-site-config';
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -15,9 +16,32 @@ const poppins = Poppins({
 	weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 });
 
-export const metadata: Metadata = {
-	title: 'OpenHerald - Admin',
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const siteConfig = await getSiteConfig();
+
+	return {
+		title: {
+			template: siteConfig.config.siteName + ' - %s',
+			default: siteConfig.config.siteName + ' - Admin',
+		},
+		openGraph: {
+			title: {
+				template: siteConfig.config.siteName + ' - %s',
+				default: siteConfig.config.siteName + ' - Admin',
+			},
+
+			images: '/images/og.png',
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: {
+				template: siteConfig.config.siteName + ' - %s',
+				default: siteConfig.config.siteName + ' - Admin',
+			},
+			images: '/images/og.png',
+		},
+	};
+}
 
 export default function RootLayout({
 	children,

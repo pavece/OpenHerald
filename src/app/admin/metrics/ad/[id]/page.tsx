@@ -3,17 +3,21 @@ import { getResourceStats } from '@/actions/analytics/get-resouce-stats';
 import { auth } from '@/auth';
 import { notFound, redirect } from 'next/navigation';
 import { parseData } from '../../metrics-charts';
-
-import { getArticleBySlug } from '@/actions/articles/get-article-by-slug';
 import { AreaChartCard } from '@/components/charts/area-chart';
 import { NavBar } from '@/components/admin/nav-bar';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { format } from 'date-fns';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { getArticle } from '@/actions/articles/get-article';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { VerticalAD } from '@/components/ads/vertical-ad';
 import { HorizontalAd } from '@/components/ads/horizontal-ad';
+
+export const metadata = {
+	title: 'Ad metrics',
+	ok: {
+		title: 'Ad metrics',
+	},
+	twitter: {
+		title: 'Ad metrics',
+	},
+};
 
 type Props = {
 	params: {

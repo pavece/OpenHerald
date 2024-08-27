@@ -9,6 +9,16 @@ type Props = {
 	params: { id: string };
 };
 
+export const metadata = {
+	title: 'Edit article',
+	ok: {
+		title: 'Edit article',
+	},
+	twitter: {
+		title: 'Edit article',
+	},
+};
+
 export default async function EditArticlePage({ params: { id } }: Props) {
 	const session = await auth();
 	const result = await getArticle(id);

@@ -3,6 +3,16 @@ import { NavBar } from '@/components/admin/nav-bar';
 import { AdsDataTable } from '@/components/admin/ads/ads-datatable';
 import { getAdList } from '@/actions/ads/get-ad-list';
 
+export const metadata = {
+	title: 'Ad manager',
+	ok: {
+		title: 'Ad manager',
+	},
+	twitter: {
+		title: 'Ad manager',
+	},
+};
+
 export default async function AdManagerPage() {
 	const result = await getAdList();
 
