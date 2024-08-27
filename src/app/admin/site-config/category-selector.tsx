@@ -11,8 +11,8 @@ type Props = {
 };
 
 export const CategorySelector = ({ validCategories, onChange, initialSelection = [] }: Props) => {
-	const [availCategories, setAvailCategories] = useState(validCategories.filter(c => !initialSelection.includes(c)));
-	const [selectedCategories, setSelectedCategories] = useState<string[]>(initialSelection);
+	const [availCategories, setAvailCategories] = useState<string[]>([]);
+	const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
 	const selectCategory = (category: string) => {
 		setSelectedCategories(s => {
@@ -29,6 +29,13 @@ export const CategorySelector = ({ validCategories, onChange, initialSelection =
 		});
 		setAvailCategories(avail => [...avail, category]);
 	};
+
+	useEffect(() => {
+		setAvailCategories(validCategories.filter(c => !initialSelection.includes(c)));
+		if (initialSelection.length) {
+			setSelectedCategories(initialSelection);
+		}
+	}, [validCategories, initialSelection]);
 
 	useEffect(() => {
 		onChange(selectedCategories);
@@ -60,7 +67,7 @@ export const CategorySelector = ({ validCategories, onChange, initialSelection =
 				</SelectTrigger>
 				<SelectContent>
 					{availCategories.map(category => (
-						<SelectItem key={category} value={category} className='capitalize'>
+						<SelectItem key={category} value={category}>
 							{category}
 						</SelectItem>
 					))}

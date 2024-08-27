@@ -10,28 +10,72 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { CategorySelector } from './category-selector';
+import { ISiteConfig, updateSiteConfig } from '@/actions/site-config/update-site-config';
+import { useRouter } from 'next/navigation';
+import { PiWarning } from 'react-icons/pi';
+import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
+import { getSiteConfig } from '@/actions/site-config/get-site-config';
+import { getCategories } from '@/actions/categories/get-categories';
 
 const formSchema = z.object({
-	siteTitle: z.string().min(2).max(50),
+	siteName: z.string().min(2).max(50),
 	siteDescription: z.string().min(2).max(350),
-	navBarCategories: z.array(z.string()),
+	navbarCategories: z.array(z.string()),
 	mainPageCategories: z.array(z.string()),
 });
 
+const defaults: ISiteConfig = {
+	siteName: 'OpenHerald',
+	siteDescription: 'OpenHerald description',
+	navbarCategories: [],
+	mainPageCategories: [],
+};
+
 export default function SiteConfig() {
+	const router = useRouter();
+	const [defaultValues, setDefaultValues] = useState(defaults);
+	const [availCategories, setAvailCategories] = useState<string[]>([]);
+	const [updating, setUpdating] = useState(false);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: {
-			siteTitle: 'OpenHerald',
-			siteDescription: 'OpenHerald description',
-			navBarCategories: ['Tech'],
-			mainPageCategories: [],
-		},
+		defaultValues: defaultValues,
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values);
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		setUpdating(true);
+		const { ok, message } = await updateSiteConfig(values);
+		setUpdating(false);
+
+		if (ok) {
+			router.refresh();
+			return;
+		}
+
+		toast('Error', {
+			description: message,
+			duration: 5000,
+			icon: <PiWarning size={24} />,
+			className: 'text-red-400 gap-4 border-red-400',
+		});
 	}
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const { categories } = await getCategories();
+			const { config } = await getSiteConfig();
+
+			setDefaultValues(config);
+
+			if (categories) {
+				const parsed = categories.map(c => c.name);
+				setAvailCategories(parsed);
+			}
+		};
+
+		fetchData();
+	}, []);
 
 	return (
 		<div className='pt-2'>
@@ -46,7 +90,7 @@ export default function SiteConfig() {
 					<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 w-full md:w-[600px]'>
 						<FormField
 							control={form.control}
-							name='siteTitle'
+							name='siteName'
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Site title</FormLabel>
@@ -73,15 +117,15 @@ export default function SiteConfig() {
 
 						<FormField
 							control={form.control}
-							name='navBarCategories'
+							name='navbarCategories'
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>Nav bar categories</FormLabel>
 									<FormControl>
 										<CategorySelector
-											validCategories={['Politics', 'Tech']}
+											validCategories={availCategories}
 											onChange={field.onChange}
-											initialSelection={field.value}
+											initialSelection={defaultValues.navbarCategories}
 										/>
 									</FormControl>
 									<FormDescription>Determines the categories that show up on the navbar.</FormDescription>
@@ -98,9 +142,9 @@ export default function SiteConfig() {
 									<FormControl>
 										<FormControl>
 											<CategorySelector
-												validCategories={['Politics', 'Tech']}
+												validCategories={availCategories}
 												onChange={field.onChange}
-												initialSelection={field.value}
+												initialSelection={defaultValues.mainPageCategories}
 											/>
 										</FormControl>
 									</FormControl>
@@ -110,7 +154,9 @@ export default function SiteConfig() {
 							)}
 						/>
 
-						<Button type='submit'>Submit</Button>
+						<Button type='submit' disabled={updating}>
+							{updating ? 'Updating...' : 'Update'}
+						</Button>
 					</form>
 				</Form>
 			</div>

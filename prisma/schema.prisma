@@ -130,3 +130,12 @@ model RegisterAuthorization {
   googleEmail String?
   validUntil  DateTime
 }
+
+// Site config
+model SiteConfig {
+  id                 String   @id @default(uuid())
+  siteName           String
+  siteDescription    String
+  navbarCategories   String[]
+  mainPageCategories String[]
+}
