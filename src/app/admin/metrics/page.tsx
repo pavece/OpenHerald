@@ -1,4 +1,4 @@
-export const revalidate = 180;
+export const revalidate = 60;
 
 import { NavBar } from '@/components/admin/nav-bar';
 import { MetricsCharts } from './metrics-charts';

@@ -1,3 +1,5 @@
+export const revalidate = 30;
+
 import { NavBar } from '@/components/admin/nav-bar';
 import { ConfigureProfileForm } from './self-configure-profile-form';
 import { getUserById } from '@/actions/profile-config/get-user-by-id';

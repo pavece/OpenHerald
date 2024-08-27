@@ -1,3 +1,5 @@
+export const revalidate = 120;
+
 import { NavBar } from '@/components/admin/nav-bar';
 import { buildDashboard } from '@/actions/dashboard/build-dashboard';
 import { AdminDashboard } from './admin-dasboard';

@@ -1,3 +1,5 @@
+export const revalidate = 120;
+
 import { DataTable } from '@/components/admin/article-lists/data-table';
 import { columns } from './columns';
 import { getArticleList } from '@/actions/articles/get-article-list';

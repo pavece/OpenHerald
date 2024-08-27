@@ -1,3 +1,5 @@
+export const revalidate = 500;
+
 import { getArticleAds } from '@/actions/ads/get-article-ads';
 import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getArticleBySlug } from '@/actions/articles/get-article-by-slug';

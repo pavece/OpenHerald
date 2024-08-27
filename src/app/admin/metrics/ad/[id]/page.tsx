@@ -1,3 +1,5 @@
+export const revalidate = 120;
+
 import { getAdById } from '@/actions/ads/get-ad-by-id';
 import { getResourceStats } from '@/actions/analytics/get-resouce-stats';
 import { auth } from '@/auth';

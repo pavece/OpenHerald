@@ -1,3 +1,5 @@
+export const revalidate = 120;
+
 import { columns } from './columns';
 import { NavBar } from '@/components/admin/nav-bar';
 import { AdsDataTable } from '@/components/admin/ads/ads-datatable';

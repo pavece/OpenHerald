@@ -1,3 +1,5 @@
+export const revalidate = 120; 
+
 import { AccountsDataTable } from './data-table';
 import { columns } from './columns';
 import { getAccounts } from '@/actions/accounts/get-accounts';

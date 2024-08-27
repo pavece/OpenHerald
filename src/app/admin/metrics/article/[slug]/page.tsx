@@ -1,3 +1,5 @@
+export const revalidate = 120;
+
 import { getResourceStats } from '@/actions/analytics/get-resouce-stats';
 import { getArticleBySlug } from '@/actions/articles/get-article-by-slug';
 import { notFound, redirect } from 'next/navigation';

@@ -1,5 +1,6 @@
+export const revalidate = 60;
+
 import { getArticle } from '@/actions/articles/get-article';
-import { getCategories } from '@/actions/categories/get-categories';
 import { auth } from '@/auth';
 import { NavBar } from '@/components/admin/nav-bar';
 import { UpdateArticleForm } from '@/components/admin/publish/update-article-form';

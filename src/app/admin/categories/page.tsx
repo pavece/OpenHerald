@@ -1,3 +1,5 @@
+export const revalidate = 120;
+
 import { DataTable } from '@/components/admin/categories/data-table';
 import { NavBar } from '@/components/admin/nav-bar';
 import { getCategories } from '@/actions/categories/get-categories';

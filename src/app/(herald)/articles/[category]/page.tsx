@@ -1,4 +1,4 @@
-export const revalidate = 3600;
+export const revalidate = 1000;
 
 import { getArticlesByCategory } from '@/actions/articles/get-articles-by-category';
 import { ArticleListItem } from '@/components/article-list/article-list-item';

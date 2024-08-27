@@ -1,4 +1,4 @@
-export const revalidate = 1800;
+export const revalidate = 300;
 
 import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { getLatestArticles } from '@/actions/articles/get-latest-articles';

@@ -1,3 +1,5 @@
+export const revalidate = 30;
+
 import { getUserById } from '@/actions/profile-config/get-user-by-id';
 import { auth } from '@/auth';
 import { notFound, redirect } from 'next/navigation';
