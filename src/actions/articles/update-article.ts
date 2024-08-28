@@ -4,6 +4,7 @@ import prisma from '@/db/db';
 import { IArticle } from '@/interfaces/article.interface';
 import { uploadImage } from '../images/upload-image';
 import { auth } from '@/auth';
+import { revalidatePath } from 'next/cache';
 
 export const updateArticle = async (articleId: string, article: Partial<IArticle>, thumbnailFormData?: FormData) => {
 	try {
@@ -53,6 +54,10 @@ export const updateArticle = async (articleId: string, article: Partial<IArticle
 			where: { id: articleId },
 			data: { ...updateProps },
 		});
+
+		revalidatePath(`/article/${result.slug}`);
+		revalidatePath('/');
+		revalidatePath('/admin/articles');
 
 		return {
 			ok: true,

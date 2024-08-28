@@ -147,7 +147,7 @@ export default function CreateAdPage() {
 					</Form>
 				</div>
 
-				{/* <div className='hidden md:block'>
+				<div className='hidden md:block'>
 					<h1 className='text-lg'>Preview</h1>
 					{form.getValues('type') === 'vertical' ? (
 						<VerticalAD
@@ -166,7 +166,6 @@ export default function CreateAdPage() {
 						/>
 					)}
 				</div>
-			 	*/}
 			</div>
 		</div>
 	);

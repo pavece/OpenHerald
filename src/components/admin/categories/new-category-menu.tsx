@@ -57,7 +57,6 @@ export const NewCategoryMenu = () => {
 			return;
 		}
 
-		router.refresh();
 		setOpen(false);
 	};
 

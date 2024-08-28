@@ -3,6 +3,7 @@
 import { auth } from '@/auth';
 import { checkUser } from '../auth/check-user';
 import prisma from '@/db/db';
+import { revalidatePath } from 'next/cache';
 
 type FormValues = {
 	text: string;
@@ -46,6 +47,7 @@ export const createBanner = async (formValues: FormValues) => {
 			},
 		});
 
+		revalidatePath('/');
 		return {
 			ok: true,
 			message: 'Banner created.',

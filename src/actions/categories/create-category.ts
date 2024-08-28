@@ -3,6 +3,7 @@
 import { auth } from '@/auth';
 import { checkUser } from '../auth/check-user';
 import prisma from '@/db/db';
+import { revalidatePath } from 'next/cache';
 
 interface CreateCategoryFormFields {
 	name: string;
@@ -29,6 +30,9 @@ export const createCategory = async (data: CreateCategoryFormFields) => {
 		}
 
 		const newCategory = await prisma.category.create({ data });
+
+		revalidatePath('/admin/categories');
+		revalidatePath('/admin/publish');
 
 		return {
 			ok: true,

@@ -5,6 +5,7 @@ import prisma from '@/db/db';
 import { IArticle } from '@/interfaces/article.interface';
 import { uploadImage } from '../images/upload-image';
 import { generateArticleSlug } from './generate-slug';
+import { revalidatePath } from 'next/cache';
 
 export const createArticle = async (article: IArticle, imageFormData: FormData) => {
 	const session = await auth();
@@ -44,6 +45,8 @@ export const createArticle = async (article: IArticle, imageFormData: FormData) 
 			},
 		});
 
+		revalidatePath('/');
+		revalidatePath('/admin/articles');
 		return {
 			ok: true,
 			article: result,

@@ -3,6 +3,7 @@
 import { auth } from '@/auth';
 import { checkUser } from '../auth/check-user';
 import prisma from '@/db/db';
+import { revalidatePath } from 'next/cache';
 
 export interface ISiteConfig {
 	siteName: string;
@@ -50,6 +51,9 @@ export const updateSiteConfig = async (formData: ISiteConfig) => {
 			},
 		});
 
+		revalidatePath('/', "layout");
+		revalidatePath('/admin', 'layout');
+		revalidatePath('/auth', 'layout');
 		return {
 			ok: true,
 			updated,

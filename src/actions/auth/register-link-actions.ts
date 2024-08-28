@@ -26,7 +26,7 @@ export const generateRegisterLink = async () => {
 
 		return {
 			ok: true,
-			link: process.env.SITE_LINK + '/auth/register/' + registerAuth.id,
+			link: process.env.NEXT_PUBLIC_SITE_LINK + '/auth/register/' + registerAuth.id,
 		};
 	} catch (error) {
 		return {
