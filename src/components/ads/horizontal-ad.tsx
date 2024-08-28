@@ -1,7 +1,10 @@
+'use client';
+
 import { addAnalyticsView } from '@/actions/analytics/add-view';
 import { cropText } from '@/lib/utils';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { PiInfo } from 'react-icons/pi';
 
 type Props = {
@@ -15,10 +18,14 @@ type Props = {
  * 	Horizontal ads will show anywhere, it's recommended to use these ads at the bottom of posts (not between paragraphs as it is intrusive)
  * 	@param description Will be cropped to 50 characters
  *  */
-export const HorizontalAd = async ({ description, link, src, id }: Props) => {
-	if (id !== 'placeholder') {
-		await addAnalyticsView(id, 'ads');
-	}
+export const HorizontalAd = ({ description, link, src, id }: Props) => {
+	useEffect(() => {
+		const saveView = async () => {
+			await addAnalyticsView(id, 'ads');
+		};
+
+		saveView();
+	});
 
 	return (
 		<div

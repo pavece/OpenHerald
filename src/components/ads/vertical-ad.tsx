@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Button } from '../ui/button';
 import Link from 'next/link';
@@ -5,6 +7,7 @@ import { PiInfo, PiLink } from 'react-icons/pi';
 import clsx from 'clsx';
 import { cropText } from '@/lib/utils';
 import { addAnalyticsView } from '@/actions/analytics/add-view';
+import { useEffect } from 'react';
 
 type Props = {
 	link: string;
@@ -21,10 +24,15 @@ type Props = {
  *
  * 	@param description Will be cropped to 50 characters
  *  */
-export const VerticalAD = async ({ className, side, description, link, src, relative = false, id }: Props) => {
-	if (id !== 'placeholder') {
-		await addAnalyticsView(id, 'ads');
-	}
+export const VerticalAD = ({ className, side, description, link, src, relative = false, id }: Props) => {
+	useEffect(() => {
+		const saveView = async () => {
+			await addAnalyticsView(id, 'ads');
+		};
+
+		saveView();
+	});
+
 	return (
 		<div
 			className={clsx('', { 'left-5': side !== 'right', 'right-5': side === 'right', 'absolute top-44': !relative })}

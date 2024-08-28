@@ -51,8 +51,11 @@ export const ArticleHeader = ({
 					</Badge>
 				</div>
 				<div className='flex gap-2 '>
-					{/* TODO: Add X share link */}
-					<Link href={''}>
+					<Link
+						href={`https://twitter.com/intent/tweet?text=Check out this article ${
+							process.env.NEXT_PUBLIC_SITE_LINK + '/article/' + slug
+						}`}
+					>
 						<Badge variant='outline' className='text-s md:text-sm font-normal py-1 text-zinc-700 cursor-pointer'>
 							<PiXLogo size={24} />
 						</Badge>
