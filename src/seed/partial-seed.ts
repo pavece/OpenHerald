@@ -1,6 +1,7 @@
 import prisma from '../db/db';
 import { seedBanners } from './data/banners';
 import { seedCategories } from './data/categories';
+import { siteConfigSeedData } from './data/site-config';
 
 async function seedDatabase() {
 	try {
@@ -18,6 +19,9 @@ async function seedDatabase() {
 
 		//Insert banners
 		await prisma.banner.createMany({ data: seedBanners[0] });
+
+		//Insert site config
+		await prisma.siteConfig.create({ data: siteConfigSeedData });
 
 		console.log('Seed executed successfully!');
 	} catch (error) {

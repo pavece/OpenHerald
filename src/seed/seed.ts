@@ -3,6 +3,7 @@ import { seedAds } from './data/ads';
 import { seedArticles } from './data/articles';
 import { seedBanners } from './data/banners';
 import { seedCategories } from './data/categories';
+import { siteConfigSeedData } from './data/site-config';
 import { seedUsers } from './data/users';
 
 async function seedDatabase() {
@@ -30,6 +31,9 @@ async function seedDatabase() {
 
 		//Insert banners
 		await prisma.banner.createMany({ data: seedBanners });
+
+		//Insert site config
+		await prisma.siteConfig.create({ data: siteConfigSeedData });
 
 		console.log('Seed executed successfully!');
 	} catch (error) {
