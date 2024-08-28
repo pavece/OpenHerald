@@ -109,8 +109,6 @@ export default async function ArticlePage({ params: { slug } }: Props) {
 					src={verticalAd.mediaLink}
 				/>
 			)}
-
-			<RecommendedArticles />
 		</div>
 	);
 }

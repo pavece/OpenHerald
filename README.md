@@ -2,7 +2,7 @@
 
 ![Banner image](https://res.cloudinary.com/dnh0go0q2/image/upload/v1724838412/Captura_de_pantalla_2024-08-28_114616_tnhxhz.png)
 
-A self-hosted news publishing platform with an integrated Content Management System (CMS). This project serves as a learning experience and portfolio piece.
+A self-hosted news publishing platform with an integrated Content Management System (CMS). This project is designed as a learning experience and a portfolio piece, with no intention of replacing or serving as a substitute for any existing publishing system or platform.
 
 ## Key Features
 
@@ -31,7 +31,7 @@ npm install
 ```
 
 3. Set up environment variables
- 
+
 - Rename .env.template to .env
 - Generate a random secret for the auth
 - Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
@@ -90,10 +90,10 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
 
 4. Fill the remaining variables
 
-   - Generate a random secret for the auth and fill in
-   - Generate a Google OAuth ID and secret then fill those in
-   - Go to [Cloudinary](https://cloudinary.com) and get your API keys then fill in the variables
+- Generate a random secret for the auth
+- Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
+- Go to [Cloudinary](https://cloudinary.com) and get your API keys
   
-5. Host the project to your desired platform (make sure to include all the env variables)
-6. Create super-admin user  
+1. Host the project to your desired platform (make sure to include all the env variables)
+2. Create super-admin user  
    Once running visit **yoururl.com/auth/register** and create the super admin user. Then you can start creating categories, articles, ads and registering new users using the single use links.
