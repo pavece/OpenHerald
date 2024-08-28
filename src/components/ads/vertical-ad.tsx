@@ -30,8 +30,10 @@ export const VerticalAD = ({ className, side, description, link, src, relative =
 			await addAnalyticsView(id, 'ads');
 		};
 
-		saveView();
-	});
+		if(id !== "placeholder"){
+			saveView(); 
+		}
+	}, [id]);
 
 	return (
 		<div

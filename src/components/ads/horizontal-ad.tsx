@@ -24,7 +24,9 @@ export const HorizontalAd = ({ description, link, src, id }: Props) => {
 			await addAnalyticsView(id, 'ads');
 		};
 
-		saveView();
+		if (id !== 'placeholder') {
+			saveView();
+		}
 	});
 
 	return (

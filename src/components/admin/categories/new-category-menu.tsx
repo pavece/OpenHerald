@@ -20,7 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { createCategory } from '@/actions/categories/create-category';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { PiWarning } from 'react-icons/pi';
+import { PiPlus, PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
 
 const formSchema = z.object({
@@ -62,8 +62,11 @@ export const NewCategoryMenu = () => {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<Button asChild variant='outline'>
-				<DialogTrigger>Add new</DialogTrigger>
+			<Button asChild>
+				<DialogTrigger>
+					<PiPlus size={22} className='mr-2' />
+					Create new
+				</DialogTrigger>
 			</Button>
 			<DialogContent>
 				<DialogHeader>

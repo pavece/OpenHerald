@@ -18,7 +18,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { PiWarning } from 'react-icons/pi';
+import { PiFilePlus, PiWarning } from 'react-icons/pi';
 import { useState } from 'react';
 import { Switch } from '@/components/ui/switch';
 import { ColorPicker } from '@/components/ui/color-picker';
@@ -67,8 +67,11 @@ export const NewBannerMenu = () => {
 
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<Button asChild variant='outline'>
-				<DialogTrigger>Add new</DialogTrigger>
+			<Button asChild>
+				<DialogTrigger>
+					<PiFilePlus size={22} className='mr-2' />
+					Create new
+				</DialogTrigger>
 			</Button>
 			<DialogContent>
 				<DialogHeader>

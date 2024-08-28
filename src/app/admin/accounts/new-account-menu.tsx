@@ -36,7 +36,7 @@ export const NewAccountMenu = () => {
 			}}
 		>
 			<DialogTrigger asChild>
-				<Button variant='outline'>
+				<Button>
 					<PiUserPlus size={22} className='mr-2' /> Add user
 				</Button>
 			</DialogTrigger>
