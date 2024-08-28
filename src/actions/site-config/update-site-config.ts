@@ -10,6 +10,9 @@ export interface ISiteConfig {
 	siteDescription: string;
 	navbarCategories: string[];
 	mainPageCategories: string[];
+	xLink?: string | null;
+	instagramLink?: string | null;
+	facebookLink?: string | null;
 }
 
 export const updateSiteConfig = async (formData: ISiteConfig) => {
@@ -51,7 +54,7 @@ export const updateSiteConfig = async (formData: ISiteConfig) => {
 			},
 		});
 
-		revalidatePath('/', "layout");
+		revalidatePath('/', 'layout');
 		revalidatePath('/admin', 'layout');
 		revalidatePath('/auth', 'layout');
 		return {

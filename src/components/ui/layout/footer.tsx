@@ -2,8 +2,11 @@ import Image from 'next/image';
 import { Button } from '../button';
 import { PiCopyright, PiFacebookLogo, PiInstagramLogo, PiXLogo } from 'react-icons/pi';
 import Link from 'next/link';
+import { getSiteConfig } from '@/actions/site-config/get-site-config';
 
-export const Footer = () => {
+export const Footer = async () => {
+	const { config } = await getSiteConfig();
+
 	return (
 		<footer className='flex justify-center px-4 py-10 mt-24'>
 			<div className='max-w-[950px] w-full flex justify-start flex-col'>
@@ -55,21 +58,27 @@ export const Footer = () => {
 						Open Herald {new Date().getFullYear()}
 					</div>
 					<div className='flex flex-row gap-3'>
-						<Link href=''>
-							<Button variant='outline' size='icon'>
-								<PiXLogo size={28} />
-							</Button>
-						</Link>
-						<Link href=''>
-							<Button variant='outline' size='icon'>
-								<PiInstagramLogo size={28} />
-							</Button>
-						</Link>
-						<Link href=''>
-							<Button variant='outline' size='icon'>
-								<PiFacebookLogo size={28} />
-							</Button>
-						</Link>
+						{config.xLink && (
+							<Link href={config.xLink}>
+								<Button variant='outline' size='icon'>
+									<PiXLogo size={28} />
+								</Button>
+							</Link>
+						)}
+						{config.instagramLink && (
+							<Link href={config.instagramLink}>
+								<Button variant='outline' size='icon'>
+									<PiInstagramLogo size={28} />
+								</Button>
+							</Link>
+						)}
+						{config.facebookLink && (
+							<Link href=''>
+								<Button variant='outline' size='icon'>
+									<PiFacebookLogo size={28} />
+								</Button>
+							</Link>
+						)}
 					</div>
 				</div>
 			</div>

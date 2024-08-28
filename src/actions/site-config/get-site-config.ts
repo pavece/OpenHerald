@@ -8,6 +8,9 @@ const defaultConfig: ISiteConfig = {
 	siteDescription: 'OpenHerald is a simple open source news platform.',
 	navbarCategories: [''],
 	mainPageCategories: [''],
+	xLink: null,
+	instagramLink: null,
+	facebookLink: null,
 };
 
 export const getSiteConfig = async () => {
@@ -22,7 +25,7 @@ export const getSiteConfig = async () => {
 		}
 
 		return {
-			ok: false,
+			ok: true,
 			config: {
 				...siteConfig,
 			},
