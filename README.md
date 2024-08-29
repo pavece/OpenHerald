@@ -88,7 +88,10 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
     npm run seed:partial
 ```
 
-4. Fill the remaining variables
+> [!WARNING]  
+> Make sure to replace redis:// with rediss:// if using TLS for the redis hosting.
+
+1. Fill the remaining variables
 
 - Generate a random secret for the auth
 - Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
@@ -97,3 +100,6 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
 1. Host the project to your desired platform (make sure to include all the env variables)
 2. Create super-admin user  
    Once running visit **yoururl.com/auth/register** and create the super admin user. Then you can start creating categories, articles, ads and registering new users using the single use links.
+
+> [!IMPORTANT]  
+> If using Vercel replace the build command with npx prisma generate && npm run build.
