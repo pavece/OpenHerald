@@ -1,4 +1,4 @@
-export const revalidate = 120;
+export const dynamic = 'force-dynamic';
 
 import { columns } from './columns';
 import { NavBar } from '@/components/admin/nav-bar';

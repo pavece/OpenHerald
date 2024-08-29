@@ -1,4 +1,4 @@
-export const revalidate = 120;
+export const dynamic = 'force-dynamic';
 
 import { DataTable } from '@/components/admin/banners/data-table';
 import { NavBar } from '@/components/admin/nav-bar';

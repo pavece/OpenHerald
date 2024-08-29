@@ -1,4 +1,4 @@
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 import { NavBar } from '@/components/admin/nav-bar';
 import { MetricsCharts } from './metrics-charts';

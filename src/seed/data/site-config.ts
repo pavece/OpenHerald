@@ -6,4 +6,7 @@ export const siteConfigSeedData: SiteConfig = {
 	siteDescription: 'Some description',
 	navbarCategories: ['Technology', 'Science', 'Politics'],
 	mainPageCategories: ['Technology', 'Science', 'Politics', 'Economy', 'World'],
+	xLink: null,
+	instagramLink: null,
+	facebookLink: null,
 };

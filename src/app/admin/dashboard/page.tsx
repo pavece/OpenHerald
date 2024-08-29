@@ -1,4 +1,4 @@
-export const revalidate = 120;
+export const dynamic = 'force-dynamic';
 
 import { NavBar } from '@/components/admin/nav-bar';
 import { buildDashboard } from '@/actions/dashboard/build-dashboard';
