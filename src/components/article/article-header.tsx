@@ -38,11 +38,9 @@ export const ArticleHeader = ({
 			<ImageContainer url={thumbnail} alt={thumbnailAlt} className='h-[180px] md:h-[300px] w-full' />
 			<div className='my-4 flex justify-between items-center'>
 				<div className='flex gap-4'>
-					<Link href={`/author/${'author'}`}>
-						<Badge variant='outline' className='text-xs md:text-sm font-normal py-1 text-zinc-700'>
-							<PiUser size={20} className='mr-2' /> {author}
-						</Badge>
-					</Link>
+					<Badge variant='outline' className='text-xs md:text-sm font-normal py-1 text-zinc-700'>
+						<PiUser size={20} className='mr-2' /> {author}
+					</Badge>
 					<Badge variant='outline' className='text-xs md:text-sm font-normal py-1 text-zinc-700 hidden md:flex'>
 						<PiCalendar size={20} className='mr-2' /> {format(parseISO(date ?? ''), 'LLLL, dd')}
 					</Badge>

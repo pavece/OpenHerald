@@ -29,7 +29,8 @@ const formSchema = z.object({
 		.min(2, {
 			message: 'Name must be at least 2 characters.',
 		})
-		.max(50, { message: 'Name must be shorter than 50 characters.' }),
+		.max(50, { message: 'Name must be shorter than 50 characters.' })
+		.refine(s => !s.includes(' '), 'Name cannot include spaces'),
 	description: z.string().max(200, { message: 'Description must be shorter than 200 characters.' }).optional(),
 });
 
