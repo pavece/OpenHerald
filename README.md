@@ -26,7 +26,7 @@ To run this project in a development environment, follow these steps:
 1. Clone the repository
 
 ```bash
-git clone https://github.com/pavece/OpenHerald
+git clone https://github.com/pavece/OpenHerald.git
 ```
 
 2. Install dependencies
