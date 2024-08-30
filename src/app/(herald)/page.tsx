@@ -31,11 +31,13 @@ export default async function Home() {
 				/>
 			)}
 
-			<ArticlesSection
-				sectionTitle='Latest news'
-				articles={result.articles!.latestArticles}
-				moreLink='/articles/latest-articles'
-			/>
+			{result.articles!.latestArticles[0] && (
+				<ArticlesSection
+					sectionTitle='Latest news'
+					articles={result.articles!.latestArticles}
+					moreLink='/articles/latest-articles'
+				/>
+			)}
 
 			{result.articles?.categoryArticles.map(category => {
 				return (

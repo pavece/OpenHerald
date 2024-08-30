@@ -20,7 +20,7 @@ export interface IMainPageArticle {
 
 export const getArticlesMainPage = async () => {
 	try {
-		const articleCount = await prisma.article.count();
+		const articleCount = await prisma.article.count({ where: { visibleForUsers: true } });
 
 		if (articleCount === 0) {
 			return {

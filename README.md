@@ -91,14 +91,14 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
 > [!WARNING]  
 > Make sure to replace redis:// with rediss:// if using TLS for the redis hosting.
 
-1. Fill the remaining variables
+4. Fill the remaining variables
 
 - Generate a random secret for the auth
 - Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
 - Go to [Cloudinary](https://cloudinary.com) and get your API keys
   
-1. Host the project to your desired platform (make sure to include all the env variables)
-2. Create super-admin user  
+5. Host the project to your desired platform (make sure to include all the env variables)
+6. Create super-admin user  
    Once running visit **yoururl.com/auth/register** and create the super admin user. Then you can start creating categories, articles, ads and registering new users using the single use links.
 
 > [!IMPORTANT]  

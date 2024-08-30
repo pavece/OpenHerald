@@ -13,6 +13,7 @@ async function seedDatabase() {
 		await prisma.account.deleteMany();
 		await prisma.advertisement.deleteMany();
 		await prisma.banner.deleteMany();
+		await prisma.siteConfig.deleteMany();
 
 		//Insert categories
 		await prisma.category.createMany({ data: seedCategories });
