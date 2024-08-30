@@ -16,6 +16,7 @@ import {
 	linkDialogPlugin,
 	diffSourcePlugin,
 	imagePlugin,
+	linkPlugin
 } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
 import { PiWarning } from 'react-icons/pi';
@@ -51,6 +52,7 @@ export const MdxEditorComponent = ({ markdown, ...props }: any) => {
 				markdownShortcutPlugin(),
 				linkDialogPlugin(),
 				diffSourcePlugin(),
+				linkPlugin(),
 				imagePlugin({ imageUploadHandler }),
 				toolbarPlugin({
 					toolbarContents: () => (
