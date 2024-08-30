@@ -14,6 +14,11 @@ A self-hosted news publishing platform with an integrated Content Management Sys
 - Info banner system for important announcements
 - Customizable
 
+## Demo & Live Site
+
+- **Video demo**: [https://www.youtube.com/watch?v=8kg5YBfAeZ8](https://www.youtube.com/watch?v=8kg5YBfAeZ8)
+- **Live site**: [https://open-hearald.vercel.app/](https://open-hearald.vercel.app/)
+
 ## Development setup
 
 To run this project in a development environment, follow these steps:
@@ -33,7 +38,7 @@ npm install
 3. Set up environment variables
 
 - Rename .env.template to .env
-- Generate a random secret for the auth
+- Generate a random secret for the auth you can use **openssl rand -base64 32** to generate this key
 - Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
 - Go to [Cloudinary](https://cloudinary.com) and get your API keys
 
@@ -88,10 +93,10 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
     npm run seed:partial
 ```
 
-> [!WARNING]  
-> Make sure to replace redis:// with rediss:// if using TLS for the redis hosting.
+> [!IMPORTANT]  
+> Make sure to replace **redis:// with rediss:/**/ if using TLS when hosting Redis database.
 
-4. Fill the remaining variables
+1. Fill the remaining variables
 
 - Generate a random secret for the auth
 - Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
@@ -102,4 +107,4 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
    Once running visit **yoururl.com/auth/register** and create the super admin user. Then you can start creating categories, articles, ads and registering new users using the single use links.
 
 > [!IMPORTANT]  
-> If using Vercel replace the build command with npx prisma generate && npm run build.
+> If using Vercel replace the build command with **npx prisma generate && npm run build**.
