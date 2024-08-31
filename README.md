@@ -96,7 +96,7 @@ This is a NextJS app. In order to host it I recommend to use [Vercel](https://ve
 > [!IMPORTANT]  
 > Make sure to replace **redis:// with rediss:/**/ if using TLS when hosting Redis database.
 
-1. Fill the remaining variables
+4. Fill the remaining variables
 
 - Generate a random secret for the auth
 - Generate a Google OAuth ID and secret [Google Cloud Console](https://console.cloud.google.com/)
